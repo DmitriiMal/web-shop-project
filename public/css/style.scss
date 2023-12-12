@@ -1,0 +1,28 @@
+@import 'variables';
+@import 'forms';
+@import 'home';
+
+// code here
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Dosis', sans-serif;
+  line-height: 1.6;
+  background: $light-color;
+}
+
+.container-prim {
+  width: clamp(500px, 80%, 1200px);
+  margin: 30px auto;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+@import 'media';
