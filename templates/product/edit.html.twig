@@ -5,11 +5,6 @@
 {% block body %}
 <div class="container-prim">
     <h1>Edit Product</h1>
-
     {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_product_index') }}" class="btn btn-secondary"><i class="bi bi-box-arrow-left"></i> Back to list</a>
-
-    {{ include('product/_delete_form.html.twig') }}
 </div>
 {% endblock %}

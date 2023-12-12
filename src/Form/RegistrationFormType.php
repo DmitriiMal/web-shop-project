@@ -8,11 +8,15 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\CountryValidator;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\Country;
 use Symfony\Component\Validator\Constraints\File;
 
 class RegistrationFormType extends AbstractType
@@ -25,6 +29,9 @@ class RegistrationFormType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a e-mail'
+                    ]),
+                    new Email([
+                        'message' => 'The email {{ value }} is not a valid email.'
                     ])
                 ]
             ])
@@ -49,6 +56,9 @@ class RegistrationFormType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter your country'
+                    ]),
+                    new Country([
+                        'message' => 'This value is not a valid country.'
                     ])
                 ]
             ])
