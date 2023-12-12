@@ -105,18 +105,16 @@ class RegistrationFormType extends AbstractType
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
-                            'image/png',
-                            'image/jpg',
-                            'image/jpeg'
+                            'pictures/png',
+                            'pictures/jpg',
+                            'pictures/jpeg'
                         ],
                         'mimeTypesMessage' => 'Please upload a valid image document',
                     ])
                 ],
             ])
-
-            ->add('birth_date',null,[
-                "widget" => "single_text",
-            ])
+            ->add('created_at')
+            ->add('birth_date')
             
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
@@ -132,7 +130,6 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

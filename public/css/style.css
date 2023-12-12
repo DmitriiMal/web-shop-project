@@ -95,6 +95,9 @@ nav {
   padding: 0 5%;
   height: 100px;
   background-color: #212941;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 nav .logo {
@@ -127,11 +130,22 @@ nav .links {
   float: right;
   padding: 0;
   margin: 0;
-  width: 60%;
   height: 100%;
   display: flex;
-  justify-content: space-around;
   align-items: center;
+}
+
+#cart {
+  position: relative;
+}
+#cart a {
+  color: #eaece8;
+  font-size: 3rem;
+}
+#cart div {
+  background-color: #6e0f10;
+  text-align: center;
+  aspect-ratio: 1;
 }
 
 nav .links li {
