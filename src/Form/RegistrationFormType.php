@@ -12,12 +12,46 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
+
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email')
+            ->add('first_name')
+            ->add('last_name')
+            ->add('country')
+            ->add('city')
+            ->add('street')
+            ->add('house')
+            ->add('zip_code')
+            ->add('phone')
+            ->add('picture', FileType::class, [
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Please enter price'],
+
+                'label' => 'Picture',
+
+                'mapped' => false,
+
+                'required' => false,
+
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'pictures/png',
+                            'pictures/jpg',
+                            'pictures/jpeg'
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image document',
+                    ])
+                ],
+            ])
+            ->add('created_at')
+            ->add('birth_date')
             ->add('agreeTerms', CheckboxType::class, [
                                 'mapped' => false,
                 'constraints' => [
