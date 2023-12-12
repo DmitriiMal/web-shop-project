@@ -21,31 +21,76 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', null, [
-                'attr' => ['placeholder' => 'Please enter e-mail']
+                'attr' => ['placeholder' => 'Please enter e-mail'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a e-mail'
+                    ])
+                ]
             ])
             ->add('first_name', null, [
-                'attr' => ['placeholder' => 'Please enter first name']
+                'attr' => ['placeholder' => 'Please enter first name'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your first name'
+                    ])
+                ]
             ])
             ->add('last_name', null, [
-                'attr' => ['placeholder' => 'Please enter last name']
+                'attr' => ['placeholder' => 'Please enter last name'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your last name'
+                    ])
+                ]
             ])
             ->add('country', null, [
-                'attr' => ['placeholder' => 'Please enter your country']
+                'attr' => ['placeholder' => 'Please enter your country'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your country'
+                    ])
+                ]
             ])
             ->add('city', null, [
-                'attr' => ['placeholder' => 'Please enter your city']
+                'attr' => ['placeholder' => 'Please enter your city'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your city'
+                    ])
+                ]
             ])
             ->add('street', null, [
-                'attr' => ['placeholder' => 'Please enter your street']
+                'attr' => ['placeholder' => 'Please enter your street'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your street'
+                    ])
+                ]
             ])
             ->add('house', null, [
-                'attr' => ['placeholder' => 'Please enter your house number']
+                'attr' => ['placeholder' => 'Please enter your house number'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your house number'
+                    ])
+                ]
             ])
             ->add('zip_code', null, [
-                'attr' => ['placeholder' => 'Please enter the zip code']
+                'attr' => ['placeholder' => 'Please enter the zip code'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter the zip code'
+                    ])
+                ]
             ])
             ->add('phone', null, [
-                'attr' => ['placeholder' => 'Please enter your phone number']
+                'attr' => ['placeholder' => 'Please enter your phone number'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a phone number'
+                    ])
+                ]
             ])
             ->add('picture', FileType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' => 'Please enter price'],
