@@ -3,6 +3,7 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
+<div class="container-prim">
     <h1>Product index</h1>
 
     <table class="table">
@@ -29,17 +30,18 @@
                 <td>{{ product.picture }}</td>
                 <td>{{ product.shownHidden ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-success">Show</a>
+                    <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn btn-warning">Edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">no records found.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
     <a href="{{ path('app_product_new') }}">Create new</a>
+</div>
 {% endblock %}
