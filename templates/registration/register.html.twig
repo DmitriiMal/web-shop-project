@@ -5,28 +5,55 @@
 {% block body %}
 <div class="container-prim">
     <h1>Register</h1>
+    <div>
+        {{ form_errors(registrationForm) }}
 
-    {{ form_errors(registrationForm) }}
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
+        {{ form_start(registrationForm) }}
+        <div class="row row-cols-xs-1 row-cols-md-2">
+            <div>
+                {{ form_row(registrationForm.first_name) }}
+            </div>
+            <div>
+                {{ form_row(registrationForm.last_name) }}
+            </div>
+        </div>
+        <div class="w-25">        
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.first_name) }}
-        {{ form_row(registrationForm.last_name) }}
-        {{ form_row(registrationForm.country) }}
-        {{ form_row(registrationForm.city) }}
-        {{ form_row(registrationForm.street) }}
-        {{ form_row(registrationForm.house) }}
-        {{ form_row(registrationForm.zip_code) }}
+            }) }}
+        </div>
+        <div class="row row-cols-xs-1 row-cols-md-2">
+            <div>
+                {{ form_row(registrationForm.street) }}
+            </div>
+            <div>
+                {{ form_row(registrationForm.house) }}
+            </div>
+        </div>
+        <div class="row row-cols-xs-1 row-cols-md-3">
+            <div>
+                {{ form_row(registrationForm.zip_code) }}
+            </div>
+            <div>
+                {{ form_row(registrationForm.city) }}
+            </div>
+            <div>
+                {{ form_row(registrationForm.country) }}
+            </div>
+        </div>
+
+        <div class="w-25">
+
         {{ form_row(registrationForm.phone) }}
         {{ form_row(registrationForm.picture) }}
-        {{ form_row(registrationForm.created_at) }}
+        {# {{ form_row(registrationForm.created_at) }} #}
         {{ form_row(registrationForm.birth_date) }}
+        {{ form_row(registrationForm.created_at) }}
         {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        </div>
+        <button class="btn btn-success "type="submit" class="btn">Register</button>
+        {{ form_end(registrationForm) }}
+    </div>
 </div>
 {% endblock %}
