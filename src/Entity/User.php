@@ -64,7 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeImmutable $birth_date = null;
 
     #[ORM\Column]
-    private ?bool $banned = null;
+    private ?bool $banned = false;
 
     public function getId(): ?int
     {

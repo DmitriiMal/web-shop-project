@@ -20,15 +20,78 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('first_name')
-            ->add('last_name')
-            ->add('country')
-            ->add('city')
-            ->add('street')
-            ->add('house')
-            ->add('zip_code')
-            ->add('phone')
+            ->add('email', null, [
+                'attr' => ['placeholder' => 'Please enter e-mail'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a e-mail'
+                    ])
+                ]
+            ])
+            ->add('first_name', null, [
+                'attr' => ['placeholder' => 'Please enter first name'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your first name'
+                    ])
+                ]
+            ])
+            ->add('last_name', null, [
+                'attr' => ['placeholder' => 'Please enter last name'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your last name'
+                    ])
+                ]
+            ])
+            ->add('country', null, [
+                'attr' => ['placeholder' => 'Please enter your country'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your country'
+                    ])
+                ]
+            ])
+            ->add('city', null, [
+                'attr' => ['placeholder' => 'Please enter your city'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your city'
+                    ])
+                ]
+            ])
+            ->add('street', null, [
+                'attr' => ['placeholder' => 'Please enter your street'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your street'
+                    ])
+                ]
+            ])
+            ->add('house', null, [
+                'attr' => ['placeholder' => 'Please enter your house number'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your house number'
+                    ])
+                ]
+            ])
+            ->add('zip_code', null, [
+                'attr' => ['placeholder' => 'Please enter the zip code'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter the zip code'
+                    ])
+                ]
+            ])
+            ->add('phone', null, [
+                'attr' => ['placeholder' => 'Please enter your phone number'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a phone number'
+                    ])
+                ]
+            ])
             ->add('picture', FileType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' => 'Please enter price'],
 
@@ -54,10 +117,8 @@ class RegistrationFormType extends AbstractType
             ->add('birth_date')
             
             ->add('plainPassword', PasswordType::class, [
-                                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => ['autocomplete' => 'new-password', 'placeholder' => 'Please enter a password'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -65,7 +126,6 @@ class RegistrationFormType extends AbstractType
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
