@@ -5,10 +5,34 @@
     <a href="{{ path('app_product_index') }}"><i class="fa-sharp fa-solid fa-umbrella fa-lg me-2"></i><strong>Umbrella</strong></a>
   </div>
 
+  {% if 0 < 1 %}
   <ul class="links">
-    <li><a href="{{ path('app_product_index') }}">Home</a></li>
-    <li><a href="{{ path('app_product_index') }}">Contact</a></li>
+    <li><a href="{{ path('app_static') }}">Hello, [username]</a></li>
+    <li><a href="{{ path('app_user') }}">Account</a></li>
+    <li><a href="{{ path('app_logout') }}">Logout</a></li>
   </ul>
+  {% else %}
+  <ul class="links">
+    <li><a href="{{ path('app_login') }}">Hello, username</a></li>
+    <li><a href="{{ path('app_login') }}">Login</a></li>
+    <li><a href="{{ path('app_register') }}">Sign in</a></li>
+  </ul>
+  {% endif %}
+
+  <ul class="links">
+    <li><a href="{{ path('app_user') }}">Home</a></li>
+    {# user, nicht #}
+    <li><a href="{{ path('app_product_index') }}">Home</a></li>
+    {# admin #}
+    <li><a href="{{ path('app_contact') }}">Contact</a></li>
+  </ul>
+
+  <div id="cart">
+    <a href="{{ path('app_cart') }}"><i class="fa-solid fa-cart-shopping fe-lg"></i></a>
+    {#
+    <div><p>1</p></div>
+    #}
+  </div>
 
   <label for="nav-toggle" class="icon-burger">
     <div class="line"></div>
