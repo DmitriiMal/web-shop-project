@@ -1,8 +1,8 @@
 @import 'variables';
 @import 'forms';
 @import 'home';
-
-// code here
+@import 'navbar';
+@import 'footer';
 
 * {
   margin: 0;
@@ -13,22 +13,63 @@ body {
   font-family: 'Dosis', sans-serif;
   line-height: 1.6;
   background: $light-color;
-  color: $text-color;
-  background-color: $light-color;
+  // color: $text-color;
 }
 
-a {
-  color: $text-color;
-}
+// a {
+//   color: $text-color-light;
+// }
 
 .container-prim {
   width: clamp(500px, 80%, 1200px);
-  margin: 30px auto;
+  margin: 130px auto;
 }
 
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+// ////////////////////////// //
+// //////// Buttons ///////// //
+// ////////////////////////// //
+
+%button-shared {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.button {
+  &-main {
+    @extend %button-shared;
+
+    background-color: $main-color;
+    color: $text-color-light;
+  }
+
+  &-second {
+    @extend %button-shared;
+
+    background-color: $third-color;
+    color: $text-color-light;
+  }
+
+  &-third {
+    @extend %button-shared;
+
+    background-color: $third-color;
+    color: $text-color-light;
+  }
+}
+
+button[class^='button-']:hover,
+a[class^='button-']:hover,
+input[class^='button-']:hover {
+  opacity: 0.9;
 }
 
 @import 'media';
