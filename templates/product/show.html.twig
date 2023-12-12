@@ -1,42 +1,56 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Product{% endblock %}
-{% block style %}
+{% block stylesheets %}
 <style>
     img {
         width: 100%;
-        /* height: 50vh; */
-        justify-self: end;
-
+        height: 75vh;
     }
     .btns {
         width: 250px;
+    }
+
+    .detailSpan {
+
+        color: red;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 h6 {
+        font-family: fantasy;
     }
 </style>
 
 {% endblock %}
 
 {% block body %}
-<div class="container my-5">
+<div class="container-prim">
     <div class="row row-cols-sm-2 row-cols-xs-1">
         <div>
             <img src="{{ product.picture }}" alt="product">
             {# <img src="{{ asset('pictures/'~product.picture) }}" class="w-100" alt="product"> #}
 
         </div>
-        <div class="d-flex align-items-center">
+        <div>
             <h2><b>Product:</b>
-                <span class="detailsSpan">{{ product.name }}</span>
+                <span class="detailSpan">{{ product.name }}</span>
             </h2>
             <table class="table table-striped table-hover">
                 <tbody>
-                     <tr>
-                        <th>Price</th>
+                    <tr>
+                        <th>Description</th>
+                        <td> {{ product.description }}</td>
+                    </tr>                    <tr>
+                     <th>Price</th>
                         <td> {{ product.price }}</td>
-                    </tr>    
+                    </tr>
                     <tr>
                         <th>Quantity</th>
-                        <td>{{ product.quantity }}</td>               
+                        <td>{{ product.quantity }}</td>
                     <tr>
                         <th>Available</th>
                         <td>{{ product.availability }}</td>
@@ -44,7 +58,7 @@
                     <tr>
                         <th>Hidden</th>
                         <td>{{ product.shownhidden }}</td>
-                    </tr> 
+                    </tr>
                 </tbody>
             </table>
         </div>
