@@ -3,44 +3,47 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
+<div class="container my-5">
+    <div class="row row-cols-sm-2 row-cols-xs-1">
+        <div>
+            <img src="{{ product.picture }}" class="w-100 h-50" alt="product">
+            {# <img src="{{ asset('pictures/'~product.picture) }}" class="w-100" alt="product"> #}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Quantity</th>
-                <td>{{ product.quantity }}</td>
-            </tr>
-            <tr>
-                <th>Availability</th>
-                <td>{{ product.availability ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ product.picture }}</td>
-            </tr>
-            <tr>
-                <th>Shown_hidden</th>
-                <td>{{ product.shownHidden ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_product_index') }}">back to list</a>
-
-    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-
-    {{ include('product/_delete_form.html.twig') }}
+        </div>
+        <div class="d-flex align-items-center">
+            <h2><b>Product:</b>
+                <span class="detailsSpan">{{ product.name }}</span>
+            </h2>
+            <table class="table table-striped table-hover">
+                <tbody>
+                     <tr>
+                        <th>Price</th>
+                        <td> {{ product.price }}</td>
+                    </tr>    
+                    <tr>
+                        <th>Quantity</th>
+                        <td>{{ product.quantity }}</td>               
+                    <tr>
+                        <th>Available</th>
+                        <td>{{ product.availability }}</td>
+                    </tr>
+                    <tr>
+                        <th>Hidden</th>
+                        <td>{{ product.shownhidden }}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <div class="row row-cols-xs-1 row-cols-sm-2">
+        <div>
+            <a class="btn btn-primary btns btns1" href="{{ path('app_product_index') }}">back to list</a>
+        </div>
+        <div>
+            <a class="btn btn-warning btns" href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+            {{ include('product/_delete_form.html.twig') }}
+        </div>
+    </div>
+</div>
 {% endblock %}
