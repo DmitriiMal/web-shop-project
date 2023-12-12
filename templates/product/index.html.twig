@@ -1,27 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}Home | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Price</th>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Availability</th>
-                <th>Picture</th>
-                <th>Shown_hidden</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="container-prim">
         {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
+        <div class='m-03 {{ product.availability ? '' : 'd-none' }}'>
+            <div class='card'>
+                <img src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}'>
+                {# <img src='{{product.picture}}' alt='{{ product.name }}'> #}
+                <div class='details'>
+                <label>{{ product.name }}</label>
+                <p>Price: &euro;{{ product.price }}</p>
+                <p class="card-text text-warning">&starf;&starf;&starf;&starf;&star;</p>
+                <a href='#' class='btn btn-primary'>Add to card</a>
+                <a href='{{ path('app_product_show', {'id': product.id}) }}' class='btn btn-primary'>Details</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p>No data found ¯\_(ツ)_/¯</p>
+        {% endfor %}
+
+    </div>
+
+
+
+
+
+
+
+    
+                {# <td>{{ product.id }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.quantity }}</td>
@@ -31,15 +41,7 @@
                 <td>
                     <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                 #}
 
     <a href="{{ path('app_product_new') }}">Create new</a>
 {% endblock %}

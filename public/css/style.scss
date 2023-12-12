@@ -1,8 +1,8 @@
 @import 'variables';
 @import 'forms';
 @import 'home';
-
-// code here
+@import 'navbar';
+@import 'footer';
 
 * {
   margin: 0;
@@ -13,13 +13,12 @@ body {
   font-family: 'Dosis', sans-serif;
   line-height: 1.6;
   background: $light-color;
-  color: $text-color;
-  background-color: $light-color;
+  // color: $text-color;
 }
 
-a {
-  color: $text-color;
-}
+// a {
+//   color: $text-color-light;
+// }
 
 .container-prim {
   width: clamp(500px, 80%, 1200px);
