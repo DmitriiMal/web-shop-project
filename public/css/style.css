@@ -395,7 +395,7 @@ body {
 
 .container-prim {
   width: clamp(500px, 80%, 1200px);
-  margin: 30px auto;
+  margin: 130px auto;
 }
 
 .grid-container {
