@@ -30,4 +30,46 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+// ////////////////////////// //
+// //////// Buttons ///////// //
+// ////////////////////////// //
+
+%button-shared {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.button {
+  &-main {
+    @extend %button-shared;
+
+    background-color: $main-color;
+    color: $text-color-light;
+  }
+
+  &-second {
+    @extend %button-shared;
+
+    background-color: $third-color;
+    color: $text-color-light;
+  }
+
+  &-third {
+    @extend %button-shared;
+
+    background-color: $third-color;
+    color: $text-color-light;
+  }
+}
+
+button[class^='button-']:hover,
+a[class^='button-']:hover,
+input[class^='button-']:hover {
+  opacity: 0.9;
+}
+
 @import 'media';

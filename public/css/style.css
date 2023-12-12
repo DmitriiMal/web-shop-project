@@ -401,4 +401,32 @@ body {
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.button-third, .button-second, .button-main {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.button-main {
+  background-color: #212941;
+  color: #eaece8;
+}
+.button-second {
+  background-color: #6e0f10;
+  color: #eaece8;
+}
+.button-third {
+  background-color: #6e0f10;
+  color: #eaece8;
+}
+
+button[class^=button-]:hover,
+a[class^=button-]:hover,
+input[class^=button-]:hover {
+  opacity: 0.9;
 }/*# sourceMappingURL=style.css.map */
