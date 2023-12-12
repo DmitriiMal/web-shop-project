@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Service\FileUploader;   
 
 #[Route('/product')]
 class ProductController extends AbstractController
@@ -24,13 +25,21 @@ class ProductController extends AbstractController
     }
 
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $picture = $form->get('picture')->getData();
+            if ($picture) {
+                $pictureFileName = $fileUploader->upload($picture);
+            }else{
+                $pictureFileName = "default.jpg";
+            }
+            $product->setPicture($pictureFileName);
+
             $entityManager->persist($product);
             $entityManager->flush();
 
@@ -52,12 +61,22 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Product $product, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $picture = $form->get('picture')->getData(); // this is from the form (new picture)
+            if ($picture) {
+                if ($product->getPicture() != "default.jpg"){
+                    unlink($this->getParameter("picture_directory") . "/". $product->getPicture()); // from product old picture
+                }
+
+                $pictureFileName = $fileUploader->upload($picture);
+                $product->setPicture($pictureFileName);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
@@ -73,6 +92,10 @@ class ProductController extends AbstractController
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+            if ($product->getPicture() != "default.jpg"){
+                unlink($this->getParameter("picture_directory") . "/". $product->getPicture()); // from product old picture
+            }
+
             $entityManager->remove($product);
             $entityManager->flush();
         }

@@ -77,8 +77,6 @@ class FkCategoryController extends AbstractController
                 $fkCategory->setPicture($pictureFileName);
             }
 
-
-
             $entityManager->flush();
 
             return $this->redirectToRoute('app_fk_category_index', [], Response::HTTP_SEE_OTHER);
