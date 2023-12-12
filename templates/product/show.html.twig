@@ -1,13 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Product{% endblock %}
-{% block title %}Product{% endblock %}
+{% block style %}
+<style>
+    img {
+        width: 100%;
+        /* height: 50vh; */
+        justify-self: end;
+
+    }
+    .btns {
+        width: 250px;
+    }
+</style>
+
+{% endblock %}
 
 {% block body %}
 <div class="container my-5">
     <div class="row row-cols-sm-2 row-cols-xs-1">
         <div>
-            <img src="{{ product.picture }}" class="w-100 h-50" alt="product">
+            <img src="{{ product.picture }}" alt="product">
             {# <img src="{{ asset('pictures/'~product.picture) }}" class="w-100" alt="product"> #}
 
         </div>
