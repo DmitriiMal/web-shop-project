@@ -57,9 +57,9 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Please enter your country'
                     ]),
-                    new Country([
-                        'message' => 'This value is not a valid country.'
-                    ])
+                    // new Country([
+                    //     'message' => 'This value is not a valid country.'
+                    // ])
                 ]
             ])
             ->add('city', null, [
