@@ -13,7 +13,7 @@ class StaticController extends AbstractController
     public function index(ProductRepository $productRepository): Response
     {
         return $this->render('static/index.html.twig', [
-            'controller_name' => 'StaticController',
+            'products' => $productRepository->findAll()
         ]);
     }
 
