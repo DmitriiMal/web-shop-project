@@ -11,7 +11,7 @@ class StaticController extends AbstractController
     #[Route('/', name: 'app_static')]
     public function index(): Response
     {
-        return $this->render('static/index.html.twig', [
+        return $this->render('user_access/index.html.twig', [
             'controller_name' => 'StaticController',
         ]);
     }
