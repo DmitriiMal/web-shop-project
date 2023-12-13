@@ -1,66 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home | {{ parent() }}{% endblock %}
+{% block title %}Dashboard Product | {{ parent() }}{% endblock %}
 
 {% block body %}
     <div class="container-prim">
+        {# ### Filter ################################## #} 
+
+            <a id="list" class="btn btn-outline-dark btn-sm my-3 rounded-pill" href="{{ path('app_product_index') }}">Show all</a>
+            <div class="d-inline btn-group w-100" role="group" aria-label="Basic example">
+                {% for category in allCategory %}
+                <a class="my-3 btn btn-outline-dark btn-sm mb-3 rounded-pill" href="{{ path('app_product_index', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+        {# ############################################# #}
+        <h1>Dashboard Product</h1>
         <div class="table-responsive">
-        <table class="table">
+        <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">picture</th>
-                <th scope="col">#</th>
+                  <th scope="col">#</th>
+                <th scope="col">Pic</th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Availability</th>
-                <th scope="col">shown_hidden</th>
-                <th scope="col">description</th>
+                <th scope="col">Shown</th>
+                <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
                 {% for product in products %}
                 <tr>
-                    <th scope='row'>$row[id]</th>
+                    <th scope='row'>{{ product.id }}</th>
                     <td><img class='rounded img-thumbnail asp-1 object-fit-cover shadow-sm' src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}' width='60px'></td>
-                    <td>{{ product.id }}</td>
                     <td>{{ product.name }}</td>
                     <td>{{ product.price }}</td>
                     <td>{{ product.quantity }}</td>
-                    {# <td>{{ product.availability }}</td> #}
-                    {# <td>{{ product.shown_hidden }}</td> #}
-                    <td>{{ product.description }}</td>
+                    <td>{{ product.availability ? "Yes" : "No"  }}</td>
+                    <td>{{ product.shownHidden ? "Yes" : "No" }}</td>
                     <td>
                     <div class='d-flex flex-nowrap'>
                     <div class='btn-group btn-group-sm me-4 my-1' role='group' aria-label='Basic mixed styles example'>
-                    <a href='details.php?id=$row[id]' class='btn btn-dark'>Details</a>
-                    <a href='update.php?id=$row[id]' class='btn btn-outline-dark'>Edit</a>
+                    <a href='{{ path('app_product_show', {'id': product.id}) }}' class='btn btn-dark'>Details</a>
+                    <a href='{{ path('app_product_edit', {'id': product.id}) }}' class='btn btn-outline-dark'>Edit</a>
                     </div>
-                    <a href='delete.php?id=$row[id]' class='btn btn-sm btn-outline-danger my-1'>Delete</a>
+                    <a href='{{ path('app_product_delete', {'id': product.id}) }}' class='btn btn-sm btn-outline-danger my-1'>Delete</a>
                     </div>
                     </td>
                   </tr>
                   {% else %}
                   <p>No data found ¯\_(ツ)_/¯</p>
-              {% endfor %} #}
+              {% endfor %}
             </tbody>
           </table>
         </div>
-
-        {# {% for product in products %}
-            <div class='m-03 {{ product.availability ? '' : 'd-none' }}'>
-                <div class='card'>
-                    {# <img src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}'> #}
-                    {# <div class='details'>
-                        {# <label>{{ product.name }}</label> #}
-                        {# <p>Price: &euro;{{ product.price }}</p>
-                        <p class="card-text text-warning">&starf;&starf;&starf;&starf;&star;</p>
-                        <a href='#' class='button-main me-2'>Add to card</a>
-                        <a href='{{ path('app_product_show', {'id': product.id}) }}' class='button-second'>Details</a>
-                    </div>
-                </div>
-            </div>  #}
-
     </div>
 
     <a href="{{ path('app_product_new') }}" class="btn btn-primary btns"><i class="bi bi-file-earmark-plus"></i> Create new</a>

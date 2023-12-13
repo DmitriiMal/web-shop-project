@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\FkCategory;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -11,16 +12,40 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use App\Service\FileUploader;   
+
+
+use App\Service\FileUploader;
+use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 #[Route('/product')]
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
+    public function index(Request $request, PersistenceManagerRegistry $doctrine, ProductRepository $productRepository): Response
     {
+        // 
+        $category = $request->query->get('fk_categoryID', 'all');
+        $entityManager = $doctrine->getManager();
+        $allCategory = $doctrine->getRepository(FkCategory::class)->findAll();
+
+        // dd($allCategory);
+        if ($category !== 'all') {
+            $products = $entityManager
+                ->getRepository(Product::class)
+                ->createQueryBuilder('p')
+                ->join('p.fk_categoryID', 'c')
+                ->andWhere('c.name = :category')
+                ->setParameter('category', $category)
+                ->getQuery()
+                ->getResult();
+        } else {
+            $products = $doctrine->getRepository(Product::class)->findAll();
+        }
+        // 
         return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $products,
+            'allCategory' => $allCategory,
+            'category' => $category,
         ]);
     }
 
@@ -35,7 +60,7 @@ class ProductController extends AbstractController
             $picture = $form->get('picture')->getData();
             if ($picture) {
                 $pictureFileName = $fileUploader->upload($picture);
-            }else{
+            } else {
                 $pictureFileName = "default.jpg";
             }
             $product->setPicture($pictureFileName);
@@ -69,8 +94,8 @@ class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $form->get('picture')->getData(); // this is from the form (new picture)
             if ($picture) {
-                if ($product->getPicture() != "default.jpg"){
-                    unlink($this->getParameter("picture_directory") . "/". $product->getPicture()); // from product old picture
+                if ($product->getPicture() != "default.jpg") {
+                    unlink($this->getParameter("picture_directory") . "/" . $product->getPicture()); // from product old picture
                 }
 
                 $pictureFileName = $fileUploader->upload($picture);
@@ -91,9 +116,9 @@ class ProductController extends AbstractController
     #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            if ($product->getPicture() != "default.jpg"){
-                unlink($this->getParameter("picture_directory") . "/". $product->getPicture()); // from product old picture
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
+            if ($product->getPicture() != "default.jpg") {
+                unlink($this->getParameter("picture_directory") . "/" . $product->getPicture()); // from product old picture
             }
 
             $entityManager->remove($product);

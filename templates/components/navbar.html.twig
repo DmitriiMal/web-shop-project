@@ -29,24 +29,23 @@
         ><span class="display-non-768"><br />Account <i class="fa-solid fa-caret-down"></i></span>
       </button>
       <div class="dropdown-content">
-        <a id="top" href="{{ path('app_user') }}">My account</a>
+        <a id="top" href="#">My account</a>
+
+        {% if is_granted('ROLE_ADMIN') %}
+        <a id="middle" href="{{ path('app_product_index') }}">Dashboard Products</a>
+        <a id="middle" href="#">Dashboard Users</a>
+        <a id="middle" href="#">Statistic</a>
+        {% else %}
         <a id="middle" href="{{ path('app_contact') }}">Contact</a>
+        {% endif %}
         <a id="bottom" href="{{ path('app_logout') }}">Logout</a>
       </div>
     </div>
-
-    {#
-    <li>
-      <a href="{{ path('app_user') }}"><small>Hello, [username]</small><br />Account</a>
-    </li>
-    <li><a href="{{ path('app_logout') }}">Logout</a></li>
-    #}
   </ul>
-  {% endif %}
-
-  {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+  {% endif %} {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
 
   <ul class="links">
+    <li><a href="{{ path('app_contact') }}">Contact</a></li>
     <li><a href="{{ path('app_login') }}">Login</a></li>
     <li><a href="{{ path('app_register') }}">Register</a></li>
   </ul>

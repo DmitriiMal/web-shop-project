@@ -1,50 +1,49 @@
 {% extends 'base.html.twig' %} {% block title %}New Product | {{ parent() }}{% endblock %} {% block body %}
 
 <div class="container-prim">
-    <div>
-        <div class="row row-cols-xs-1 row-cols-md-2">
-            <div>
-                <h1 class="mb-4">Show Product</h1>
-                <h3>Name</h3>
-                <div class="bg-white w-50 fs-5 py-1 px-3 rounded border border-secondary">
-                    {{ product.name }}
-                </div>
-                <h3>Description</h3>
-                <div class="bg-white fs-5 py-1 px-3 rounded border border-secondary mt-2">
-                    {{ product.description }}
-                </div>
-                <h3>Price</h3>
-                <span class="bg-white fs-5 py-1 px-3  rounded border border-secondary">
-                    {{ product.price }}
-                </span>
-                <h3>Quantity</h3>
-                <span class="bg-white fs-5 py-1 px-3  rounded border border-secondary">
-                    {{ product.quantity }}
-                </span>
-            </div>
-            <div style="padding-top:36px;">
-                {% if (product.id) %}
-                <img class="shadow w-100" src="{{ asset('pictures/'~ product.picture) }}" alt="{{ product.name }}">
-                {% endif %}
-            </div>
+  <div>
+    <div class="row row-cols-xs-1 row-cols-md-2">
+      <div>
+        <h1 class="mb-4">Show Product</h1>
+        <h3>Name</h3>
+        <div class="bg-white w-50 fs-5 py-1 px-3 rounded border border-secondary">
+          {{ product.name }}
         </div>
-    </div>
-    <hr>
-    {# {{ form_widget(form }} #}
-
-    <div class="d-flex gap-3 justify-content-center">
-        {# <button class="btn btn-success btn1"><i class="bi bi-floppy"></i> {{ button_label|default('Save') }}</button>
+        <h3>Description</h3>
+        <div class="bg-white fs-5 py-1 px-3 rounded border border-secondary mt-2">
+          {{ product.description }}
+        </div>
+        <h3>Price</h3>
+        <span class="bg-white fs-5 py-1 px-3 rounded border border-secondary">
+          {{ product.price }}
+        </span>
+        {% if product.quantity < 10 %} {#
+        <h3>Quantity</h3>
         #}
-        <a href="{{ path('app_product_index') }}" class="btn btn-secondary btn1"><i class="bi bi-box-arrow-left"></i>
-            Back to list</a>
-
-        {% if is_granted('ROLE_ADMIN') %}
-        
-        <a href="{{ path('app_product_edit', {'id': product.id}) }}" class="btn button-main btn1 "><i
-                class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
-        {{ include('product/_delete_form.html.twig') }}
-
+        <span class="d-block bg-white text-danger fs-5 py-1 my-3 px-3 rounded border border-secondary"> Only {{ product.quantity }} left </span>
         {% endif %}
+      </div>
+      <div style="padding-top: 36px">
+        {% if (product.id) %}
+        <img class="shadow w-100" src="{{ asset('pictures/'~ product.picture) }}" alt="{{ product.name }}" />
+        {% endif %}
+      </div>
     </div>
+  </div>
+  <hr />
+  {# {{ form_widget(form }} #}
+
+  <div class="d-flex gap-3 justify-content-center">
+    {# <button class="btn btn-success btn1"><i class="bi bi-floppy"></i> {{ button_label|default('Save') }}</button>
+    #}
+    <a href="{{ path('app_product_index') }}" class="btn btn-secondary btn1"><i class="bi bi-box-arrow-left"></i> Back to list</a>
+
+    {% if is_granted('ROLE_ADMIN') %}
+
+    <a href="{{ path('app_product_edit', { id: product.id }) }}" class="btn button-main btn1"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
+    {{ include('product/_delete_form.html.twig') }}
+
+    {% endif %}
+  </div>
 </div>
 {% endblock %}
