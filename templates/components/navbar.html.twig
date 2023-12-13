@@ -21,7 +21,7 @@
     </button>
   </div>
 
-  {# Dropdown #} {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')%}
+  {# Dropdown #} {% if is_granted('ROLE_ADMIN') %}
   <ul class="links">
     <div class="paste-button">
       <button class="drop-button">
