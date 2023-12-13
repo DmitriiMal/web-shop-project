@@ -1,45 +1,39 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Category index{% endblock %}
-
-{% block body %}
+{% extends 'base.html.twig' %} {% block title %}Category index | {{ parent() }}{% endblock %} {% block body %}
 <div class="container-prim">
-    <h1>Category index</h1>
+  <h1>Category index</h1>
 
-    <div class="text-end my-2">
-        <a href="{{ path('app_fk_category_new') }}" class="btn btn-primary"><i class="bi bi-file-earmark-plus"></i> Create new</a>
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Picture</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for fk_category in fk_categories %}
-            <tr>
-                <td>{{ fk_category.id }}</td>
-                <td>{{ fk_category.name }}</td>
-                <td>
-                    <img src="{{ asset('pictures/'~ fk_category.picture) }}" class="card-img-top" alt="{{ fk_category.name }}" style="width:100px;height:40px;"/> {{ fk_category.picture }}
-                </td>
-                <td>
-                    <div class="d-flex gap-2">
-                        <a href="{{ path('app_fk_category_edit', {'id': fk_category.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit</a>
+  <div class="text-end my-2">
+    <a href="{{ path('app_fk_category_new') }}" class="btn btn-primary"><i class="bi bi-file-earmark-plus"></i> Create new</a>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Picture</th>
+        <th>actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fk_category in fk_categories %}
+      <tr>
+        <td>{{ fk_category.id }}</td>
+        <td>{{ fk_category.name }}</td>
+        <td><img src="{{ asset('pictures/'~ fk_category.picture) }}" class="card-img-top" alt="{{ fk_category.name }}" style="width: 100px; height: 40px" /> {{ fk_category.picture }}</td>
+        <td>
+          <div class="d-flex gap-2">
+            <a href="{{ path('app_fk_category_edit', { id: fk_category.id }) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit</a>
 
-                        {{ include('fk_category/_delete_form.html.twig') }}
-                    </div>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">No data found ¯\_(ツ)_/¯</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            {{ include('fk_category/_delete_form.html.twig') }}
+          </div>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="4">No data found ¯\_(ツ)_/¯</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}
