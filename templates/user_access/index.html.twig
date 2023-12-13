@@ -12,8 +12,10 @@
                         <label>{{ product.name }}</label>
                         <p>Price: &euro;{{ product.price }}</p>
                         <p class="card-text text-warning">&starf;&starf;&starf;&starf;&star;</p>
-                        <a href='#' class='button-main me-2'>Add to card</a>
-                        <a href='{{ path('app_user_show', {'id': product.id}) }}' class='button-second'>Details</a>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
+                        <a href='#' class='button-main me-2'>Add to cart</a>
+                        {% endif %}
+                        <a href='{{ path('app_user_show', {'id': product.id}) }}' class='button-second' > Details</a>
                     </div>
                 </div>
             </div>
