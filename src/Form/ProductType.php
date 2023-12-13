@@ -11,7 +11,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Currency;
+
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
@@ -65,11 +69,10 @@ class ProductType extends AbstractType
                 ],
             ])
 
-            ->add('price', null, 
+            ->add('price', NumberType::class, 
                 [
                     'constraints' => [
-                    new NotBlank(['message' => "You cannot leave the input empty."]),
-                    new Currency(['message' => "This {{ value }} is not a valid currency."])
+                    new NotBlank(['message' => "You cannot leave the input empty."])
                 ],
                 'attr' => ['value' => '0', 'min' => '0'],
             ])
@@ -86,8 +89,14 @@ class ProductType extends AbstractType
                 'class' => FkCategory::class,
                 'choice_label' => 'name',
                 'label' => 'Category',
-                'placeholder'=> '(Choose one)'
+                'placeholder'=> '(Choose one)',
+                'query_builder' => function (EntityRepository $er): QueryBuilder {
+                    return $er->createQueryBuilder('f')
+                        ->orderBy('f.name', 'ASC');
+                },
             ])
+
+            // yesterday I need a thing, I search order_by in websote, I not found it.... you show me that it is easy
 
             ->add('availability',null,[
                 'attr' => ['class' => 'form-check-input'],
