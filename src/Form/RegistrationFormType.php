@@ -115,7 +115,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('created_at')
             ->add('birth_date')
-            
+
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password', 'placeholder' => 'Please enter a password'],
@@ -137,8 +137,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
-])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
