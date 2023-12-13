@@ -4,17 +4,17 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\CountryValidator;
-use Symfony\Component\Validator\Constraints\Country;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
@@ -26,15 +26,18 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', null, [
                 'attr' => ['placeholder' => 'Please enter e-mail'],
+                "invalid_message" => "This value is not valid",
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a e-mail'
                     ]),
+                    
                     new Email([
                         'message' => 'The email {{ value }} is not a valid email.'
                     ])
                 ]
             ])
+
             ->add('first_name', null, [
                 'attr' => ['placeholder' => 'Please enter first name'],
                 'constraints' => [
@@ -56,10 +59,7 @@ class RegistrationFormType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter your country'
-                    ]),
-                    // new Country([
-                    //     'message' => 'This value is not a valid country.'
-                    // ])
+                    ])
                 ]
             ])
             ->add('city', null, [
@@ -103,8 +103,8 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('picture', FileType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Please enter price'],
-
+                'attr' => ['class' => 'form-control', 'placeholder' => 'Please enter price', 'accept' => 'image/png , image/jpg, image/jpeg'],
+                
                 'label' => 'Picture',
 
                 'mapped' => false,
@@ -115,16 +115,20 @@ class RegistrationFormType extends AbstractType
                     new File([
                         'maxSize' => '1024k',
                         'mimeTypes' => [
-                            'pictures/png',
-                            'pictures/jpg',
-                            'pictures/jpeg'
+                            'image/png',
+                            'image/jpg',
+                            'image/jpeg'
                         ],
                         'mimeTypesMessage' => 'Please upload a valid image document',
                     ])
                 ],
             ])
-            ->add('created_at')
-            ->add('birth_date')
+
+            // ->add('created_at')
+
+            ->add('birth_date',null,[
+                "widget" => "single_text",
+            ])
 
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,

@@ -39,7 +39,7 @@ class Product
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'fk_productID')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Cart $cart = null;
 
     public function getId(): ?int

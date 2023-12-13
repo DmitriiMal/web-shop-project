@@ -12,15 +12,17 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+use App\Service\FileUploader;
+
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
@@ -29,6 +31,17 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            $picture = $form->get('picture')->getData();
+            if ($picture) {
+                $pictureFileName = $fileUploader->upload($picture);
+            }else{
+                $pictureFileName = "avatar.png";
+            }
+            $user->setPicture($pictureFileName);
+
+            $now = new \DateTimeImmutable();
+            $user->setCreatedAt($now);
 
             $entityManager->persist($user);
             $entityManager->flush();

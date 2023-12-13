@@ -1,12 +1,7 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Edit FkCategory{% endblock %}
-
-{% block body %}
+{% extends 'base.html.twig' %} {% block title %}Edit FkCategory | {{ parent() }}{% endblock %} {% block body %}
 <div class="container-prim">
-    <h1>Edit Category</h1>
+  <h1>Edit Category</h1>
 
-    {{ include('fk_category/_form.html.twig', {'button_label': 'Update'}) }}
-    
+  {{ include('fk_category/_form.html.twig', { button_label: 'Update' }) }}
 </div>
 {% endblock %}
