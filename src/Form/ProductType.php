@@ -15,9 +15,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Validator\Constraints\File;
 
 class ProductType extends AbstractType
@@ -69,12 +68,13 @@ class ProductType extends AbstractType
                 ],
             ])
 
-            ->add('price', NumberType::class, 
+            ->add('price', MoneyType::class, 
                 [
                     'constraints' => [
                     new NotBlank(['message' => "You cannot leave the input empty."])
                 ],
-                'attr' => ['value' => '0', 'min' => '0'],
+                'attr' => ['value' => '0', 'min' => '0', "step" => 0.01],
+                "html5" => true
             ])
 
             ->add('quantity', null, 
