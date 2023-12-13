@@ -42,11 +42,15 @@
     <li><a href="{{ path('app_logout') }}">Logout</a></li>
     #}
   </ul>
-  {% else %}
+  {% endif %}
+
+  {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+
   <ul class="links">
     <li><a href="{{ path('app_login') }}">Login</a></li>
     <li><a href="{{ path('app_register') }}">Register</a></li>
   </ul>
+
   {% endif %}
 
   <div id="cart">
