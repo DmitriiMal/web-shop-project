@@ -21,7 +21,7 @@
     </button>
   </div>
 
-  {# Dropdown #} {% if is_granted('ROLE_ADMIN') %}
+  {# Dropdown #} {% if is_granted('IS_AUTHENTICATED_FULLY') %}
   <ul class="links">
     <div class="paste-button">
       <button class="drop-button">
