@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProductRepository;
 
-#[Route('/user')]
 class UserAccessController extends AbstractController
 {
     #[Route('/', name: 'app_user', methods: ['GET'])]
