@@ -13,15 +13,13 @@ class StaticController extends AbstractController
     public function index(ProductRepository $productRepository): Response
     {
         return $this->render('static/index.html.twig', [
-            'products' => $productRepository->findAll()
+            'products' => $productRepository->findAll(),
         ]);
     }
 
     #[Route('/contact', name: 'app_contact')]
     public function contact(): Response
     {
-        return $this->render('static/contact.html.twig', [
-            // 'controller_name' => 'ContactController',
-        ]);
+        return $this->render('static/contact.html.twig', []);
     }
 }
