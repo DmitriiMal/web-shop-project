@@ -20,8 +20,6 @@ class StaticController extends AbstractController
     #[Route('/contact', name: 'app_contact')]
     public function contact(): Response
     {
-        return $this->render('static/contact.html.twig', [
-            // 'controller_name' => 'ContactController',
-        ]);
+        return $this->render('static/contact.html.twig', []);
     }
 }
