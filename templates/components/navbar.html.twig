@@ -2,10 +2,10 @@
   <input id="nav-toggle" type="checkbox" />
 
   <div class="logo">
-    {% if not is_granted('ROLE_ADMIN')%} {# <a href="{{ path('app_static') }}"><i class="fa-sharp fa-solid fa-umbrella fa-lg me-2"></i><strong class="display-non-768">Umbrella</strong></a> #}
-    <a href="{{ path('app_user') }}"><i class="fa-sharp fa-solid fa-umbrella fa-lg me-2"></i><strong class="display-non-768">Umbrella</strong></a>
-    {% else %}
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_product_index') }}"><i class="fa-sharp fa-solid fa-umbrella fa-lg me-2"></i><strong class="display-non-768">Umbrella</strong></a>
+    {% else %}
+    <a href="{{ path('app_user') }}"><i class="fa-sharp fa-solid fa-umbrella fa-lg me-2"></i><strong class="display-non-768">Umbrella</strong></a>
     {% endif %}
   </div>
 
@@ -21,7 +21,7 @@
     </button>
   </div>
 
-  {# Dropdown #} {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')%}
+  {# Dropdown #} {% if is_granted('IS_AUTHENTICATED_FULLY') %}
   <ul class="links">
     <div class="paste-button">
       <button class="drop-button">
@@ -42,11 +42,15 @@
     <li><a href="{{ path('app_logout') }}">Logout</a></li>
     #}
   </ul>
-  {% else %}
+  {% endif %}
+
+  {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+
   <ul class="links">
     <li><a href="{{ path('app_login') }}">Login</a></li>
     <li><a href="{{ path('app_register') }}">Register</a></li>
   </ul>
+
   {% endif %}
 
   <div id="cart">

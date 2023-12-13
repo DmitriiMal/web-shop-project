@@ -530,12 +530,16 @@ body {
 
 .container-prim {
   width: clamp(500px, 80%, 1200px);
-  margin: 130px auto;
+  margin: 130px auto 30px auto;
 }
 
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.asp-1 {
+  aspect-ratio: 1;
 }
 
 .button-third, .button-second, .button-main {
