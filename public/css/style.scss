@@ -3,6 +3,7 @@
 @import 'home';
 @import 'navbar';
 @import 'footer';
+@import 'swiper';
 
 * {
   margin: 0;
@@ -27,13 +28,21 @@ body {
   margin: 130px auto 30px auto;
 }
 
+.container-home {
+  width: clamp(500px, 80%, 1200px);
+  margin: -25rem auto 30px auto;
+  // padding: 0 5rem;
+  background: linear-gradient(180deg, transparent 0%, $light-color 10%);
+  // z-index: ;
+}
+
 .filter-container {
   width: clamp(500px, 80%, 1200px);
   margin: auto;
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 90px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .grid-container {
