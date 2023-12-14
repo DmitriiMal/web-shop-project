@@ -5,16 +5,54 @@
 {% block body %}
     {# ### Filter ################################## #} 
     <div class="filter-container">
-            <a id="list" class="btn btn-outline-dark btn-sm my-3 rounded-pill" href="{{ path('app_user') }}">Show all</a>
+            <a id="list" class="btn btn-outline-dark btn-sm btn-blr my-3 rounded-pill" href="{{ path('app_user') }}">Show all</a>
             <div class="d-inline btn-group w-100" role="group" aria-label="Basic example">
                 {% for category in allCategory %}
-                <a class="my-3 btn btn-outline-dark btn-sm mb-3 rounded-pill" href="{{ path('app_user', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
+                <a class="my-3 btn btn-outline-dark btn-sm btn-blr mb-3 rounded-pill" href="{{ path('app_user', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
                 {% endfor %}
             </div>
     </div>
     {# ############################################# #}
 
-    <div class="container-prim grid-container">
+    {# Swiper starts #}
+
+    <div class="swiper">
+        {# Additional required wrapper #}
+        <div class="swiper-wrapper">
+          {# Slides #}
+          <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="..." /></div>
+          <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D" alt="..." /></div>
+          <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?q=80&w=2528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt=""></div>
+        </div>
+        {# Navigation buttons #}
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+
+
+    {# ==================================== #}
+    {# <swiper-container
+    class="mySwiper"
+    navigation="true"
+    space-between="5"
+    loop="true"
+    autoplay-delay="4000"
+    autoplay-pause-on-mouse-enter="true"
+    grab-cursor="true"
+    style="--swiper-navigation-color: #f7f7f7">
+        <swiper-slide class="mySlide">
+            <img src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="..." />
+            <button class="btn btn-outline-light">Button</button>
+        </swiper-slide>
+        <swiper-slide class="mySlide">
+            <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D" alt="..." />
+            <button  class="btn btn-outline-light">Button</button>
+        </swiper-slide>
+    </swiper-container> #}
+{# Swiper ends #}
+
+<div class="container-home grid-container">
+        {# <div class="container-prim"> #}
         {% for product in products %}
             <div class='m-03 {{ product.availability ? '' : 'd-none' }}'>
                 <div class='myCard'>
@@ -31,8 +69,9 @@
                 </div>
             </div>
         {% else %}
-            <p>No data found ¯\_(ツ)_/¯</p>
+            <span class="btn-blr p-3 my-3 mb-3 w-25 text-center rounded-pill">No products found ¯\_(ツ)_/¯</span>
         {% endfor %}
+    {# </div> #}
     </div>
 
 

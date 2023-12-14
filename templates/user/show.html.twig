@@ -4,91 +4,56 @@
 
 {% block body %}
 <div class="container-prim">
-    <div class="row row.cols-xs-1 row-cols-md-2">
-        <div>
-            <table class="table table-striped table-hover">
-                <tbody>
-
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <tr class="row">
-                        <th class="col-4">Roles</th>
-                        <td class="col-8">{{ user.roles ? user.roles|json_encode : '' }}</td>
-                    </tr>
-                    {% endif %}
-                    <tr class="row">
-                        <th class="col-4">First_name</th>
-                        <td class="col-8">{{ user.firstName }}</td>
-                    </tr>
-                    <tr class="row">
-                        <th class="col-4">Last_name</th>
-                        <td class="col-8">{{ user.lastName }}</td>
-                    </tr>
-                    <tr class="row">
-                        <th class="col-4">Email</th>
-                        <td class="col-8">{{ user.email }}</td>
-                    </tr>
-                    <tr class="row">
-                        <th class="col-4">Street</th>
-                        <td class="col-8">{{ user.street }} {{ user.house }}</td>
-                    </tr>
-                    <tr class="row">
-                        <th class="col-4">City</th>
-                        <td class="col-8">{{ user.zipCode }} {{ user.city }}, {{ user.country }}</td>
-                    </tr>
-                    <tr class="row">
-                        <th class="col-4">Phone</th>
-                        <td class="col-8">{{ user.phone }}</td>
-                    </tr>
-                    <tr class="row">
-                        <th class="col-4">Created_at</th>
-                        <td class="col-8">{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                    </tr>
-                    <tr class="row">
-                        <th class="col-4">Birth_date</th>
-                        <td class="col-8">{{ user.birthDate ? user.birthDate|date('Y-m-d') : '' }}</td>
-                    </tr>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <tr class="row">
-                        <th class="col-4">Banned</th>
-                        <td class="col-8">{{ user.banned ? 'Yes' : 'No' }}</td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-            <div class="d-flex gap-3 justify-content-center mt-5">
-                {% if is_granted('ROLE_ADMIN') %}
-
-                <a href="{{ path('app_product_index') }}" class="btn btn-secondary btn1"><i
-                        class="bi bi-box-arrow-left"></i> Back
-                    to list</a>
-
-                {% else %}
-
-                <a href="{{ path('app_user') }}" class="btn btn-secondary btn1"><i class="bi bi-box-arrow-left"></i>
-                    Back to
-                    list</a>
-
-                {% endif %}
-
-                <a href="{{ path('app_product_edit', { 'id': user.id }) }}" class="btn button-main btn1"><i
-                        class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
-                {{ include('user/_delete_form.html.twig') }}
-            </div>
-        </div>
-        <div>
-            {% if (user.picture) %}
-            <tr class="row">
-                <td><img class="shadow w-100" src="{{ asset('pictures/'~ user.picture) }}" alt="{{ user.firstname }}" />
-                </td>
-            </tr>
-            {% else %}
-            <tr class="row">
-                <td><img class="shadow w-100" src="{{ asset('pictures/users/person.svg') }}"
-                        alt="{{ user.firstname }}" /></td>
-            </tr>
-            {% endif %}
-        </div>
+    <div class="text-center">
+        <h1>Account</h1>
     </div>
 
+    <section class="d-flex justify-content-evenly my-5">
+        <div>
+            <img src="{{ asset('pictures/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle shadow" style="width:256px;height:256px; border: 8px solid gold;">            
+        </div>
+        <div>
+            <p>{{ user.firstName }} {{ user.lastName }} {{ "ROLE_ADMIN" in user.roles ? "(admin)" : '' }}</p>
+            <p><i class="bi bi-cake2"></i> {{ user.birthDate ? user.birthDate|date('d.m.Y') : '' }}</p>
+            <p><i class="bi bi-signpost"></i> {{ user.street }} {{ user.house }}, {{ user.zipCode }} {{ user.city }} - {{ user.country }}</p>
+            <p><i class="bi bi-envelope"></i> {{ user.email }}</p>
+            <p><i class="bi bi-telephone"></i> {{ user.phone }}</p>
+            <p>Banned: {{ user.banned ? 'Yes' : 'No' }}</p>
+            <p>Created: {{ user.createdAt ? user.createdAt|date('d.m.Y') : '' }}</p>
+        </div>    
+    </section>
+
+    <div class="text-center mb-5">
+        <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning">Edit my account</a>
+    </div>
+
+    <h2>My Orders</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order Date</th>
+                <th>Quantity</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            <tr>
+                <td>{{ item.orderDate ? item.orderDate|date('d/m/Y') : '' }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.fkProduct.name }}</td>
+                <td>{{ item.price }}</td>
+                <td> {{ item.quantity * item.price }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">No data found ¯\_(ツ)_/¯</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
