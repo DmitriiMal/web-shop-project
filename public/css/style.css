@@ -518,6 +518,31 @@ a {
   transition: 0.2s;
 }
 
+.swiper {
+  margin-top: 0px;
+  z-index: -1;
+}
+.swiper .swiper-slide {
+  position: relative;
+  display: flex;
+  justify-content: start;
+}
+.swiper .swiper-button-prev,
+.swiper .swiper-button-next {
+  color: #212941;
+}
+.swiper button {
+  position: absolute;
+  bottom: 30px;
+  left: 100px;
+}
+.swiper img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100vh;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -533,12 +558,18 @@ body {
   margin: 130px auto 30px auto;
 }
 
+.container-home {
+  width: clamp(500px, 80%, 1200px);
+  margin: -25rem auto 30px auto;
+  background: linear-gradient(180deg, transparent 0%, #eaece8 10%);
+}
+
 .filter-container {
   width: clamp(500px, 80%, 1200px);
   margin: auto; /* Safari */
   position: sticky;
   top: 90px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .grid-container {
