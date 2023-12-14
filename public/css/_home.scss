@@ -30,8 +30,8 @@
 // /////// Cards /////// //
 // ///////////////////// //
 
-.card {
-  /* width: 190px; */
+.myCard {
+  max-width: 450px;
   /* height: 254px; */
   aspect-ratio: 4/5;
   /* box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); */
@@ -43,7 +43,7 @@
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.card > img {
+.myCard > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -75,19 +75,19 @@
   overflow: hidden;
 }
 
-.card-flex {
+.myCard-flex {
   display: flex;
 }
 
-.card:hover > .details {
+.myCard:hover > .details {
   height: 11rem;
 }
 
-.card:hover > img {
+.myCard:hover > img {
   transform: scale(1.1);
 }
 
-.card:hover {
+.myCard:hover {
   transform: scale(1.01);
   box-shadow: 0 0px 15px rgb(0 0 0 / 0.3);
 }

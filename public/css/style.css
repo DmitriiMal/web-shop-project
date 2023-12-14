@@ -22,8 +22,8 @@
   margin: 2rem;
 }
 
-.card {
-  /* width: 190px; */
+.myCard {
+  max-width: 450px;
   /* height: 254px; */
   aspect-ratio: 4/5;
   /* box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); */
@@ -35,7 +35,7 @@
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.card > img {
+.myCard > img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
@@ -69,19 +69,19 @@
   overflow: hidden;
 }
 
-.card-flex {
+.myCard-flex {
   display: flex;
 }
 
-.card:hover > .details {
+.myCard:hover > .details {
   height: 11rem;
 }
 
-.card:hover > img {
+.myCard:hover > img {
   transform: scale(1.1);
 }
 
-.card:hover {
+.myCard:hover {
   transform: scale(1.01);
   box-shadow: 0 0px 15px rgba(0, 0, 0, 0.3);
 }
@@ -531,6 +531,13 @@ body {
 .container-prim {
   width: clamp(500px, 80%, 1200px);
   margin: 130px auto 30px auto;
+}
+
+.filter-container {
+  width: clamp(500px, 80%, 1200px);
+  margin: auto;
+  position: relative;
+  top: 120px;
 }
 
 .grid-container {
