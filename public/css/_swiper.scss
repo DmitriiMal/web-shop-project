@@ -1,0 +1,33 @@
+// ////////////////////////// //
+// ///////// Swiper ///////// //
+// ////////////////////////// //
+
+.swiper {
+  // height: 50vh;
+  margin-top: 0px;
+  // z-index: -1;
+
+  .swiper-slide {
+    position: relative;
+    display: flex;
+    justify-content: start;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: $main-color;
+  }
+
+  button {
+    position: absolute;
+    bottom: 30px;
+    left: 100px;
+    z-index: 20;
+  }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    height: 100vh;
+    // background: linear-gradient(90deg, rgba(9, 9, 121, 1) 64%, rgba(0, 0, 0, 1) 100%);
+  }
+}

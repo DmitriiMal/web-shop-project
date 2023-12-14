@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}Add new User | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Create new User</h1>
+<div class="container-prim">
+    <h1>Add new User</h1>
 
     {{ include('user/_form.html.twig') }}
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+    {# <a href="{{ path('app_user_index') }}">back to list</a> #}
+</div>
 {% endblock %}

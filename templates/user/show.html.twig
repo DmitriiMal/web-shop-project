@@ -3,80 +3,57 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+<div class="container-prim">
+    <div class="text-center">
+        <h1>Account</h1>
+    </div>
+
+    <section class="d-flex justify-content-evenly my-5">
+        <div>
+            <img src="{{ asset('pictures/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle shadow" style="width:256px;height:256px; border: 8px solid gold;">            
+        </div>
+        <div>
+            <p>{{ user.firstName }} {{ user.lastName }} {{ "ROLE_ADMIN" in user.roles ? "(admin)" : '' }}</p>
+            <p><i class="bi bi-cake2"></i> {{ user.birthDate ? user.birthDate|date('d.m.Y') : '' }}</p>
+            <p><i class="bi bi-signpost"></i> {{ user.street }} {{ user.house }}, {{ user.zipCode }} {{ user.city }} - {{ user.country }}</p>
+            <p><i class="bi bi-envelope"></i> {{ user.email }}</p>
+            <p><i class="bi bi-telephone"></i> {{ user.phone }}</p>
+            <p>Banned: {{ user.banned ? 'Yes' : 'No' }}</p>
+            <p>Created: {{ user.createdAt ? user.createdAt|date('d.m.Y') : '' }}</p>
+        </div>    
+    </section>
+
+    <div class="text-center mb-5">
+        <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning">Edit my account</a>
+    </div>
+
+    <h2>My Orders</h2>
 
     <table class="table">
+        <thead>
+            <tr>
+                <th>Order Date</th>
+                <th>Quantity</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
+        {% for item in cart %}
+            <tr class="align-middle">
+                <td>{{ item.orderDate ? item.orderDate|date('d/m/Y') : '' }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.fkProduct.name }}</td>
+                <td>{{ item.price }}</td>
+                <td> {{ item.quantity * item.price }}</td>
             </tr>
+        {% else %}
             <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
+                <td colspan="17">No data found ¯\_(ツ)_/¯</td>
             </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>First_name</th>
-                <td>{{ user.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Last_name</th>
-                <td>{{ user.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Country</th>
-                <td>{{ user.country }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ user.city }}</td>
-            </tr>
-            <tr>
-                <th>Street</th>
-                <td>{{ user.street }}</td>
-            </tr>
-            <tr>
-                <th>House</th>
-                <td>{{ user.house }}</td>
-            </tr>
-            <tr>
-                <th>Zip_code</th>
-                <td>{{ user.zipCode }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ user.phone }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ user.picture }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Birth_date</th>
-                <td>{{ user.birthDate ? user.birthDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Banned</th>
-                <td>{{ user.banned ? 'Yes' : 'No' }}</td>
-            </tr>
+        {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+</div>
 {% endblock %}

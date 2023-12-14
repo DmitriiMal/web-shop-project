@@ -3,16 +3,19 @@
 {% block title %}Dashboard Product | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <div class="container-prim">
-        {# ### Filter ################################## #} 
 
-            <a id="list" class="btn btn-outline-dark btn-sm my-3 rounded-pill" href="{{ path('app_product_index') }}">Show all</a>
-            <div class="d-inline btn-group w-100" role="group" aria-label="Basic example">
-                {% for category in allCategory %}
-                <a class="my-3 btn btn-outline-dark btn-sm mb-3 rounded-pill" href="{{ path('app_product_index', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
-                {% endfor %}
-            </div>
-        {# ############################################# #}
+    {# ### Filter ################################## #} 
+    <div class="filter-container">
+      <a id="list" class="btn btn-outline-dark btn-sm btn-blr my-3 rounded-pill" href="{{ path('app_product_index') }}">Show all</a>
+      <div class="d-inline btn-group w-100" role="group" aria-label="Basic example">
+          {% for category in allCategory %}
+          <a class="my-3 btn btn-outline-dark btn-sm btn-blr mb-3 rounded-pill" href="{{ path('app_product_index', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
+          {% endfor %}
+      </div>
+    </div>
+    {# ############################################# #}
+
+    <div class="container-prim">
         <h1>Dashboard Product</h1>
         <div class="table-responsive">
         <table class="table table-hover">
@@ -30,7 +33,7 @@
             </thead>
             <tbody>
                 {% for product in products %}
-                <tr>
+                <tr class="align-middle">
                     <th scope='row'>{{ product.id }}</th>
                     <td><img class='rounded img-thumbnail asp-1 object-fit-cover shadow-sm' src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}' width='60px'></td>
                     <td>{{ product.name }}</td>
