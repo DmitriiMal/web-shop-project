@@ -20,8 +20,6 @@ class Cart
     #[ORM\JoinColumn(nullable: false)]
     private ?User $fk_userID = null;
 
-    #[ORM\OneToMany(mappedBy: 'cart', targetEntity: Product::class)]
-    private Collection $fk_productID;
 
     #[ORM\Column]
     private ?int $quantity = null;
@@ -35,10 +33,8 @@ class Cart
     #[ORM\Column(type: Types::DECIMAL, precision: 7, scale: 2)]
     private ?string $price = null;
 
-    public function __construct()
-    {
-        $this->fk_productID = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'carts')]
+    private ?Product $fk_product = null;
 
     public function getId(): ?int
     {
@@ -57,35 +53,6 @@ class Cart
         return $this;
     }
 
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getFkProductID(): Collection
-    {
-        return $this->fk_productID;
-    }
-
-    public function addFkProductID(Product $fkProductID): static
-    {
-        if (!$this->fk_productID->contains($fkProductID)) {
-            $this->fk_productID->add($fkProductID);
-            $fkProductID->setCart($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFkProductID(Product $fkProductID): static
-    {
-        if ($this->fk_productID->removeElement($fkProductID)) {
-            // set the owning side to null (unless already changed)
-            if ($fkProductID->getCart() === $this) {
-                $fkProductID->setCart(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getQuantity(): ?int
     {
@@ -134,4 +101,18 @@ class Cart
 
         return $this;
     }
+
+    public function getFkProduct(): ?Product
+    {
+        return $this->fk_product;
+    }
+
+    public function setFkProduct(?Product $fk_product): static
+    {
+        $this->fk_product = $fk_product;
+
+        return $this;
+    }
+
+
 }
