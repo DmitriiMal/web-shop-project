@@ -30,8 +30,10 @@ body {
 .filter-container {
   width: clamp(500px, 80%, 1200px);
   margin: auto;
-  position: relative;
-  top: 120px;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 90px;
+  z-index: 1;
 }
 
 .grid-container {
@@ -77,6 +79,12 @@ body {
     background-color: $third-color;
     color: $text-color-light;
   }
+}
+
+.btn-blr {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  background: #eaece899;
+  backdrop-filter: blur(5px);
 }
 
 button[class^='button-']:hover,
