@@ -10,7 +10,7 @@
 
     <section class="d-flex justify-content-evenly my-5">
         <div>
-            <img src="{{ asset('pictures/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle" style="width:256px;height:256px; border: 8px solid gold;">            
+            <img src="{{ asset('pictures/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle shadow" style="width:256px;height:256px; border: 8px solid gold;">            
         </div>
         <div>
             <p>{{ user.firstName }} {{ user.lastName }} {{ "ROLE_ADMIN" in user.roles ? "(admin)" : '' }}</p>
@@ -40,13 +40,13 @@
             </tr>
         </thead>
         <tbody>
-        {% for cart in Cart %}
+        {% for item in cart %}
             <tr>
-                <td>{{ cart.orderDate ? cart.orderDate|date('d/m/Y') : '' }}</td>
-                <td>{{ cart.quantity }}</td>
-                <td>{{ cart.productName }}</td>
-                <td>{{ cart.price }}</td>
-                <td> {{ cart.quantity * cart.price }}</td>
+                <td>{{ item.orderDate ? item.orderDate|date('d/m/Y') : '' }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.fkProduct.name }}</td>
+                <td>{{ item.price }}</td>
+                <td> {{ item.quantity * item.price }}</td>
             </tr>
         {% else %}
             <tr>
