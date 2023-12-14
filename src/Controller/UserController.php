@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Service\FileUploader;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/account')]
 class UserController extends AbstractController
@@ -26,20 +27,30 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
             $picture = $form->get('picture')->getData();
             if ($picture) {
-                $pictureFileName = $fileUploader->upload($picture);
+                $pictureFileName = $fileUploader->upload($picture, "users");
             } else {
                 $pictureFileName = "avatar.png";
             }
             $user->setPicture($pictureFileName);
+
+            $now = new \DateTimeImmutable();
+            $user->setCreatedAt($now);
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -63,19 +74,26 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader $fileUploader, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
             $picture = $form->get('picture')->getData();
             if ($picture) {
                 if ($user->getPicture() != "avatar.png") {
                     unlink($this->getParameter("picture_directory") . "/" . $user->getPicture()); // from product old picture
                 }
 
-                $pictureFileName = $fileUploader->upload($picture);
+                $pictureFileName = $fileUploader->upload($picture , "users");
                 $user->setPicture($pictureFileName);
             }
 
@@ -96,7 +114,7 @@ class UserController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             if ($user->getPicture() != "avatar.png") {
-                unlink($this->getParameter("picture_directory") . "/" . $user->getPicture()); // from product old picture
+                unlink($this->getParameter("picture_user_directory") . "/" . $user->getPicture()); // from product old picture
             }
 
             $entityManager->remove($user);

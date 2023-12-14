@@ -34,7 +34,7 @@ class FkCategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $form->get('picture')->getData();
             if ($picture) {
-                $pictureFileName = $fileUploader->upload($picture);
+                $pictureFileName = $fileUploader->upload($picture, "categories");
             }else{
                 $pictureFileName = "default_category.jpg";
             }
@@ -70,10 +70,10 @@ class FkCategoryController extends AbstractController
             $picture = $form->get('picture')->getData(); // this is from the form (new picture)
             if ($picture) {
                 if ($fkCategory->getPicture() != "default_category.jpg"){
-                    unlink($this->getParameter("picture_directory") . "/". $fkCategory->getPicture()); // from product old picture
+                    unlink($this->getParameter("picture_category_directory") . "/". $fkCategory->getPicture()); // from product old picture
                 }
 
-                $pictureFileName = $fileUploader->upload($picture);
+                $pictureFileName = $fileUploader->upload($picture, "categories");
                 $fkCategory->setPicture($pictureFileName);
             }
 
@@ -93,7 +93,7 @@ class FkCategoryController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $fkCategory->getId(), $request->request->get('_token'))) {
             if ($fkCategory->getPicture() != "default_category.jpg"){
-                unlink($this->getParameter("picture_directory") . "/". $fkCategory->getPicture()); // from product old picture
+                unlink($this->getParameter("picture_category_directory") . "/". $fkCategory->getPicture()); // from product old picture
             }
 
             $entityManager->remove($fkCategory);

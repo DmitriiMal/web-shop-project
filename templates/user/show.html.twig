@@ -10,7 +10,7 @@
 
     <section class="d-flex justify-content-evenly my-5">
         <div>
-            <img src="{{ asset('pictures/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle shadow" style="width:256px;height:256px; border: 8px solid gold;">            
+            <img src="{{ asset('pictures/users/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle shadow" style="width:256px;height:256px; border: 8px solid gold;">            
         </div>
         <div>
             <p>{{ user.firstName }} {{ user.lastName }} {{ "ROLE_ADMIN" in user.roles ? "(admin)" : '' }}</p>
