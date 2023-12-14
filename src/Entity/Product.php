@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,9 +40,13 @@ class Product
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'fk_productID')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Cart $cart = null;
+    #[ORM\OneToMany(mappedBy: 'fk_product', targetEntity: Cart::class)]
+    private Collection $carts;
+
+    public function __construct()
+    {
+        $this->carts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -143,15 +149,35 @@ class Product
         return $this;
     }
 
-    public function getCart(): ?Cart
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
     {
-        return $this->cart;
+        return $this->carts;
     }
 
-    public function setCart(?Cart $cart): static
+    public function addCart(Cart $cart): static
     {
-        $this->cart = $cart;
+        if (!$this->carts->contains($cart)) {
+            $this->carts->add($cart);
+            $cart->setFkProduct($this);
+        }
 
         return $this;
     }
+
+    public function removeCart(Cart $cart): static
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getFkProduct() === $this) {
+                $cart->setFkProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

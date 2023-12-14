@@ -3,19 +3,30 @@
 {% block title %}Home | {{ parent() }}{% endblock %}
 
 {% block body %}
+    {# ### Filter ################################## #} 
+    <div class="filter-container">
+            <a id="list" class="btn btn-outline-dark btn-sm my-3 rounded-pill" href="{{ path('app_user') }}">Show all</a>
+            <div class="d-inline btn-group w-100" role="group" aria-label="Basic example">
+                {% for category in allCategory %}
+                <a class="my-3 btn btn-outline-dark btn-sm mb-3 rounded-pill" href="{{ path('app_user', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+    </div>
+    {# ############################################# #}
+
     <div class="container-prim grid-container">
         {% for product in products %}
             <div class='m-03 {{ product.availability ? '' : 'd-none' }}'>
-                <div class='card'>
+                <div class='myCard'>
                     <img src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}'>
                     <div class='details'>
                         <label>{{ product.name }}</label>
                         <p>Price: &euro;{{ product.price }}</p>
-                        <p class="card-text text-warning">&starf;&starf;&starf;&starf;&star;</p>
+                        <p class="myCard-text text-warning">&starf;&starf;&starf;&starf;&star;</p>
                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                        <a href='#' class='button-main me-2'>Add to cart</a>
+                        <a href='{{ path('app_cart', {'id': product.id}) }}' class='button-main me-2'>Add to cart</a>
                         {% endif %}
-                        <a href='{{ path('app_user_show', {'id': product.id}) }}' class='button-second' > Details</a>
+                        <a href='{{ path('app_product_show', {'id': product.id}) }}' class='button-second' > Details</a>
                     </div>
                 </div>
             </div>
