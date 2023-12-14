@@ -41,7 +41,7 @@
         </thead>
         <tbody>
         {% for item in cart %}
-            <tr>
+            <tr class="align-middle">
                 <td>{{ item.orderDate ? item.orderDate|date('d/m/Y') : '' }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.fkProduct.name }}</td>

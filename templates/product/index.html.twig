@@ -33,7 +33,7 @@
             </thead>
             <tbody>
                 {% for product in products %}
-                <tr>
+                <tr class="align-middle">
                     <th scope='row'>{{ product.id }}</th>
                     <td><img class='rounded img-thumbnail asp-1 object-fit-cover shadow-sm' src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}' width='60px'></td>
                     <td>{{ product.name }}</td>
