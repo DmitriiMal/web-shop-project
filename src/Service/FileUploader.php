@@ -11,6 +11,7 @@ class FileUploader
     public function __construct( 
         private string $targetDirectory,
         private string $targetDirectoryUser,
+        private string $targetDirectoryCategory,
         private SluggerInterface $slugger,
     ) {
     }
