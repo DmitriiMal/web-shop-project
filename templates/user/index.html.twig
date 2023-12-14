@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         {% for user in users %}
-            <tr>
+            <tr class="align-middle">
                 <td>{{ user.id }}</td>
                 <td>
                     <img src="{{ asset('pictures/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle border border-warning" style="width:32px;height:32px;"> 
