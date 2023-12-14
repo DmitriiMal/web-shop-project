@@ -29,11 +29,12 @@
         ><span class="display-non-768"><br />Account <i class="fa-solid fa-caret-down"></i></span>
       </button>
       <div class="dropdown-content">
-        {% if is_granted('ROLE_ADMIN') %} {# <a id="top" href="{{ path('app_user_show', { id: user.id }) }}}}">My account</a> #}
-        <a id="middle" href="{{ path('app_product_index') }}">Dashboard Products</a>
+        {% if is_granted('ROLE_ADMIN') %}
+        <a id="top" href="{{ path('app_user_show', { id: app.user.id }) }}}}">My account</a> {# <a id="middle" href="{{ path('app_product_index') }}">Dashboard Products</a> #}
         <a id="middle" href="{{ path('app_user_index') }}">Dashboard Users</a>
         <a id="middle" href="#">Statistic</a>
-        {% else %} {# <a id="top" href="{{ path('app_user_show') }}">My account</a> #}
+        {% else %}
+        <a id="top" href="{{ path('app_user_show', { id: app.user.id }) }}}}">My account</a>
         <a id="middle" href="{{ path('app_contact') }}">Contact</a>
         {% endif %}
         <a id="bottom" href="{{ path('app_logout') }}">Logout</a>
