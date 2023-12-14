@@ -17,7 +17,7 @@ class Cart
     private ?int $id = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $fk_userID = null;
 
 
@@ -25,9 +25,9 @@ class Cart
     private ?int $quantity = null;
 
     #[ORM\Column]
-    private ?bool $status = null;
+    private ?bool $bought = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $order_date = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 7, scale: 2)]
@@ -66,14 +66,14 @@ class Cart
         return $this;
     }
 
-    public function isStatus(): ?bool
+    public function isBought(): ?bool
     {
-        return $this->status;
+        return $this->bought;
     }
 
-    public function setStatus(bool $status): static
+    public function setBought(bool $bought): static
     {
-        $this->status = $status;
+        $this->bought = $bought;
 
         return $this;
     }

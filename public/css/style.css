@@ -520,7 +520,6 @@ a {
 
 .swiper {
   margin-top: 0px;
-  z-index: -1;
 }
 .swiper .swiper-slide {
   position: relative;
@@ -535,6 +534,7 @@ a {
   position: absolute;
   bottom: 30px;
   left: 100px;
+  z-index: 20;
 }
 .swiper img {
   width: 100%;

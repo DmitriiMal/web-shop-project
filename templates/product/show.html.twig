@@ -2,59 +2,65 @@
 
 <div class="container-prim">
   <div>
-    <div class="row row-cols-xs-1 row-cols-md-2">
-      <div>
-        <h1 class="mb-4">Show Product</h1>
-        <h3>Name</h3>
-        <div class="bg-white w-50 fs-5 py-1 px-3 rounded border border-secondary">
-          {{ product.name }}
-        </div>
-        <h3>Description</h3>
-        <div class="bg-white fs-5 py-1 px-3 rounded border border-secondary mt-2">
-          {{ product.description }}
-        </div>
-        <h3>Price</h3>
-        <span class="bg-white fs-5 py-1 px-3 rounded border border-secondary">
+    <h1 class="text-center mb-4">Show Product</h1>
+    <section class="d-flex justify-content-around text-center ">
+      <div style="width:40%;">
+         <h4>Name</h4>
+        <p class="fs-6 mt-2">{{ product.name }}</p>
+
+
+        <h4>Price</h4>
+        <span class="fs-6 roundedy">
           {{ product.price }}
         </span>
-        {% if product.quantity < 10 %} {#
-        <h3>Quantity</h3>
-        #}
-        <span class="d-block bg-white text-danger fs-5 py-1 my-3 px-3 rounded border border-secondary"> Only {{ product.quantity }} left </span>
+        {% if product.quantity < 10 %} {#<h4>Quantity</h4>#}
+          <div class="text-danger ffs-6 py-1 my-3 roundedy"> Only {{ product.quantity }} left </div>
+          {% endif %}
+          <h4>Description</h4>
+          <p class="fs-6 mt-2">
+            {{ product.description }}
+          </p>
+      </div>
+      <div style="width:40%;">
+                {% if (product.id) %}
+        <img class="shadow" style='width:512px;' src="{{ asset('pictures/'~ product.picture) }}"
+          alt="{{ product.name }}" />
+        {% else %}
+        <div class="rounded-circle shadow" style="width:256px;height:256px; border: 8px solid gold;"></div>
         {% endif %}
       </div>
-      <div style="padding-top: 36px">
-        {% if (product.id) %}
-        <img class="shadow w-100" src="{{ asset('pictures/'~ product.picture) }}" alt="{{ product.name }}" />
-        {% endif %}
-      </div>
-    </div>
+    </section>
   </div>
-  <hr />
+  {#
+  <hr /> #}
   {# {{ form_widget(form }} #}
 
-  <div class="d-flex gap-3 justify-content-center">
+  <div class="d-flex gap-3 justify-content-center mt-5">
     {# <button class="btn btn-success btn1"><i class="bi bi-floppy"></i> {{ button_label|default('Save') }}</button>
     #}
     {% if is_granted('ROLE_ADMIN') %}
 
-    <a href="{{ path('app_product_index') }}" class="btn btn-secondary btn1"><i class="bi bi-box-arrow-left"></i> Back to list</a>
+    <a href="{{ path('app_product_index') }}" class="btn btn-secondary btn1"><i class="bi bi-box-arrow-left"></i> Back
+      to list</a>
 
     {% else %}
 
-    <a href="{{ path('app_user') }}" class="btn btn-secondary btn1"><i class="bi bi-box-arrow-left"></i> Back to list</a>
+    <a href="{{ path('app_user') }}" class="btn btn-secondary btn1"><i class="bi bi-box-arrow-left"></i> Back to
+      list</a>
 
     {% endif %}
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-    <a href="{{ path('app_cart', {'id': product.id}) }}" class="btn btn-secondary btn1"><i class="bi bi-box-arrow-left"></i> Add To Cart</a>
+    <a href="{{ path('app_cart', {'id': product.id}) }}" class="btn btn-secondary btn1"><i
+        class="bi bi-box-arrow-left"></i> Add To Cart</a>
 
     {% endif %}
 
     {% if is_granted('ROLE_ADMIN') %}
 
-    <a href="{{ path('app_product_edit', { 'id': product.id }) }}" class="btn button-main btn1"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
+    <a href="{{ path('app_product_edit', { 'id': product.id }) }}" class="btn button-main btn1"><i
+        class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
     {{ include('product/_delete_form.html.twig') }}
 
     {% endif %}
