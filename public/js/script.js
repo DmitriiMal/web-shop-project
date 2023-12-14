@@ -21,13 +21,13 @@ button.addEventListener('click', okAlert);
 
 const swiper = new Swiper('.swiper', {
   // Optional parameters
-  direction: 'vertical',
+  direction: 'horizontal',
   loop: true,
 
   // If we need pagination
-  pagination: {
-    el: '.swiper-pagination',
-  },
+  // pagination: {
+  //   el: '.swiper-pagination',
+  // },
 
   // Navigation arrows
   navigation: {
@@ -36,7 +36,7 @@ const swiper = new Swiper('.swiper', {
   },
 
   // And if we need scrollbar
-  scrollbar: {
-    el: '.swiper-scrollbar',
-  },
+  // scrollbar: {
+  //   el: '.swiper-scrollbar',
+  // },
 });
