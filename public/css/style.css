@@ -533,6 +533,13 @@ body {
   margin: 130px auto 30px auto;
 }
 
+.filter-container {
+  width: clamp(500px, 80%, 1200px);
+  margin: auto;
+  position: relative;
+  top: 120px;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
