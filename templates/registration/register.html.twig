@@ -14,6 +14,9 @@
                 {{ form_row(registrationForm.last_name) }}
             </div>
         </div>
+        <div class="row row-cols-xs-1 row-cols-md-2">
+            {{ form_row(registrationForm.picture) }}
+        </div>
         <div class="w-25">
             {{ form_row(registrationForm.birth_date) }}        
             {{ form_row(registrationForm.email) }}
@@ -43,12 +46,13 @@
 
         <div class="w-25">
             {{ form_row(registrationForm.phone) }}
-            {{ form_row(registrationForm.picture) }}
             {{ form_row(registrationForm.agreeTerms) }}
         </div>
-        
-        <button class="btn btn-success "type="submit" class="btn">Register</button>
+        <hr>
+        <div class="text-center mb-5">
+            <button class="btn btn-success "type="submit" class="btn">Register</button>
         {{ form_end(registrationForm) }}
+        </div>
     </div>
 </div>
 {% endblock %}

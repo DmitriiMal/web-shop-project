@@ -10,6 +10,7 @@ use App\Entity\Cart;
 use App\Entity\Product;
 use Doctrine\ORM\Mapping\Id;
 use App\Repository\ProductRepository;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/cart')]
 class CartController extends AbstractController
@@ -22,18 +23,20 @@ class CartController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_cart', methods: ['GET', 'POST'])]
-    public function addToCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, float $id): Response
+    public function addToCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, UserInterface $user, float $id): Response
     {
 
         $product = $productRepository -> find($id);
         $price = $product -> getPrice();
-        $productID = $product -> getId();
-        
+
+        $user = $this->getUser();
 
         $cartObj = new Cart();
         $cartObj -> setQuantity(1);
         $cartObj -> setBought(false);
         $cartObj -> setPrice($price);
+        $cartObj -> setFkProduct($product);
+        $cartObj -> setFkUserID($user);
 
         $entityManager->persist($cartObj);
         $entityManager->flush();

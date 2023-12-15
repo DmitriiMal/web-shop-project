@@ -8,20 +8,22 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class FileUploader
 {
-    public function __construct(
+    public function __construct( 
         private string $targetDirectory,
+        private string $targetDirectoryUser,
+        private string $targetDirectoryCategory,
         private SluggerInterface $slugger,
     ) {
     }
 
-    public function upload(UploadedFile $file): string
+    public function upload(UploadedFile $file, $selDirectory): string
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
         $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
         try {
-            $file->move($this->getTargetDirectory(), $fileName);
+            $file->move($this->getTargetDirectory($selDirectory), $fileName);
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload
         }
@@ -29,9 +31,17 @@ class FileUploader
         return $fileName;
     }
 
-    public function getTargetDirectory(): string
+    public function getTargetDirectory($selDirectory): string
     {
-        return $this->targetDirectory;
+        $val = "";
+
+        if ($selDirectory == "pictures"){
+            $val = $this->targetDirectory; 
+        }elseif ($selDirectory == "users"){
+            $val = $this->targetDirectoryUser;
+        }
+        
+        return $val;
     }
 }
 ?>

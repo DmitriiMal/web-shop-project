@@ -34,7 +34,7 @@ class RegistrationController extends AbstractController
 
             $picture = $form->get('picture')->getData();
             if ($picture) {
-                $pictureFileName = $fileUploader->upload($picture);
+                $pictureFileName = $fileUploader->upload($picture, "users");
             }else{
                 $pictureFileName = "avatar.png";
             }

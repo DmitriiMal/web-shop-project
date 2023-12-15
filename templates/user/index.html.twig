@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard users | {{ parent() }}{% endblock %}
+{% block title %}Dashboard Users | {{ parent() }}{% endblock %}
 
 {% block body %}
 <div class="container-prim">
-    <h1>Dashboard users</h1>
+    <h1>Dashboard Users</h1>
 
     <div class="text-end my-2">
-        <a href="{{ path('app_user_new') }}" class="btn btn-primary"><i class="bi bi-file-earmark-plus"></i> Add new user</a>
+        <a href="{{ path('app_user_new') }}" class="btn btn-primary"><i class="bi bi-file-earmark-plus"></i> Add new User</a>
     </div>
 
     <table class="table">
@@ -17,11 +17,11 @@
                 <th>&nbsp;</th>
                 <th>First name</th>
                 <th>Last name</th>
-                <th>Birth</th>
+                <th class="text-center">Birth</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Banned</th>
-                <th>Created</th>
+                <th class="text-center">Banned</th>
+                <th class="text-center">Created</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -30,15 +30,15 @@
             <tr class="align-middle">
                 <td>{{ user.id }}</td>
                 <td>
-                    <img src="{{ asset('pictures/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle border border-warning" style="width:32px;height:32px;"> 
+                    <img src="{{ asset('pictures/users/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle border border-warning" style="width:32px;height:32px;"> 
                 </td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
-                <td>{{ user.birthDate ? user.birthDate|date('d/m/Y') : '' }}</td>
+                <td class="text-center">{{ user.birthDate ? user.birthDate|date('d/m/Y') : '' }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.roles in "ROLE_ADMIN" ? 'admin' : 'user' }}</td>
-                <td>{{ user.banned ? 'Yes' : 'No' }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('d/m/Y') : '' }}</td>
+                <td>{{ "ROLE_ADMIN" in user.roles ? 'admin' : 'user' }}</td>
+                <td class="text-center">{{ user.banned ? "&#x2713;" : "&#10008;" }}</td>
+                <td class="text-center">{{ user.createdAt ? user.createdAt|date('d/m/Y') : '' }}</td>
                 
                 <td>
                     <div class="d-flex gap-2">
