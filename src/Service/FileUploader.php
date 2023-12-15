@@ -39,6 +39,8 @@ class FileUploader
             $val = $this->targetDirectory; 
         }elseif ($selDirectory == "users"){
             $val = $this->targetDirectoryUser;
+        }elseif ($selDirectory == "categories"){
+            $val = $this->targetDirectoryCategory;
         }
         
         return $val;
