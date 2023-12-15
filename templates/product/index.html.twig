@@ -20,6 +20,7 @@
 
         <div class="text-end">
           <a href="{{ path('app_product_new') }}" class="btn btn-primary btns my-3"><i class="bi bi-file-earmark-plus"></i> Create new</a>
+          <a href="{{ path('app_fk_category_index') }}" class="btn btn-primary btns my-3"><i class="fa-solid fa-list-ul"></i></i> All categories</a>
         </div>
         
         <div class="table-responsive">
@@ -31,6 +32,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col" class="text-center">Quantity</th>
+                {# <th scope="col" class="text-center">Category</th> #}
                 <th scope="col" class="text-center">Availability</th>
                 <th scope="col" class="text-center">Shown</th>
                 <th scope="col">Actions</th>
@@ -44,6 +46,7 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.price }}</td>
                     <td class="text-center">{{ product.quantity }}</td>
+                    {# <td class="text-center">{{ category.name }}</td> #}
                     <td class="text-center">{{ product.availability ? "&#x2713;" : "&#10008;"  }}</td>
                     <td class="text-center">{{ product.shownHidden ? "&#x2713;" : "&#10008;" }}</td>
                     <td>
