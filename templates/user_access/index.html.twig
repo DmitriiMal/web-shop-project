@@ -8,7 +8,7 @@
             <a id="list" class="btn btn-outline-dark btn-sm btn-blr my-3 rounded-pill" href="{{ path('app_user') }}">Show all</a>
             <div class="d-inline btn-group w-100" role="group" aria-label="Basic example">
                 {% for category in allCategory %}
-                <a class="my-3 btn btn-outline-dark btn-sm btn-blr mb-3 rounded-pill" href="{{ path('app_user', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
+                <a class="my-3 btn btn-outline-primary btn-sm btn-blr mb-3 rounded-pill" href="{{ path('app_user', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
                 {% endfor %}
             </div>
     </div>
@@ -44,9 +44,9 @@
                     <p>Price: &euro;{{ product.price }}</p>
                         <p class="myCard-text text-warning">&starf;&starf;&starf;&starf;&star;</p>
                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                        <a href='{{ path('app_cart', {'id': product.id}) }}' class='button-main me-2'>Add to cart</a>
+                        <a href='{{ path('app_cart', {'id': product.id}) }}' class='btn btn-primary me-2'>Add to cart</a>
                         {% endif %}
-                        <a href='{{ path('app_product_show', {'id': product.id}) }}' class='button-second' > Details</a>
+                        <a href='{{ path('app_product_show', {'id': product.id}) }}' class='btn btn-danger' > Details</a>
                     </div>
                 </div>
             </div>
