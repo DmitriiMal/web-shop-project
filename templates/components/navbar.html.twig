@@ -2,11 +2,10 @@
   <input id="nav-toggle" type="checkbox" />
 
   <div class="logo">
-    {% if is_granted('ROLE_ADMIN') %}
+    {# {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_product_index') }}"><i class="fa-sharp fa-solid fa-umbrella fa-lg me-2"></i><strong class="display-non-768">Umbrella</strong></a>
-    {% else %}
+    {% else %} {% endif %} #}
     <a href="{{ path('app_user') }}"><i class="fa-sharp fa-solid fa-umbrella fa-lg me-2"></i><strong class="display-non-768">Umbrella</strong></a>
-    {% endif %}
   </div>
 
   {# Search #}
@@ -31,6 +30,7 @@
       <div class="dropdown-content">
         {% if is_granted('ROLE_ADMIN') %}
         <a id="top" href="{{ path('app_user_show', { id: app.user.id }) }}">My account</a> {# <a id="middle" href="{{ path('app_product_index') }}">Dashboard Products</a> #}
+        <a id="middle" href="{{ path('app_product_index') }}">Dashboard Products</a>
         <a id="middle" href="{{ path('app_user_index') }}">Dashboard Users</a>
         <a id="middle" href="#">Statistic</a>
         {% else %}
