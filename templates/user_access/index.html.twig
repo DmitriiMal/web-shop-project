@@ -18,7 +18,7 @@
     <swiper-container 
     class="mySwiper"
     {# breakpoints='{"768": {"slidesPerView": 3}}' #}
-    {# navigation="true" #}
+    navigation="true"
     space-between="5"
     loop="true"
     autoplay-delay="5000"
@@ -33,16 +33,15 @@
     </swiper-container>
     {# ### Swiper ends ############################# #}
 
-<div class="gradient z-3">
     <div class="container-home grid-container">
-        {# <div class="container-prim"> #}
+        {# ### Cards start ############################# #}
         {% for product in products %}
-            <div class='m-03 {{ product.availability ? '' : 'd-none' }}'>
-                <div class='myCard'>
-                    <img src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}'>
-                    <div class='details'>
-                        <label>{{ product.name }}</label>
-                        <p>Price: &euro;{{ product.price }}</p>
+        <div class='m-03 {{ product.availability ? '' : 'd-none' }}'>
+            <div class='myCard'>
+                <img src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}'>
+                <div class='details'>
+                    <label>{{ product.name }}</label>
+                    <p>Price: &euro;{{ product.price }}</p>
                         <p class="myCard-text text-warning">&starf;&starf;&starf;&starf;&star;</p>
                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
                         <a href='{{ path('app_cart', {'id': product.id}) }}' class='button-main me-2'>Add to cart</a>
@@ -51,12 +50,11 @@
                     </div>
                 </div>
             </div>
-        {% else %}
+            {% else %}
             <span class="z-3 btn-blr p-3 my-3 mb-3 w-25 text-center rounded-pill">¯\_(ツ)_/¯ <br>No products found </span>
-        {% endfor %}
-        {# </div> #}
+            {% endfor %}
+        {# ### Cards end ############################## #}
     </div>
-</div>
 
 
 {% endblock %}
