@@ -73,7 +73,7 @@ class ProductType extends AbstractType
                     'constraints' => [
                     new NotBlank(['message' => "You cannot leave the input empty."])
                 ],
-                'attr' => ['value' => '0', 'min' => '0', "step" => 0.01],
+                'attr' => ['placeholder' => '0', 'min' => '0', "step" => 0.01],
                 "html5" => true
             ])
 
@@ -82,7 +82,7 @@ class ProductType extends AbstractType
                     'constraints' => [
                     new NotBlank(['message' => "You cannot leave the input empty."]),
                 ],
-                'attr' => ['value' => '0', 'min' => '0', 'max' => '10000'],
+                'attr' => ['placeholder' => '0', 'min' => '0', 'max' => '10000'],
             ])
             
             ->add('fk_categoryID', EntityType::class, [

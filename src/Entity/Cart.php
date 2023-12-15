@@ -16,10 +16,12 @@ class Cart
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?User $fk_userID = null;
+    // #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    // #[ORM\JoinColumn(nullable: true)]
+    // private ?User $fk_userID = null;
 
+    #[ORM\ManyToOne(inversedBy: 'carts')]
+    private ?User $fk_userID = null;
 
     #[ORM\Column]
     private ?int $quantity = null;
