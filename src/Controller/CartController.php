@@ -10,20 +10,23 @@ use App\Entity\Cart;
 use App\Entity\Product;
 use Doctrine\ORM\Mapping\Id;
 use App\Repository\ProductRepository;
+use App\Repository\CartRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/cart')]
 class CartController extends AbstractController
 {
     #[Route('/', name: 'app_cart_show', methods: ['GET'])]
-    public function Cart(): Response
+    public function Cart(ProductRepository $productRepository, CartRepository $cartRepository): Response
     {
-        return $this->render('cart/index.html.twig', [       
+        return $this->render('cart/index.html.twig', [ 
+            'cartObj' => $cartRepository -> findAll(),
+            'product' => $productRepository -> findAll()        
         ]);
     }
 
     #[Route('/{id}', name: 'app_cart', methods: ['GET', 'POST'])]
-    public function addToCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, UserInterface $user, float $id): Response
+    public function addToCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, UserInterface $user, int $id): Response
     {
 
         $product = $productRepository -> find($id);
@@ -42,8 +45,22 @@ class CartController extends AbstractController
         $entityManager->flush();
 
         return $this->render('cart/index.html.twig', [
-            'cartObj' => $cartObj,
-            'product' => $product   
+            'cartObj' => $cartRepository -> findAll(),
+            'product' => $productRepository -> findAll()  
+        ]);
+    }
+
+    #[Route('/delete/{id}', name: 'app_cart_delete', methods: ['GET'])]
+    public function deleteFromCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, int $id): Response
+    {
+
+        $product = $productRepository -> find($id);
+        $entityManager -> remove($product);
+        $entityManager -> flush();
+
+        return $this->render('cart/index.html.twig', [ 
+            'cartObj' => $cartRepository -> findAll(),
+            'product' => $productRepository -> findAll()        
         ]);
     }
 }
