@@ -3,12 +3,18 @@
 <div class="container-prim">
   <div>
     <h1 class="text-center mb-4">Show Product</h1>
-    <section class="d-flex justify-content-around text-center ">
+    <section class="d-flex justify-content-around text-start ">
       <div style="width:40%;">
-         <h4>Name</h4>
+        {% if (product.id) %}
+        <img class="shadow" style='width:512px;' src="{{ asset('pictures/'~ product.picture) }}"
+          alt="{{ product.name }}" />
+        {% else %}
+        <div class="rounded-circle shadow" style="width:256px;height:256px; border: 8px solid gold;"></div>
+        {% endif %}
+      </div>
+      <div style="width:40%;">
+        <h4>Name</h4>
         <p class="fs-6 mt-2">{{ product.name }}</p>
-
-
         <h4>Price</h4>
         <span class="fs-6 roundedy">
           {{ product.price }}
@@ -20,14 +26,6 @@
           <p class="fs-6 mt-2">
             {{ product.description }}
           </p>
-      </div>
-      <div style="width:40%;">
-                {% if (product.id) %}
-        <img class="shadow" style='width:512px;' src="{{ asset('pictures/'~ product.picture) }}"
-          alt="{{ product.name }}" />
-        {% else %}
-        <div class="rounded-circle shadow" style="width:256px;height:256px; border: 8px solid gold;"></div>
-        {% endif %}
       </div>
     </section>
   </div>
