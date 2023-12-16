@@ -39,7 +39,7 @@
         <div class='m-03 {{ product.availability ? '' : 'd-none' }}'>
             <div class='myCard'>
                 {# <span>{{ product.fkCategoryId.name }}</span> #}
-                <span class="category btn-blr rounded-pill">category</span>
+                {# <span class="category btn-blr rounded-pill">{{ product.fkCategoryId.name }}</span> #}
                 <img src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}'>
                 <div class='details'>
                     <label>{{ product.name }}</label>

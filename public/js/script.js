@@ -11,3 +11,7 @@ let okAlert = () => {
     timer: 1500,
   });
 };
+
+// Forgotten password?
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl));
