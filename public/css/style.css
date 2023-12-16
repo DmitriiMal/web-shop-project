@@ -95,6 +95,11 @@
   box-shadow: 0 0px 15px rgba(0, 0, 0, 0.5);
 }
 
+.user-image {
+  width: 100%;
+  max-width: 300px;
+}
+
 nav {
   position: fixed;
   z-index: 10;
@@ -150,7 +155,7 @@ nav .links {
 }
 #cart a {
   color: #eaece8;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 #cart div {
   background-color: #6e0f10;
@@ -626,4 +631,10 @@ button[class^=button-]:hover,
 a[class^=button-]:hover,
 input[class^=button-]:hover {
   opacity: 0.9;
+}
+
+@media (max-width: 500px) {
+  .myCard .details {
+    height: 8rem;
+  }
 }/*# sourceMappingURL=style.css.map */

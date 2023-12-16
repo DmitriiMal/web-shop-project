@@ -1,65 +1,80 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}User{% endblock %} {% block body %}
+<div class="container-prim my-5 pt-5">
+  <h1 class="text-center my-5">Welcome, {{ user.lastName }}!</h1>
 
-{% block title %}User{% endblock %}
-
-{% block body %}
-<div class="container-prim">
-    <div class="text-center">
-        <h1>Account</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-4 col-lg-3 d-flex flex-column align-items-center">
+      <img src="{{ asset('pictures/users/'~ user.picture) }}" class="user-image d-block rounded-circle img-thumbnail asp-1 object-fit-cover shadow" alt="{{ user.firstName }}{{ user.lastName }}" />
+      <a href="{{ path('app_user_edit', { id: user.id }) }}" class="btn btn-outline-primary rounded-pill d-block my-5 mt-md-auto">Edit my account</a>
     </div>
-
-    <section class="d-flex justify-content-evenly my-5">
-        <div>
-            <img src="{{ asset('pictures/users/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle shadow" style="width:256px;height:256px; border: 8px solid gold;">            
-        </div>
-        <div>
-            <p>{{ user.firstName }} {{ user.lastName }} {{ "ROLE_ADMIN" in user.roles ? "(admin)" : '' }}</p>
-            <p><i class="bi bi-cake2"></i> {{ user.birthDate ? user.birthDate|date('d.m.Y') : '' }}</p>
-            <p><i class="bi bi-signpost"></i> {{ user.street }} {{ user.house }}, {{ user.zipCode }} {{ user.city }} - {{ user.country }}</p>
-            <p><i class="bi bi-envelope"></i> {{ user.email }}</p>
-            <p><i class="bi bi-telephone"></i> {{ user.phone }}</p>
-            <p>Banned: {{ user.banned ? 'Yes' : 'No' }}</p>
-            <p>Created: {{ user.createdAt ? user.createdAt|date('d.m.Y') : '' }}</p>
-        </div>    
-    </section>
-
-    <div class="text-center mb-5">
-        <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning">Edit my account</a>
+    <div class="col-md-7 col-lg-8 border-start ps-4 ms-3 mb-5">
+      {{ "ROLE_ADMIN" in user.roles ? "
+      <p><strong>Status: </strong>admin</p>
+      " : '' }}
+      <p><strong>Id: </strong>{{ user.id }}</p>
+      <p><strong>First name: </strong>{{ user.firstName }}</p>
+      <p><strong>Last name: </strong>{{ user.lastName }}</p>
+      <p><strong>Birth date: </strong>{{ user.birthDate ? user.birthDate|date('d.m.Y') : '' }}</p>
+      <p><strong>Adress: </strong>{{ user.street }} {{ user.house }}, {{ user.zipCode }} {{ user.city }} - {{ user.country }}</p>
+      <p><strong>Email: </strong>{{ user.email }}</p>
+      <p><strong>Phone number: </strong>{{ user.phone }}</p>
+      <p><strong>Created: </strong>{{ user.createdAt ? user.createdAt|date('d.m.Y') : '' }}</p>
+      {{ user.banned ? '
+      <p class="text-danger">Yes</p>
+      ' : '' }}
     </div>
+  </div>
 
-    <h2>My Orders</h2>
+  {#
+  <section class="d-flex justify-content-evenly my-5">
+    <div>
+      <img src="{{ asset('pictures/users/'~ user.picture) }}" alt="{{ user.firstName }}" class="rounded-circle shadow" style="width: 256px; height: 256px; border: 8px solid gold" />
+    </div>
+    <div>
+      <p>{{ user.firstName }} {{ user.lastName }} {{ "ROLE_ADMIN" in user.roles ? "(admin)" : '' }}</p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th class="text-center">Order Date</th>
-                <th>Product</th>
-                <th>Price</th>
-                <th class="text-center">Quantity</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for item in cart %}
-            <tr class="align-middle">
-                <td class="text-center">{{ item.orderDate ? item.orderDate|date('d/m/Y') : '' }}</td>
-                <td>{{ item.fkProduct.name }}</td>
-                <td>{{ item.price }}</td>
-                <td class="text-center">{{ item.quantity }}</td>
-                <td>{{ item.quantity * item.price }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="17">No data found ¯\_(ツ)_/¯</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+      <p><i class="bi bi-cake2"></i> {{ user.birthDate ? user.birthDate|date('d.m.Y') : '' }}</p>
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <div class="text-center my-5">
-            <a href="{{ path('app_user_index') }}" class="btn btn-secondary btn1">Back to list</a>
-        </div>
-    {% endif %}
+      <p><i class="bi bi-signpost"></i> {{ user.street }} {{ user.house }}, {{ user.zipCode }} {{ user.city }} - {{ user.country }}</p>
+      <p><i class="bi bi-envelope"></i> {{ user.email }}</p>
+      <p><i class="bi bi-telephone"></i> {{ user.phone }}</p>
+      <p>Banned: {{ user.banned ? 'Yes' : 'No' }}</p>
+      <p>Created: {{ user.createdAt ? user.createdAt|date('d.m.Y') : '' }}</p>
+    </div>
+  </section>
+  #}
+
+  <h1 class="text-center mb-4">Orders</h1>
+
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th class="text-center">Order Date</th>
+        <th>Product</th>
+        <th>Price</th>
+        <th class="text-center">Quantity</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+      <tr class="align-middle">
+        <td class="text-center">{{ item.orderDate ? item.orderDate|date('d/m/Y') : '' }}</td>
+        <td>{{ item.fkProduct.name }}</td>
+        <td>{{ item.price }}</td>
+        <td class="text-center">{{ item.quantity }}</td>
+        <td>{{ item.quantity * item.price }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="17">No data found ¯\_(ツ)_/¯</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if is_granted('ROLE_ADMIN') %}
+  <a href="{{ path('app_user_index') }}" class="btn btn-outline-warning rounded-pill mt-5">Back to list</a>
+  {% endif %}
 </div>
 {% endblock %}
