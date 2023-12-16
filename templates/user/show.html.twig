@@ -45,33 +45,34 @@
   #}
 
   <h1 class="text-center mb-4">Orders</h1>
-
-  <table class="table table-sm">
-    <thead>
-      <tr>
-        <th class="text-center">Order Date</th>
-        <th>Product</th>
-        <th>Price</th>
-        <th class="text-center">Quantity</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in cart %}
-      <tr class="align-middle">
-        <td class="text-center">{{ item.orderDate ? item.orderDate|date('d/m/Y') : '' }}</td>
-        <td>{{ item.fkProduct.name }}</td>
-        <td>{{ item.price }}</td>
-        <td class="text-center">{{ item.quantity }}</td>
-        <td>{{ item.quantity * item.price }}</td>
-      </tr>
-      {% else %}
-      <tr>
-        <td colspan="17">No data found ¯\_(ツ)_/¯</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="table-responsive rounded">
+    <table class="table table-light table-striped table-hover">
+      <thead>
+        <tr>
+          <th class="text-center">Order Date</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th class="text-center">Quantity</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart %}
+        <tr class="align-middle">
+          <td class="text-center">{{ item.orderDate ? item.orderDate|date('d/m/Y') : '' }}</td>
+          <td>{{ item.fkProduct.name }}</td>
+          <td>{{ item.price }}</td>
+          <td class="text-center">{{ item.quantity }}</td>
+          <td>{{ item.quantity * item.price }}</td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="17">No orders yet <a href="{{ path('app_user') }}" class="m-2 btn btn-outline-secondary btn-sm rounded-pill">Go to the shop</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
   {% if is_granted('ROLE_ADMIN') %}
   <a href="{{ path('app_user_index') }}" class="btn btn-outline-warning rounded-pill mt-5">Back to list</a>
