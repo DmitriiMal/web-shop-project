@@ -20,22 +20,33 @@ body {
 }
 
 .container-prim {
-  width: clamp(500px, 80%, 1200px);
+  width: $width-container;
   margin: 130px auto 30px auto;
 }
 
 .container-home {
-  width: clamp(500px, 80%, 1200px);
+  width: $width-container;
   margin: -30rem auto 30px auto;
 }
 
 .filter-container {
-  width: clamp(500px, 80%, 1200px);
-  margin: auto;
+  width: $width-container;
   position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 90px;
-  z-index: 5;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: $navbar-heigth;
+  z-index: 8;
+
+  // a {
+  //   margin: 0;
+  // }
+
+  // div {
+  //   a {
+  //     margin: 0;
+  //   }
+  // }
 }
 
 .grid-container {

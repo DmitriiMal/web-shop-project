@@ -4,7 +4,7 @@
 
 .mySwiper {
   // height: 50vh;
-  margin-top: 0px;
+  margin-top: calc($navbar-heigth - 10px);
   // z-index: -1;
 
   --swiper-navigation-color: #212941;

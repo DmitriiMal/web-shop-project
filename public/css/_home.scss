@@ -10,22 +10,6 @@
   padding-top: 120px;
 }
 
-.m-03 {
-  margin: 0.3rem;
-}
-
-.m-05 {
-  margin: 0.5rem;
-}
-
-.m-1 {
-  margin: 1rem;
-}
-
-.m-2 {
-  margin: 2rem;
-}
-
 // ///////////////////// //
 // /////// Cards /////// //
 // ///////////////////// //
@@ -44,6 +28,18 @@
   z-index: 1;
   background: #eaece86d;
   backdrop-filter: blur(5px);
+
+  .category {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    z-index: 2;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px $main-color solid;
+  }
 }
 
 .myCard > img {
@@ -94,7 +90,7 @@
 }
 
 .myCard:hover > .details {
-  height: 8rem;
+  height: 7.5rem;
 }
 
 .myCard:hover > img {

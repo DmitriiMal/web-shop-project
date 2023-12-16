@@ -25,12 +25,11 @@ class ProductController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function index(Request $request, PersistenceManagerRegistry $doctrine, ProductRepository $productRepository): Response
     {
-        // 
+
         $category = $request->query->get('fk_categoryID', 'all');
         $entityManager = $doctrine->getManager();
         $allCategory = $doctrine->getRepository(FkCategory::class)->findAll();
 
-        // dd($allCategory);
         if ($category !== 'all') {
             $products = $entityManager
                 ->getRepository(Product::class)
@@ -43,7 +42,7 @@ class ProductController extends AbstractController
         } else {
             $products = $doctrine->getRepository(Product::class)->findAll();
         }
-        // 
+
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'allCategory' => $allCategory,

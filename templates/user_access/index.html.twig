@@ -5,10 +5,10 @@
 {% block body %}
     {# ### Filter ################################## #} 
     <div class="filter-container">
-            <a id="list" class="btn btn-outline-primary btn-sm btn-blr my-3 rounded-pill" href="{{ path('app_user') }}">Show all</a>
+            <a id="list" class="btn btn-outline-primary btn-sm btn-blr my-1 rounded-pill" href="{{ path('app_user') }}">Show all</a>
             <div class="d-inline btn-group w-100" role="group" aria-label="Basic example">
                 {% for category in allCategory %}
-                <a class="my-3 btn btn-outline-primary btn-sm btn-blr mb-3 rounded-pill" href="{{ path('app_user', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
+                <a class="my-1 btn btn-outline-primary btn-sm btn-blr rounded-pill" href="{{ path('app_user', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
                 {% endfor %}
             </div>
     </div>
@@ -38,6 +38,8 @@
         {% for product in products %}
         <div class='m-03 {{ product.availability ? '' : 'd-none' }}'>
             <div class='myCard'>
+                {# <span>{{ product.fkCategoryId.name }}</span> #}
+                <span class="category btn-blr rounded-pill">category</span>
                 <img src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}'>
                 <div class='details'>
                     <label>{{ product.name }}</label>
@@ -46,8 +48,8 @@
                         <p><i class="fa-solid fa-star fa-lg me-1 text-warning shadow"></i>4.4 <span class="fw-lighter">(100+)</span></p>
                     </div>
                     <div class="buttons-box">
-                        <a href='{{ path('app_cart', {'id': product.id}) }}' class='btn btn-outline-primary me-2 rounded-pill {{ is_granted('IS_AUTHENTICATED_FULLY')  ? '' : 'disabled'  }}'>Add to cart</a>
-                        <a href='{{ path('app_product_show', {'id': product.id}) }}' class='btn btn-outline-danger rounded-pill' > Details</a>
+                        <a href='{{ path('app_cart', {'id': product.id}) }}' class='btn btn-outline-primary btn-sm me-2 rounded-pill {{ is_granted('IS_AUTHENTICATED_FULLY')  ? '' : 'disabled'  }}'>Add to cart</a>
+                        <a href='{{ path('app_product_show', {'id': product.id}) }}' class='btn btn-outline-danger btn-sm rounded-pill' > Details</a>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,6 @@
 // ////////////////////////// //
 
 nav {
-  // backdrop-filter: blur(5px);
   position: fixed;
   z-index: 10;
   left: 0;
@@ -11,9 +10,7 @@ nav {
   top: 0;
   // font-family: 'Bebas Neue', sans-serif;
   padding: 0 5%;
-  height: 100px;
-  // background: transparent;
-  // background-color: rgba(255, 255, 255, 0.8);
+  height: $navbar-heigth;
   background-color: $main-color;
   display: flex;
   justify-content: space-between;
@@ -73,10 +70,15 @@ nav .links {
     font-size: 2.5rem;
   }
 
-  div {
+  .cart-item {
+    position: absolute;
+    left: 12px;
+    top: 5px;
     background-color: $third-color;
+    border: 1px $second-color solid;
     text-align: center;
-    aspect-ratio: 1;
+    font-size: 12px;
+    padding: 2px 4px;
   }
 }
 
@@ -128,7 +130,8 @@ nav .links li {
   text-align: center;
   background-color: transparent;
   color: $text-color-light;
-  padding: 23px 15px;
+  height: $navbar-heigth;
+  padding: 15px 15px;
   // font-weight: bold;
   border: 2px solid transparent;
   cursor: pointer;
@@ -138,7 +141,7 @@ nav .links li {
   display: none;
   font-size: 14px;
   position: absolute;
-  z-index: 1;
+  z-index: 11;
   min-width: 200px;
   background-color: $main-color;
   border-radius: 0px 0 4px 4px;
@@ -161,10 +164,6 @@ nav .links li {
 .dropdown-content a:focus {
   color: $text-color-light;
 }
-
-// .dropdown-content #top:hover {
-//   // border-radius: 0;
-// }
 
 .dropdown-content #bottom:hover {
   border-radius: 0px 0px 4px 4px;
@@ -195,13 +194,11 @@ nav .links li {
   font-size: inherit;
   font-weight: normal;
   background-color: $input-color;
-
-  border: none;
+  border: 1px $second-color solid;
   color: $dark-color;
-  padding: 0.7rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 30px;
   width: 12em;
-  // transition: all ease-in-out 0.3s;
   margin-right: -2rem;
 }
 
@@ -235,7 +232,6 @@ nav .links li {
 
 .search__button:hover {
   cursor: pointer;
-  // background-color: $light-color;
   transform: scale(1.02);
 }
 
@@ -292,13 +288,12 @@ nav .icon-burger .line {
     z-index: 9;
     left: 0;
     right: 0;
-    top: 100px;
+    top: $navbar-heigth;
     bottom: 100%;
     width: auto;
     height: auto;
     flex-direction: column;
     background-color: $main-color;
-    // backdrop-filter: blur(5px);
 
     justify-content: flex-start;
     overflow: hidden;
@@ -306,10 +301,12 @@ nav .icon-burger .line {
   }
   nav .links,
   nav .links a {
-    font-size: 20px;
+    font-size: 18px;
   }
+
+  // Navbar mobile height
   nav :checked ~ .links {
-    bottom: 0;
+    bottom: 50vh;
   }
   nav .icon-burger {
     display: block;
