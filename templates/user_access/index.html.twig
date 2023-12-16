@@ -5,7 +5,7 @@
 {% block body %}
     {# ### Filter ################################## #} 
     <div class="filter-container">
-            <a id="list" class="btn btn-outline-dark btn-sm btn-blr my-3 rounded-pill" href="{{ path('app_user') }}">Show all</a>
+            <a id="list" class="btn btn-outline-primary btn-sm btn-blr my-3 rounded-pill" href="{{ path('app_user') }}">Show all</a>
             <div class="d-inline btn-group w-100" role="group" aria-label="Basic example">
                 {% for category in allCategory %}
                 <a class="my-3 btn btn-outline-primary btn-sm btn-blr mb-3 rounded-pill" href="{{ path('app_user', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
@@ -41,15 +41,17 @@
                 <img src='{{ asset('pictures/'~ product.picture) }}' alt='{{ product.name }}'>
                 <div class='details'>
                     <label>{{ product.name }}</label>
-                    <p>Price: &euro;{{ product.price }}</p>
-                        <p class="myCard-text text-warning">&starf;&starf;&starf;&starf;&star;</p>
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_USER') %}
-                        <a href='{{ path('app_cart', {'id': product.id}) }}' class='btn btn-primary me-2'>Add to cart</a>
-                        {% endif %}
-                        <a href='{{ path('app_product_show', {'id': product.id}) }}' class='btn btn-danger' > Details</a>
+                    <div class="details-content">
+                        <p>Price: &euro;{{ product.price }}</p>
+                        <p><i class="fa-solid fa-star fa-lg me-1 text-warning shadow"></i>4.4 <span class="fw-lighter">(100+)</span></p>
+                    </div>
+                    <div class="buttons-box">
+                        <a href='{{ path('app_cart', {'id': product.id}) }}' class='btn btn-outline-primary me-2 rounded-pill {{ is_granted('IS_AUTHENTICATED_FULLY')  ? '' : 'disabled'  }}'>Add to cart</a>
+                        <a href='{{ path('app_product_show', {'id': product.id}) }}' class='btn btn-outline-danger rounded-pill' > Details</a>
                     </div>
                 </div>
             </div>
+        </div>
             {% else %}
             <span class="z-3 btn-blr p-3 my-3 mb-3 w-25 text-center rounded-pill">¯\_(ツ)_/¯ <br>No products found </span>
             {% endfor %}

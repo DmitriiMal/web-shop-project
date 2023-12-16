@@ -42,6 +42,8 @@
   border-radius: 2px;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   z-index: 1;
+  background: #eaece86d;
+  backdrop-filter: blur(5px);
 }
 
 .myCard > img {
@@ -51,29 +53,40 @@
   transition: transform 0.3s ease-in-out;
 }
 
-.details > p {
-  font-size: 1.2rem;
-  margin-top: 0.5em;
-  margin-bottom: 7px;
-}
-
-.details > label {
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
 .details {
   color: $text-color;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   width: 100%;
-  background: #eaece899;
+  background: #eaece8d5;
   backdrop-filter: blur(5px);
   position: absolute;
   bottom: 0;
-  height: 3rem;
+  height: 4.6rem;
+  // height: 8rem;
   transition: height 0.3s ease-in-out;
   padding: 0.6em;
   overflow: hidden;
+  line-height: 1.8;
+
+  label {
+    color: #000;
+    font-size: 1.1rem;
+  }
+
+  .details-content {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .buttons-box {
+    display: flex;
+    justify-content: stretch;
+    align-items: center;
+  }
 }
 
 .myCard-flex {
@@ -81,16 +94,15 @@
 }
 
 .myCard:hover > .details {
-  height: 11rem;
+  height: 8rem;
 }
 
 .myCard:hover > img {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .myCard:hover {
-  transform: scale(1.01);
-  box-shadow: 0 0px 15px rgb(0 0 0 / 0.3);
+  box-shadow: 0 0px 15px rgb(0 0 0 / 0.5);
 }
 
 // ///////////////????????////////// //
