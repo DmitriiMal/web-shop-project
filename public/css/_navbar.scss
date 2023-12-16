@@ -124,6 +124,16 @@ nav .links li {
 .paste-button {
   position: relative;
   display: block;
+
+  #avatar {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    width: 50px;
+    border: 1px $second-color solid;
+    background-color: $light-color;
+    position: absolute;
+    top: 15px;
+  }
 }
 
 .drop-button {

@@ -39,6 +39,7 @@
         {% endif %}
         <a id="bottom" href="{{ path('app_logout') }}">Logout</a>
       </div>
+      <img id="avatar" src="{{ app.user.picture }}" alt="" />
     </div>
   </ul>
   {% endif %} {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
