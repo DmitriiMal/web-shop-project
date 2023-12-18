@@ -28,9 +28,7 @@
               {#
               <p class="fw-bold">Price: &euro; {{ item.price }}</p>
               #}
-              <p class="fw-bold">Name: {{ cart.fkProduct.name }}</p>
-
-              <button href="{{ path('app_cart_delete', { id: cart.id }) }}" class="btn btn-outline-danger btn-sm">Remove</button>
+               <a href="{{ path('app_cart_delete', {id : cart.id}) }}" class="btn btn-outline-danger btn-sm">Remove</a> 
             </div>
           </div>
         </div>
