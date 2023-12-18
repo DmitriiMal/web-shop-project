@@ -23,9 +23,6 @@ const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => new bootst
 let plus = document.querySelectorAll('.plus');
 let minus = document.querySelectorAll('.minus');
 let quantity = document.getElementsByClassName('quantity');
-let order = document.getElementsByClassName('order');
-
-console.log(plus);
 
 //increases item quantity
 plus.forEach((btn, i) => {
