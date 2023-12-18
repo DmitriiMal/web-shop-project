@@ -4,15 +4,12 @@ namespace App\Controller;
 
 use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Validator\Constraints\IsTrue;
-use Symfony\Component\Validator\Constraints\NotBlank;
+
 
 #[Route('/mail')]
 class MailController extends AbstractController
@@ -21,7 +18,7 @@ class MailController extends AbstractController
 
     #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
 
-    public function sendEmail(MailerInterface $mailer): Response
+    public function sendEmail(MailerInterface $mailer, ContactType $msg): Response
     {
         // createFormBuilder is a shortcut to get the "form factory"
         // and then call "createBuilder()" on it
@@ -47,7 +44,7 @@ class MailController extends AbstractController
             }
         }
         return $this->render('mail/contact.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
 
 

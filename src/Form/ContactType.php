@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use Symfony\Component\DomCrawler\Field\TextareaFormField;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -32,7 +34,7 @@ class ContactType extends AbstractType
             ]
         ])
         ->add('subject', null, [
-            'attr' => ['placeholder' => 'Please enter subject', 'class' => 'mt-2'],
+            'attr' => ['placeholder' => 'Please enter subject', 'class' => 'mt-2 tinymce'],
             "invalid_message" => "This value is not valid",
             'constraints' => [
                 new NotBlank([
@@ -40,7 +42,7 @@ class ContactType extends AbstractType
                 ]),
             ]
         ])
-        ->add('message', null, [
+        ->add('message', TextareaType::class, [
             'attr' => ['placeholder' => 'Please enter message', 'class' => 'mt-2'],
             "invalid_message" => "This value is not valid",
             'constraints' => [
