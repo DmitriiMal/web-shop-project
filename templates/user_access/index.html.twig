@@ -47,9 +47,9 @@
                         <p><i class="fa-solid fa-star fa-lg me-1 text-warning shadow"></i>4.4 <span class="fw-lighter">(100+)</span></p>
                     </div>
                     <div class="buttons-box">
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
                         <a href="{{ path("app_cart", {"id": product.id}) }}" class="btn btn-primary btn-sm rounded-start-pill shadow {{ is_granted("IS_AUTHENTICATED_FULLY") ? "" : "disabled" }}">Add to cart</a>
-                    {% endif %}
+
                         <a href="{{ path("app_product_show", {"id": product.id}) }}" class="btn btn-outline-primary btn-sm rounded-end-pill shadow">Details</a>
                     </div>
                 </div>
@@ -61,5 +61,5 @@
         {# ### Cards end ############################## #}
     </div>
 
-
+    <div id="map"></div>
 {% endblock %}

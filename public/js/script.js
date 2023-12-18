@@ -23,9 +23,6 @@ const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => new bootst
 let plus = document.querySelectorAll('.plus');
 let minus = document.querySelectorAll('.minus');
 let quantity = document.getElementsByClassName('quantity');
-let order = document.getElementsByClassName('order');
-
-console.log(plus);
 
 //increases item quantity
 plus.forEach((btn, i) => {
@@ -52,4 +49,36 @@ const minusQtty = (index) => {
   }
 };
 
-// console.log(quantity[0].value);
+// /////////////////////////// //
+// /////// Google Maps /////// //
+// /////////////////////////// //
+
+// var map;
+
+// function initMap() {
+//   map = new google.maps.Map(document.getElementById('map'), {
+//     center: { lat: 48.20849, lng: 16.37208 },
+//     zoom: 8,
+//   });
+// }
+
+// var map;
+
+function initMap() {
+  var CodeFactory = {
+    lat: 48.19649124145508,
+    lng: 16.35948371887207,
+  };
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: CodeFactory,
+    zoom: 17,
+  });
+
+  console.log(map);
+
+  var pinpoint = new google.maps.Marker({
+    position: CodeFactory,
+    map: map,
+  });
+}
