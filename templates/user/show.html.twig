@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %} {% block title %}User{% endblock %} {% block body %}
 <div class="container-prim my-5 pt-5">
   <h1 class="text-center my-5">Welcome, {{ user.lastName }}!</h1>
-
   <div class="row justify-content-center">
     <div class="col-md-4 col-lg-3 d-flex flex-column align-items-center">
       <img src="{{ asset('pictures/users/'~ user.picture) }}" class="user-image d-block rounded-circle img-thumbnail asp-1 object-fit-cover shadow" alt="{{ user.firstName }}{{ user.lastName }}" />
       <a href="{{ path('app_user_edit', { id: user.id }) }}" class="btn btn-outline-primary rounded-pill d-block my-5 mt-md-auto">Edit my account</a>
     </div>
-    <div class="col-md-7 col-lg-8 border-start ps-4 ms-3 mb-5">
+    <div class="col-md-7 col-lg-8 border-start border-2 ps-4 ms-3 mb-5">
       {{ "ROLE_ADMIN" in user.roles ? "
       <p><strong>Status: </strong>admin</p>
       " : '' }}
@@ -78,15 +77,18 @@
         </tr>
         {% else %}
         <tr>
-          <td colspan="17">No orders yet <a href="{{ path('app_user') }}" class="m-2 btn btn-outline-secondary btn-sm rounded-pill">Go to the shop</a></td>
+          <td colspan="17">No orders yet 
+            <a href='{{ path('app_user') }}' class='m-2 btn btn-outline-secondary btn-sm rounded-pill'>Go to the shop</a>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
+  {% endif %}
 
   {% if is_granted('ROLE_ADMIN') %}
-  <a href="{{ path('app_user_index') }}" class="btn btn-outline-warning rounded-pill mt-5">Back to list</a>
+  <a href="{{ path('app_user_index') }}" class="btn btn-outline-warning rounded-pill mt-5"><i class="bi bi-box-arrow-left"> </i>Back to list</a>
   {% endif %}
 </div>
 {% endblock %}

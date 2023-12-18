@@ -1,25 +1,10 @@
+@charset "UTF-8";
 .m-100px {
   margin-top: 100px;
 }
 
 .pt-120 {
   padding-top: 120px;
-}
-
-.m-03 {
-  margin: 0.3rem;
-}
-
-.m-05 {
-  margin: 0.5rem;
-}
-
-.m-1 {
-  margin: 1rem;
-}
-
-.m-2 {
-  margin: 2rem;
 }
 
 .myCard {
@@ -37,6 +22,17 @@
   background: rgba(234, 236, 232, 0.4274509804);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
+}
+.myCard .category {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 2;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px #212941 solid;
 }
 
 .myCard > img {
@@ -84,7 +80,7 @@
 }
 
 .myCard:hover > .details {
-  height: 8rem;
+  height: 7.5rem;
 }
 
 .myCard:hover > img {
@@ -107,7 +103,7 @@ nav {
   right: 0;
   top: 0;
   padding: 0 5%;
-  height: 100px;
+  height: 80px;
   background-color: #212941;
   display: flex;
   justify-content: space-between;
@@ -157,10 +153,15 @@ nav .links {
   color: #eaece8;
   font-size: 2.5rem;
 }
-#cart div {
+#cart .cart-item {
+  position: absolute;
+  left: 12px;
+  top: 5px;
   background-color: #6e0f10;
+  border: 1px #a88362 solid;
   text-align: center;
-  aspect-ratio: 1;
+  font-size: 12px;
+  padding: 2px 4px;
 }
 
 nav .links li {
@@ -182,12 +183,23 @@ nav .links li a:hover {
   position: relative;
   display: block;
 }
+.paste-button #avatar {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  width: 50px;
+  border: 1px #a88362 solid;
+  padding: 1px;
+  background-color: #eaece8;
+  position: absolute;
+  top: 15px;
+}
 
 .drop-button {
   text-align: center;
   background-color: transparent;
   color: #eaece8;
-  padding: 23px 15px;
+  height: 80px;
+  padding: 15px 15px;
   border: 2px solid transparent;
   cursor: pointer;
 }
@@ -196,7 +208,7 @@ nav .links li a:hover {
   display: none;
   font-size: 14px;
   position: absolute;
-  z-index: 1;
+  z-index: 11;
   min-width: 200px;
   background-color: #212941;
   border-radius: 0px 0 4px 4px;
@@ -244,9 +256,9 @@ nav .links li a:hover {
   font-size: inherit;
   font-weight: normal;
   background-color: #ccc;
-  border: none;
+  border: 1px #a88362 solid;
   color: #26272b;
-  padding: 0.7rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 30px;
   width: 12em;
   margin-right: -2rem;
@@ -327,7 +339,7 @@ nav .icon-burger .line {
     z-index: 9;
     left: 0;
     right: 0;
-    top: 100px;
+    top: 80px;
     bottom: 100%;
     width: auto;
     height: auto;
@@ -339,10 +351,10 @@ nav .icon-burger .line {
   }
   nav .links,
   nav .links a {
-    font-size: 20px;
+    font-size: 18px;
   }
   nav :checked ~ .links {
-    bottom: 0;
+    bottom: 50vh;
   }
   nav .icon-burger {
     display: block;
@@ -533,7 +545,7 @@ a {
 }
 
 .mySwiper {
-  margin-top: 0px;
+  margin-top: 70px;
   --swiper-navigation-color: #212941;
   --swiper-navigation-size: 50px;
   --swiper-navigation-top-offset: 19%;
@@ -583,10 +595,12 @@ body {
 
 .filter-container {
   width: clamp(500px, 80%, 1200px);
-  margin: auto; /* Safari */
-  position: sticky;
-  top: 90px;
-  z-index: 5;
+  position: -webkit-sticky; /* Safari */
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 80px;
+  z-index: 8;
 }
 
 .grid-container {
@@ -633,8 +647,70 @@ input[class^=button-]:hover {
   opacity: 0.9;
 }
 
+.stars {
+  display: inline-block;
+}
+
+.stars input {
+  display: none;
+}
+
+.stars label {
+  float: right;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.3s;
+}
+
+.stars label:before {
+  content: "★";
+  font-size: 20px;
+}
+
+.stars input:checked ~ label,
+.stars label:hover,
+.stars label:hover ~ label {
+  color: gold;
+  transition: color 0.3s;
+}
+
+#testimonials .testimonials {
+  grid-gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+#testimonials .testimonials .test-card {
+  border: 1px solid #a88362;
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 1rem;
+}
+#testimonials .testimonials .test-card .test-flex {
+  display: flex;
+}
+#testimonials .testimonials .test-card .test-flex ul {
+  list-style: none;
+  margin-top: 2rem;
+  align-items: center;
+}
+#testimonials .testimonials .test-card .test-flex ul img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.cart-btns {
+  display: flex;
+  gap: 2px;
+}
+.cart-btns .quantity {
+  width: 3.5rem;
+}
+
 @media (max-width: 500px) {
   .myCard .details {
-    height: 8rem;
+    height: 7.5rem;
   }
 }/*# sourceMappingURL=style.css.map */
