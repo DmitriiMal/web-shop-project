@@ -51,9 +51,7 @@
     <li><a href="{{ path('app_register') }}">Register</a></li>
   </ul>
 
-  {% endif %}
-
- {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+  {% endif %} {% if is_granted('IS_AUTHENTICATED_FULLY') %}
   <div id="cart">
     <a href="{{ path('app_cart_show') }}" class=""
       ><i class="fa-solid fa-cart-shopping fe-lg"></i>

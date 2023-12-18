@@ -701,6 +701,14 @@ input[class^=button-]:hover {
      object-fit: cover;
 }
 
+.cart-btns {
+  display: flex;
+  gap: 2px;
+}
+.cart-btns .quantity {
+  width: 3rem;
+}
+
 @media (max-width: 500px) {
   .myCard .details {
     height: 7.5rem;
