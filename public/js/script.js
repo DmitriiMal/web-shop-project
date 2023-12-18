@@ -20,14 +20,36 @@ const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => new bootst
 // ////// Cart buttons ////// //
 // ////////////////////////// //
 
-let plus = document.getElementsByClassName('plus');
-let minus = document.getElementsByClassName('minus');
-let quantity = document.getElementsByClassName('quantity').value;
+let plus = document.querySelectorAll('.plus');
+let minus = document.querySelectorAll('.minus');
+let quantity = document.getElementsByClassName('quantity');
 let order = document.getElementsByClassName('order');
 
-// for (let i = 0; i < plus.length; i++) {
-//   const element = plus[i].addEventListener('click', increase);
-// }
+console.log(plus);
 
-// let increase = () => {};
-// console.log(typeof quantity);
+//increases item quantity
+plus.forEach((btn, i) => {
+  btn.addEventListener('click', () => {
+    plusQtty(i);
+  });
+});
+
+const plusQtty = (index) => {
+  quantity[index].value++;
+};
+
+//decreases item quantity
+minus.forEach((btn, i) => {
+  btn.addEventListener('click', () => {
+    minusQtty(i);
+  });
+});
+
+const minusQtty = (index) => {
+  quantity[index].value--;
+  if (quantity[index].value < 0) {
+    quantity[index].value = 0;
+  }
+};
+
+// console.log(quantity[0].value);

@@ -706,7 +706,7 @@ input[class^=button-]:hover {
   gap: 2px;
 }
 .cart-btns .quantity {
-  width: 3rem;
+  width: 3.5rem;
 }
 
 @media (max-width: 500px) {
