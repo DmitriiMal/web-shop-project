@@ -718,6 +718,13 @@ input[class^=button-]:hover {
   width: 3.5rem;
 }
 
+#map {
+  height: 40vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 @media (max-width: 500px) {
   .myCard .details {
     height: 7.5rem;

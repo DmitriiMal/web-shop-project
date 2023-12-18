@@ -49,14 +49,36 @@ const minusQtty = (index) => {
   }
 };
 
-// Ajax
-function loadDoc() {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onload = function () {
-    if (this.status == 200) {
-      document.getElementById('content').innerHTML = this.responseText;
-    }
+// /////////////////////////// //
+// /////// Google Maps /////// //
+// /////////////////////////// //
+
+// var map;
+
+// function initMap() {
+//   map = new google.maps.Map(document.getElementById('map'), {
+//     center: { lat: 48.20849, lng: 16.37208 },
+//     zoom: 8,
+//   });
+// }
+
+// var map;
+
+function initMap() {
+  var CodeFactory = {
+    lat: 48.19649124145508,
+    lng: 16.35948371887207,
   };
-  xhttp.open('GET', 'content.txt', true);
-  xhttp.send();
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: CodeFactory,
+    zoom: 17,
+  });
+
+  console.log(map);
+
+  var pinpoint = new google.maps.Marker({
+    position: CodeFactory,
+    map: map,
+  });
 }
