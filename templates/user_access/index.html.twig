@@ -38,9 +38,7 @@
         {% for product in products %}
         <div class="m-03 {{ product.availability ? "" : "d-none" }}">
             <div class="myCard">
-                {# <span>{{ product.fkCategoryId.name }}</span> #}
-                {# <span>{{ product.fk_categoryID.name }}</span> #}
-                <span class="category btn-blr rounded-pill">category</span>
+                <span class="category btn-blr rounded-pill">{{ product.fkCategoryId.name }}</span>
                 <img src="{{ asset("pictures/"~ product.picture) }}" alt="{{ product.name }}">
                 <div class="details">
                     <label>{{ product.name }}</label>
@@ -49,8 +47,10 @@
                         <p><i class="fa-solid fa-star fa-lg me-1 text-warning shadow"></i>4.4 <span class="fw-lighter">(100+)</span></p>
                     </div>
                     <div class="buttons-box">
-                        <a href="{{ path("app_cart", {"id": product.id}) }}" class="btn btn-primary btn-sm rounded-start-pill {{ is_granted("IS_AUTHENTICATED_FULLY") ? "" : "disabled" }}">Add to cart</a>
-                        <a href="{{ path("app_product_show", {"id": product.id}) }}" class="btn btn-outline-primary btn-sm rounded-end-pill">Details</a>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="{{ path("app_cart", {"id": product.id}) }}" class="btn btn-primary btn-sm rounded-start-pill shadow {{ is_granted("IS_AUTHENTICATED_FULLY") ? "" : "disabled" }}">Add to cart</a>
+                    {% endif %}
+                        <a href="{{ path("app_product_show", {"id": product.id}) }}" class="btn btn-outline-primary btn-sm rounded-end-pill shadow">Details</a>
                     </div>
                 </div>
             </div>

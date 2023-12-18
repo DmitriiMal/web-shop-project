@@ -1,13 +1,7 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Edit account | {{ parent() }}{% endblock %}
-
-{% block body %}
+{% extends 'base.html.twig' %} {% block title %}Edit account | {{ parent() }}{% endblock %} {% block body %}
 <div class="container-prim">
-    <h1>Edit account</h1>
+  <h1>Edit account</h1>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
-
-    {# <a href="{{ path('app_user_index') }}">back to list</a> #}
+  {{ include('user/_form.html.twig', { button_label: 'Update' }) }}
 </div>
 {% endblock %}

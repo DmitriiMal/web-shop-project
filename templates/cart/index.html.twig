@@ -5,41 +5,48 @@
   <div class="row row-cols-1 row-cols-lg-3">
     <div class="col-lg-8">
       <div class="card mt-4">
-        <div class="card-header fw-bold">Cart - ... Item(s)</div>
-        <!-- Static defoult cart item starts -->
-        <div class="m-3 pb-3 border-bottom">
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-            <div class="col-sm-4 col-md-3"></div>
-            <div class="col-sm-8 col-md-9">
-              <p class="fw-bold mt-3">Your cart is empty</p>
-            </div>
-          </div>
-        </div>
-        <!-- Static defoult cart item ends -->
+        <div class="card-header fw-bold">Cart - {{ cartObj | length }} Item(s)</div>
 
         <!-- Dynamic cart item starts -->
+        {% if cartObj %} {% for cart in cartObj %}
+
         <div class="m-3 pb-3 border-bottom">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-            <img class="col-sm-4 col-md-3 object-fit-cover mb-3 mb-sm-0" src="..." alt="img" />
+            <img class="col-sm-4 col-md-2 object-fit-cover mb-3 mb-sm-0 rounded" src="{{ asset('pictures/'~ cart.fkProduct.picture) }}" alt="img" />
             <div class="col-sm-4 col-md-6">
-              {#
-              <p class="fw-bold">{{ item.name }}</p>
-              #} {#
-              <p class="d-none d-sm-inline">{{ item.description }}</p>
-              #}
+              <p class="fw-bold">{{ cart.fkProduct.name }}</p>
+              <p class="d-none d-sm-inline">{{ cart.fkProduct.description }}</p>
+              <p class="d-none d-sm-inline">{{ loop.index }}</p>
             </div>
-            <div class="col-sm-4 col-md-3">
-              {#
-              <p class="fw-bold">Price: &euro; {{ item.price }}</p>
-              #}
-              <button class="btn btn-outline-danger btn-sm">Remove</button>
+            <div class="col-sm-4 col-md-4 d-flex flex-column">
+              <p class="fw-bold">Price: &euro; {{ cart.fkProduct.price }}</p>
+
+              <div class="cart-btns">
+                <button class="plus btn btn-outline-secondary btn-sm rounded-start-circle"><i class="fa-solid fa-plus"></i></button>
+                <input class="quantity rounded border border-secondary d-inline px-1 text-center" type="number" value="1" name="" id="" />
+                <button class="minus btn btn-outline-secondary btn-sm rounded-end-circle"><i class="fa-solid fa-minus"></i></button>
+                <a href="{{ path('app_cart_delete', { id: cart.id }) }}" class="btn btn-outline-danger btn-sm rounded-circle ms-1"><i class="bi bi-trash3"></i></a>
+              </div>
             </div>
           </div>
         </div>
         <!-- Dynamic cart item ends -->
+        {% endfor %} {% else %}
+        <!-- Static defoult cart item starts -->
+
+        <div class="m-3 pb-3 border-bottom">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+            <div class="col-sm-4 col-md-3"></div>
+            <div class="col-sm-8 col-md-9">
+              <p class="fw-bold mt-3">Your cart is empty <i class="fa-solid fa-cart-shopping fa-2xl"></i></p>
+            </div>
+          </div>
+        </div>
+        <!-- Static defoult cart item ends -->
+        {% endif %}
       </div>
     </div>
-    <!-- Cart starts -->
+    <!-- Cart ends -->
 
     <!-- Summary starts -->
     <div class="col-lg-4">
@@ -73,7 +80,7 @@
               #}
             </div>
           </div>
-          <button type="submit" class="btn btn-primary px-5 py-2 mt-2">Order</button>
+          <button type="submit" class="order btn btn-primary px-5 py-2 mt-2">Order</button>
         </div>
       </div>
     </div>

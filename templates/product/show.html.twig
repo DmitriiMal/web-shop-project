@@ -1,65 +1,107 @@
 {% extends 'base.html.twig' %} {% block title %}New Product | {{ parent() }}{% endblock %} {% block body %}
 
-<div class="container-prim">
-  <div>
-    <h1 class="text-center mb-4">Show Product</h1>
-    <section class="d-flex justify-content-around text-start ">
-      <div style="width:40%;">
-        {% if (product.id) %}
-        <img class="shadow" style='width:512px;' src="{{ asset('pictures/'~ product.picture) }}"
-          alt="{{ product.name }}" />
-        {% else %}
-        <div class="rounded-circle shadow" style="width:256px;height:256px; border: 8px solid gold;"></div>
-        {% endif %}
-      </div>
-      <div style="width:40%;">
-        <h4>Name</h4>
-        <p class="fs-6 mt-2">{{ product.name }}</p>
-        <h4>Price</h4>
-        <span class="fs-6 roundedy">
-          {{ product.price }}
-        </span>
-        {% if product.quantity < 10 %} {#<h4>Quantity</h4>#}
-          <div class="text-danger ffs-6 py-1 my-3 roundedy"> Only {{ product.quantity }} left </div>
+<div class="container-prim my-5 pt-5">
+  {% if is_granted("ROLE_ADMIN") %} 
+  <a href="{{ path("app_product_index") }}" class="btn btn-outline-warning rounded-pill"><i class="bi bi-box-arrow-left"></i> Back to list</a>
+  {% else %}
+  <a href="{{ path("app_user") }}" class="btn btn-outline-warning rounded-pill"><i class="bi bi-box-arrow-left"></i> Back to list</a>
+  {% endif %}
+    {% if (product.id) %}
+    <h1 class="text-center my-5">{{ product.name }}</h1>
+    <section class="row justify-content-center">
+      <div class="col-md-4 col-lg-3 d-flex flex-column align-items-center">
+        <img class="rounded img-thumbnail asp-1 object-fit-cover shadow" src="{{ asset('pictures/'~ product.picture) }}" alt="{{ product.name }}" />
+        <div>
+          <a href="{{ path("app_cart", { id: product.id }) }}" class="btn btn-primary rounded-pill mt-3 me-2 {{ not is_granted("IS_AUTHENTICATED_FULLY") ? "disabled" : ""}}"><i class="bi bi-cart3"></i> Add To Cart</a>
+          {% if is_granted("ROLE_ADMIN") %} 
+          <a href="{{ path("app_product_edit", { id: product.id }) }}" class="btn btn-outline-primary rounded-pill mt-3 px-4"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
           {% endif %}
-          <h4>Description</h4>
-          <p class="fs-6 mt-2">
-            {{ product.description }}
-          </p>
+        </div>
+      </div>
+      <div class="col-md-7 col-lg-8 border-start border-2 ps-4 pt-4 mb-5">
+        <p class="h5 text-success-emphasis mb-4"><strong>Price: &euro;</strong>{{ product.price }}</p>
+        {% if product.quantity < 10 %}
+        <div class="text-danger mb-4">Only {{ product.quantity }} left</div>
+        {% endif %}
+        <h4>Description</h4>
+        <p class="mt-2">
+          {{ product.description }}
+        </p>
       </div>
     </section>
-  </div>
-  {#
-  <hr /> #}
-  {# {{ form_widget(form }} #}
-
-  <div class="d-flex gap-3 justify-content-center mt-5">
-    {# <button class="btn btn-success btn1"><i class="bi bi-floppy"></i> {{ button_label|default('Save') }}</button>
-    #}
-    {% if is_granted('ROLE_ADMIN') %}
-
-    <a href="{{ path('app_product_index') }}" class="btn btn-secondary btn1"><i class="bi bi-box-arrow-left"></i> Back
-      to list</a>
-
     {% else %}
-
-    <a href="{{ path('app_user') }}" class="btn btn-secondary btn1"><i class="bi bi-box-arrow-left"></i> Back to list</a>
-
+    <p>No product found</p>
     {% endif %}
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-    <a href="{{ path('app_cart', {'id': product.id}) }}" class="btn btn-secondary btn1"><i class="bi bi-cart3"></i> Add To Cart</a>
+  <hr class="my-5" />
+  {# {{ form_widget(form }}#}
 
-    {% endif %}
-
-    {% if is_granted('ROLE_ADMIN') %}
-
-    <a href="{{ path('app_product_edit', { 'id': product.id }) }}" class="btn button-main btn1"><i
-        class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
-    {{ include('product/_delete_form.html.twig') }}
-
-    {% endif %}
+  <h1 class="text-center">Reviews</h1>
+  {# Stars avarage start#}
+  <div class="stars ms-5">
+    <input value="5" name="random" id="star5" type="radio">
+    <label for="star5"></label>
+    <input value="4" name="random" checked id="star4" type="radio">
+    <label for="star4"></label>
+    <input value="3" name="random" id="star3" type="radio">
+    <label for="star3"></label>
+    <input value="2" name="random" id="star2" type="radio">
+    <label for="star2"></label>
+    <input value="1" name="random" id="star1" type="radio">
+    <label for="star1"></label>
   </div>
+  {# Stars end #}
+  <section class="rounded border border-2" id="testimonials">
+
+    <div class="testimonials py-4">
+      {# {% for item in items %} #}
+        
+      <!-- Test-card begins -->
+      <div class="test-card">
+        <div class="test-flex">
+          <ul>
+            <li>
+              <img
+              src="https://images.unsplash.com/photo-1528892952291-009c663ce843?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fHBvcnRyYWl0fGVufDB8fDB8fHww"
+              alt=""
+              />
+            </li>
+            <li class="u">User name</li>
+            <li class="small">Date</li>
+            <li>{# Stars start#}
+              <div class="stars">
+                <input value="5" name="rating" id="star5" type="radio">
+                <label for="star5"></label>
+                <input value="4" name="rating" checked id="star4" type="radio">
+                <label for="star4"></label>
+                <input value="3" name="rating" id="star3" type="radio">
+                <label for="star3"></label>
+                <input value="2" name="rating" id="star2" type="radio">
+                <label for="star2"></label>
+                <input value="1" name="rating" id="star1" type="radio">
+                <label for="star1"></label>
+              </div>
+              {# Stars end #}</li>
+            </ul>
+          </div>
+          
+          
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis amet est, nulla aliquam id iste corporis asperiores ad mollitia quod aliquid. Voluptatem veritatis architecto blanditiis quidem sapiente deserunt reprehenderit nisi.
+          </p>
+          <a href="#" class="btn btn-outline-danger btn-sm rounded-circle"><i class="bi bi-trash3"></i></a>
+        </div>
+        <!-- Test-card ends -->
+        {# {% endfor %} #}
+    </div>
+  </section>
+  {% if is_granted("ROLE_ADMIN") %} 
+  <a href="{{ path("app_product_index") }}" class="btn btn-outline-warning rounded-pill mt-5"><i class="bi bi-box-arrow-left"></i> Back to list</a>
+  {% else %}
+  <a href="{{ path("app_user") }}" class="btn btn-outline-warning rounded-pill mt-5"><i class="bi bi-box-arrow-left"></i> Back to list</a>
+  {% endif %}
+  {# {{ include("product/_delete_form.html.twig") }} #}
+
 </div>
 {% endblock %}
