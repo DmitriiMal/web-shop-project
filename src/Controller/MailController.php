@@ -30,8 +30,8 @@ class MailController extends AbstractController
             $data = $form->getData();
    
             $email = (new Email())
-                ->from("rundacodefactory@gmail.com")
-                ->to("rundacodefactory@gmail.com")
+                ->from("webshopproject4@gmail.com")
+                ->to("webshopproject4@gmail.com")
                 //->cc('cc@example.com')
                 //->bcc('bcc@example.com')
                 //->replyTo('fabien@example.com')
