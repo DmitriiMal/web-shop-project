@@ -41,7 +41,7 @@
           <td class="text-center">{{ user.createdAt ? user.createdAt|date('d/m/Y') : '' }}</td>
 
           <td>
-            <div class="d-flex gap-2">
+            <div class="d-flex flex-nowrap" style="width: 205px">
               <div class="btn-group btn-group-sm me-2 my-1" role="group" aria-label="Basic mixed styles example">
                 <a href="{{ path('app_user_show', { id: user.id }) }}" class="btn btn-primary rounded-start-pill">Details</a>
                 <a href="{{ path('app_user_edit', { id: user.id }) }}" class="btn btn-outline-primary rounded-end-pill"><i class="bi bi-pencil-square"></i>Edit</a>
