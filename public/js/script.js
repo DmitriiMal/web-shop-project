@@ -49,4 +49,14 @@ const minusQtty = (index) => {
   }
 };
 
-// console.log(quantity[0].value);
+// Ajax
+function loadDoc() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    if (this.status == 200) {
+      document.getElementById('content').innerHTML = this.responseText;
+    }
+  };
+  xhttp.open('GET', 'content.txt', true);
+  xhttp.send();
+}

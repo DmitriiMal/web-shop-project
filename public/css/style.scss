@@ -19,6 +19,20 @@ body {
   background: $light-color;
 }
 
+input {
+  accent-color: $second-color;
+}
+
+// img:broken::before {
+//   content: '';
+//   background-color: aqua;
+//   aspect-ratio: 1;
+// }
+
+.hidden {
+  visibility: hidden;
+}
+
 .container-prim {
   width: $width-container;
   margin: 130px auto 30px auto;

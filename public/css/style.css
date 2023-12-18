@@ -182,6 +182,7 @@ nav .links li a:hover {
 .paste-button {
   position: relative;
   display: block;
+  margin-right: 3rem;
 }
 .paste-button #avatar {
   aspect-ratio: 1;
@@ -581,6 +582,14 @@ a {
 body {
   line-height: 1.6;
   background: #eaece8;
+}
+
+input {
+  accent-color: #a88362;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .container-prim {
