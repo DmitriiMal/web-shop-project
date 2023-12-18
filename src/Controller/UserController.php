@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\AdminType;
 use App\Form\UserType;
 use App\Repository\CartRepository;
-use App\Repository\ReviewsRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -71,7 +70,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user, CartRepository $cart, ReviewsRepository $review, $id): Response
+    public function show(User $user, CartRepository $cart, $id): Response
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
