@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\CartRepository;
+use App\Repository\ReviewsRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -65,11 +66,12 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user, CartRepository $cart, $id): Response
+    public function show(User $user, CartRepository $cart, ReviewsRepository $review, $id): Response
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
-            'cart' => $cart->findByOrders($id),
+            'cart' => $cart->findByOrders($id)
+            // 'reviews' => $review->findBy(["fk_user" => $id])
             // 'cart' => $cart->findBy(["fk_userID" => $id, "order_date" => "notnull"],["order_date" => "ASC"])
         ]);
     }

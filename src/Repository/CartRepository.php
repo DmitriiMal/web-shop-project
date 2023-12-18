@@ -31,7 +31,7 @@ class CartRepository extends ServiceEntityRepository
                 ->andWhere('u.fk_userID = :val')
                 ->andWhere('u.order_date is not null')
                 ->setParameter('val', $value)
-                ->orderBy('u.order_date', 'ASC')
+                ->orderBy('u.order_date', 'DESC')
                 // ->setMaxResults(10)
                 ->getQuery()
                 ->getResult()

@@ -43,9 +43,13 @@ class Product
     #[ORM\OneToMany(mappedBy: 'fk_product', targetEntity: Cart::class)]
     private Collection $carts;
 
+    #[ORM\OneToMany(mappedBy: 'fk_product', targetEntity: Reviews::class)]
+    private Collection $reviews;
+
     public function __construct()
     {
         $this->carts = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,6 +177,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($cart->getFkProduct() === $this) {
                 $cart->setFkProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reviews>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Reviews $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setFkProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Reviews $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getFkProduct() === $this) {
+                $review->setFkProduct(null);
             }
         }
 
