@@ -48,3 +48,15 @@ const minusQtty = (index) => {
     quantity[index].value = 0;
   }
 };
+
+// Ajax
+function loadDoc() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    if (this.status == 200) {
+      document.getElementById('content').innerHTML = this.responseText;
+    }
+  };
+  xhttp.open('GET', 'content.txt', true);
+  xhttp.send();
+}
