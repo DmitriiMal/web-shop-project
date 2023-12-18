@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Cart;
-use App\Entity\Product;
 use Doctrine\ORM\Mapping\Id;
 use App\Repository\ProductRepository;
 use App\Repository\CartRepository;
@@ -50,11 +49,11 @@ class CartController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}', name: 'app_cart_delete', methods: ['GET'])]
+    #[Route('/delete/{id}', name: 'app_cart_delete', methods: ['GET', 'POST'])]
     public function deleteFromCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, int $id): Response
     {
 
-        $product = $productRepository -> find($id);
+        $product = $cartRepository -> find($id);
         $entityManager -> remove($product);
         $entityManager -> flush();
 
