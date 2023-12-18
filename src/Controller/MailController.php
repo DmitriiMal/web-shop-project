@@ -41,7 +41,7 @@ class MailController extends AbstractController
                 ->html("Message from:<br><br>" . $data['name'] . "  <code><</code>" . $data['email'] . "<code>></code><br><br> Subject: " . $data['subject'] . "<br><br> Message:<br>" .$data['message']);
             try {
                 $mailer->send($email);
-                return new Response("Email sent!");
+                return new Response("Your message was successfully sent!");
             } 
             catch (TransportExceptionInterface $error) {
                 return new Response("Error: " . $error->getMessage());
