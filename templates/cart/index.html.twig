@@ -22,17 +22,13 @@
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
             <img class="col-sm-4 col-md-3 object-fit-cover mb-3 mb-sm-0" src="..." alt="img" />
             <div class="col-sm-4 col-md-6">
-              {#
-              <p class="fw-bold">{{ item.name }}</p>
-              #} {#
-              <p class="d-none d-sm-inline">{{ item.description }}</p>
-              #}
+
             </div>
             <div class="col-sm-4 col-md-3">
               {#
               <p class="fw-bold">Price: &euro; {{ item.price }}</p>
               #}
-              <button class="btn btn-outline-danger btn-sm">Remove</button>
+               <button href="{{ path('app_cart_delete', {id : cartObj.id}) }}" class="btn btn-outline-danger btn-sm">Remove</button> #}
             </div>
           </div>
         </div>
