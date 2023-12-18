@@ -4,9 +4,14 @@
   <div>
     {% if (product.id) %}
     <h1 class="text-center mb-5">{{ product.name }}</h1>
-    <section class="row justify-content-center">
-      <div class="col-md-4 col-lg-3">
+      <div class="col-md-4 col-lg-3 d-flex flex-column align-items-center">
         <img class="rounded img-thumbnail asp-1 object-fit-cover shadow" src="{{ asset('pictures/'~ product.picture) }}" alt="{{ product.name }}" />
+        {# <div>
+          <a href="{{ path("app_cart", { id: product.id }) }}" class="btn btn-primary rounded-pill mt-3 me-2 {{ not is_granted("IS_AUTHENTICATED_FULLY") ? "disabled" : ""}}"><i class="bi bi-cart3"></i> Add To Cart</a>
+          {% if is_granted("ROLE_ADMIN") %} 
+          <a href="{{ path("app_product_edit", { id: product.id }) }}" class="btn btn-outline-primary rounded-pill mt-3 px-4"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
+          {% endif %}
+        </div> #}
       </div>
       <div class="col-md-7 col-lg-8 border-start border-2 ps-4 pt-4 mb-5">
         <p class="h5 text-success-emphasis mb-4"><strong>Price: &euro;</strong>{{ product.price }}</p>
@@ -14,7 +19,7 @@
         <div class="text-danger mb-4">Only {{ product.quantity }} left</div>
         {% endif %}
         <h4>Description</h4>
-        <p class="fs-6 mt-2">
+        <p class="mt-2">
           {{ product.description }}
         </p>
       </div>
@@ -28,17 +33,17 @@
   {# {{ form_widget(form }}
 
   <div class="d-flex gap-3 justify-content-center mt-5">
-    {# <button class="btn btn-success btn1"><i class="bi bi-floppy"></i> {{ button_label|default('Save') }}</button>
-    #} {# {% if is_granted('ROLE_ADMIN') %} #} {# {% if is_granted('IS_AUTHENTICATED_FULLY') %} #} {# {% endif %} {% if is_granted('ROLE_ADMIN') %} #}
+    {# <button class="btn btn-success btn1"><i class="bi bi-floppy"></i> {{ button_label|default("Save") }}</button>
+    #} {# {% if is_granted("ROLE_ADMIN") %} #} {# {% if is_granted("IS_AUTHENTICATED_FULLY") %} #} {# {% endif %} {% if is_granted("ROLE_ADMIN") %} #}
 
-    <a href="{{ path('app_product_index') }}" class="btn btn-outline-warning rounded-pill mt-5"><i class="bi bi-box-arrow-left"></i> Back to list</a>
+    <a href="{{ path("app_product_index") }}" class="btn btn-outline-warning rounded-pill mt-5"><i class="bi bi-box-arrow-left"></i> Back to list</a>
 
-    <a href="{{ path('app_cart', { id: product.id }) }}" class="btn btn-primary rounded-pill mt-5 {{ not is_granted('IS_AUTHENTICATED_FULLY') ? "disabled" : ""}}"><i class="bi bi-cart3"></i> Add To Cart</a>
+    <a href="{{ path("app_cart", { id: product.id }) }}" class="btn btn-primary rounded-pill mt-5 {{ not is_granted("IS_AUTHENTICATED_FULLY") ? "disabled" : ""}}"><i class="bi bi-cart3"></i> Add To Cart</a>
 
-    {% if is_granted('ROLE_ADMIN') %} 
-    <a href="{{ path('app_product_edit', { id: product.id }) }}" class="btn btn-outline-primary rounded-pill mt-5 px-4"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
+    {% if is_granted("ROLE_ADMIN") %} 
+    <a href="{{ path("app_product_edit", { id: product.id }) }}" class="btn btn-outline-primary rounded-pill mt-5 px-4"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> Edit</a>
     {% endif %}
-    {# {{ include('product/_delete_form.html.twig') }} #}
+    {# {{ include("product/_delete_form.html.twig") }} #}
   </div>
 </div>
 {% endblock %}
