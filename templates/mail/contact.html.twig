@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}Log in |
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	<div class="container-prim">
+		<form method="post">
+			<div class="row">
+				<div class="col col-xs-12 col-md-8 col-xl-6 mx-auto">
+					<div class="rounded border border-dark border-opacity-50 p-5 align-self-centermy-5">
+						<h3 class="text-center mb-3">Contact Form</h3>
+						{{ form_start(form) }}
+						{{ form_widget(form.name) }}
+						{{ form_widget(form.email) }}
+						{{ form_widget(form.subject) }}
+						{{ form_widget(form.message) }}
+						<div class="mt-4">
+							{{ form_widget(form.agreeTerms) }}
+						</div>
+						{{ form_end(form) }}
+						<button class="btn btn-lg btn-outline-primary d-block my-5 w-100" type="submit">send</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+{% endblock %}
