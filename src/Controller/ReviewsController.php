@@ -38,6 +38,9 @@ class ReviewsController extends AbstractController
             $review -> setFkProduct($IdProduct);
             $review -> setFkUser($IdUser);
 
+            $now = new \DateTimeImmutable();
+            $review->setCreatedDate($now);
+
             $entityManager->persist($review);
             $entityManager->flush();
 
@@ -75,11 +78,20 @@ class ReviewsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_reviews_delete', methods: ['POST'])]
-    public function delete(Request $request, Reviews $review, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Reviews $review, EntityManagerInterface $entityManager, CartRepository $carts): Response
     {
         if ($this->isCsrfTokenValid('delete'.$review->getId(), $request->request->get('_token'))) {
+            $Idreview = $review->getId();
+
             $entityManager->remove($review);
             $entityManager->flush();
+
+            //----------------------------------------------
+            $cart = $carts->find(["id" => $Idreview]); 
+            $cart -> setFkReview(null);
+
+            $entityManager->persist($cart);
+            $entityManager->flush();            
         }
 
         return $this->redirectToRoute('app_reviews_index', [], Response::HTTP_SEE_OTHER);

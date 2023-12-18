@@ -54,23 +54,24 @@
   {# Stars end #}
   <section class="rounded border border-2" id="testimonials">
 
-    <div class="testimonials py-4">
-      {# {% for item in items %} #}
+    <div class="testimonials">
+      
+      {% for item in review %}
         
       <!-- Test-card begins -->
       <div class="test-card">
         <div class="test-flex">
           <ul>
             <li>
-              <img
-              src="https://images.unsplash.com/photo-1528892952291-009c663ce843?auto=format&fit=crop&q=60&w=900&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fHBvcnRyYWl0fGVufDB8fDB8fHww"
-              alt=""
-              />
+              {# <pre>
+            {{ dump(review) }}
+            </pre> #}
+              <img class="rounded img-thumbnail asp-1 object-fit-cover shadow" src="{{ asset('pictures/users/'~ item.FkUser.picture) }}" alt="{{item.FkUser.firstname}} {{item.FkUser.lastname}}" />
             </li>
-            <li class="u">User name</li>
-            <li class="small">Date</li>
+            <li class="u">{{item.FkUser.firstname}} {{item.FkUser.lastname}}</li>
+            <li class="small">{{ item.createddate ? item.createddate|date('d.m.Y H:m') : '' }}</li>
             <li>{# Stars start#}
-              <div class="stars">
+              {# <div class="stars">
                 <input value="5" name="rating" id="star5" type="radio">
                 <label for="star5"></label>
                 <input value="4" name="rating" checked id="star4" type="radio">
@@ -81,19 +82,39 @@
                 <label for="star2"></label>
                 <input value="1" name="rating" id="star1" type="radio">
                 <label for="star1"></label>
-              </div>
-              {# Stars end #}</li>
-            </ul>
-          </div>
-          
-          
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis amet est, nulla aliquam id iste corporis asperiores ad mollitia quod aliquid. Voluptatem veritatis architecto blanditiis quidem sapiente deserunt reprehenderit nisi.
-          </p>
-          <a href="#" class="btn btn-outline-danger btn-sm rounded-circle"><i class="bi bi-trash3"></i></a>
+              </div> #}
+              {# Stars end #}
+              {% set maximum_stars = 5 %}
+              {% if item.rating <= maximum_stars %}
+                {% for star in 0..(item.rating) %}
+                  {% if star != 0 %}
+                    <i class="bi bi-star-fill"></i>
+                  {% endif %}
+                {% endfor %}
+                {% if (item.rating)-(item.rating|round(0, 'floor')) != 0 %}
+                  <i class="bi bi-star-half"></i>
+                {% endif %}
+                {% for star in 0..(maximum_stars - item.rating|round(0, 'ceil')) %}
+                  {% if star != 0 %}
+                    <i class="bi bi-star"></i>
+                  {% endif %}
+                {% endfor %}
+                {% else %}
+                  <p>Rating exceeds limit.</p>
+              {% endif %}
+            </li>
+          </ul>
         </div>
+          
+          <p>{{ item.review }}</p>
+
+          {% if is_granted("ROLE_ADMIN") %}
+          {{ include('reviews/_delete_form.html.twig') }}
+          {% endif %}        
+        </div>
+        <hr class="mb-0 pb-0">
         <!-- Test-card ends -->
-        {# {% endfor %} #}
+        {% endfor %}
     </div>
   </section>
   {% if is_granted("ROLE_ADMIN") %} 

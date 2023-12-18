@@ -6,6 +6,7 @@ use App\Entity\FkCategory;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Repository\ReviewsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,10 +81,11 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
-    public function show(Product $product): Response
+    public function show(Product $product, ReviewsRepository $review, $id): Response
     {
         return $this->render('product/show.html.twig', [
             'product' => $product,
+            'review' => $review->findBy(["fk_product" => $id])
         ]);
     }
 
