@@ -38,6 +38,9 @@ class Cart
     #[ORM\ManyToOne(inversedBy: 'carts')]
     private ?Product $fk_product = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Reviews $fk_review = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -82,6 +85,7 @@ class Cart
 
     public function getOrderDate(): ?\DateTimeImmutable
     {
+        // this is an issue in symfony, you need  to check entity, but even if entity with _ you need to try both, it is an issue with naming in symfony
         return $this->order_date;
     }
 
@@ -112,6 +116,18 @@ class Cart
     public function setFkProduct(?Product $fk_product): static
     {
         $this->fk_product = $fk_product;
+
+        return $this;
+    }
+
+    public function getFkReview(): ?Reviews
+    {
+        return $this->fk_review;
+    }
+
+    public function setFkReview(?Reviews $fk_review): static
+    {
+        $this->fk_review = $fk_review;
 
         return $this;
     }
