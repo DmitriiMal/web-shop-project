@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\AdminType;
 use App\Form\UserType;
 use App\Repository\CartRepository;
 use App\Repository\UserRepository;
@@ -14,11 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Service\FileUploader;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 #[Route('/account')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
@@ -27,10 +31,11 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(AdminType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -75,18 +80,26 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader $fileUploader, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, FileUploader $fileUploader, UserPasswordHasherInterface $userPasswordHasher, int $id): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+
+        if($this->IsGranted('ROLE_ADMIN')) {
+            $form = $this->createForm(AdminType::class, $user);
+        }else{
+            $form = $this->createForm(UserType::class, $user);
+        }
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if(!$this->isGranted('ROLE_ADMIN')){
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
+        }
 
             $picture = $form->get('picture')->getData();
             if ($picture) {
@@ -101,7 +114,11 @@ class UserController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            if(!$this->isGranted('ROLE_ADMIN')){
+                return $this->redirectToRoute('app_user_show', ['id' => $id], Response::HTTP_SEE_OTHER);
+            }else{
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('user/edit.html.twig', [
@@ -111,6 +128,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
