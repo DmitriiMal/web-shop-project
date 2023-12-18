@@ -124,10 +124,11 @@ class UserType extends AbstractType
                 "widget" => "single_text",
             ])
 
-            ->add('banned',null,[
-                'attr' => ['class' => 'form-check-input'],
-                'label' => 'Banned'
-            ])
+                 ->add('banned',null,[
+                    'attr' => ['class' => 'form-check-input'],
+                    'label' => 'Banned'
+            ]) 
+
 
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,

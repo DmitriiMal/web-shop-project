@@ -53,12 +53,14 @@
 
   {% endif %}
 
+ {% if is_granted('IS_AUTHENTICATED_FULLY') %}
   <div id="cart">
     <a href="{{ path('app_cart_show') }}" class=""
       ><i class="fa-solid fa-cart-shopping fe-lg"></i>
       <span class="cart-item rounded-pill">99+</span>
     </a>
   </div>
+  {% endif %}
 
   <label for="nav-toggle" class="icon-burger">
     <div class="line"></div>

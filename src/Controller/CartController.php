@@ -18,9 +18,11 @@ class CartController extends AbstractController
     #[Route('/', name: 'app_cart_show', methods: ['GET'])]
     public function Cart(ProductRepository $productRepository, CartRepository $cartRepository): Response
     {
+
+        $user = $this->getUser();
+
         return $this->render('cart/index.html.twig', [ 
-            'cartObj' => $cartRepository -> findAll(),
-            'product' => $productRepository -> findAll()        
+            'cartObj' => $cartRepository -> findBy(['fk_userID' => $user])
         ]);
     }
 
@@ -43,23 +45,21 @@ class CartController extends AbstractController
         $entityManager->persist($cartObj);
         $entityManager->flush();
 
-        return $this->render('cart/index.html.twig', [
-            'cartObj' => $cartRepository -> findAll(),
-            'product' => $productRepository -> findAll()  
-        ]);
+        return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/delete/{id}', name: 'app_cart_delete', methods: ['GET', 'POST'])]
     public function deleteFromCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, int $id): Response
     {
 
+        $user = $this->getUser();
+
         $product = $cartRepository -> find($id);
         $entityManager -> remove($product);
         $entityManager -> flush();
 
         return $this->render('cart/index.html.twig', [ 
-            'cartObj' => $cartRepository -> findAll(),
-            'product' => $productRepository -> findAll()        
+            'cartObj' => $cartRepository -> findBy(['fk_userID' => $user])
         ]);
     }
 }
