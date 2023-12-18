@@ -48,5 +48,3 @@ const minusQtty = (index) => {
     quantity[index].value = 0;
   }
 };
-
-// console.log(quantity[0].value);

@@ -27,12 +27,12 @@
         <table class="table table-light table-striped table-hover">
             <thead>
               <tr>
-                  <th scope="col">#</th>
+                <th scope="col">#</th>
                 <th scope="col">Pic</th>
                 <th scope="col">Name</th>
                 <th scope="col">Price</th>
                 <th scope="col" class="text-center">Quantity</th>
-                {# <th scope="col" class="text-center">Category</th> #}
+                <th scope="col" class="text-center">Category</th>
                 <th scope="col" class="text-center">Availability</th>
                 <th scope="col" class="text-center">Shown</th>
                 <th scope="col">Actions</th>
@@ -46,12 +46,12 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.price }}</td>
                     <td class="text-center">{{ product.quantity }}</td>
-                    {# <td class="text-center">{{ category.name }}</td> #}
+                    <td class="text-center">{{ product.fkCategoryId.name }}</td>
                     <td class="text-center">{{ product.availability ? "&#x2713;" : "&#10008;"  }}</td>
                     <td class="text-center">{{ product.shownHidden ? "&#x2713;" : "&#10008;" }}</td>
                     <td>
-                    <div class='d-flex flex-nowrap'>
-                      <div class='btn-group btn-group-sm me-4 my-1' role='group' aria-label='Basic mixed styles example'>
+                    <div class='d-flex flex-nowrap' style="width: 205px;">
+                      <div class='btn-group btn-group-sm me-2 my-1' role='group' aria-label='Basic mixed styles example'>
                         <a href='{{ path('app_product_show', {'id': product.id}) }}' class='btn btn-primary rounded-start-pill'>Details</a>
                         <a href='{{ path('app_product_edit', {'id': product.id}) }}' class='btn btn-outline-primary rounded-end-pill'><i class="bi bi-pencil-square"></i> Edit</a>
                       </div>
