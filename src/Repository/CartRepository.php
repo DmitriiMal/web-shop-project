@@ -29,7 +29,7 @@ class CartRepository extends ServiceEntityRepository
         {
             return $this->createQueryBuilder('u')
                 ->andWhere('u.fk_userID = :val')
-                ->andWhere('u.order_date is not null')
+                ->andWhere('u.order_date IS NOT NULL') 
                 ->setParameter('val', $value)
                 ->orderBy('u.order_date', 'DESC')
                 // ->setMaxResults(10)

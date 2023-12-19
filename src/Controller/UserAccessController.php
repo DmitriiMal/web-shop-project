@@ -9,13 +9,15 @@ use App\Repository\ProductRepository;
 use App\Entity\Product;
 
 use App\Entity\FkCategory;
+use App\Repository\CartRepository;
+use App\Repository\ReviewsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry as PersistenceManagerRegistry;
 
 class UserAccessController extends AbstractController
 {
     #[Route('/', name: 'app_user', methods: ['GET'])]
-    public function index(Request $request, PersistenceManagerRegistry $doctrine, ProductRepository $productRepository): Response
+    public function index(Request $request, PersistenceManagerRegistry $doctrine, ProductRepository $productRepository, ReviewsRepository $reviews, CartRepository $carts): Response
     {
 
         $category = $request->query->get('fk_categoryID', 'all');
@@ -39,6 +41,8 @@ class UserAccessController extends AbstractController
             'products' => $products,
             'allCategory' => $allCategory,
             'category' => $category,
+            'reviews' => $reviews->findAll(),
+            'carts' => $carts->findAll(),
         ]);
     }
 
