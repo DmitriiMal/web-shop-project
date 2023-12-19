@@ -5,7 +5,7 @@
   <div class="row row-cols-1 row-cols-lg-3">
     <div class="col-lg-8">
       <div class="card mt-4">
-        <div class="card-header fw-bold">Cart - {{ cartObj | length }} Item(s)</div>
+        <div id="cartItems" class="card-header fw-bold">Cart - {{ cartObj | length }} Item(s)</div>
 
         <!-- Dynamic cart item starts -->
         {% if cartObj %} {% for cart in cartObj %}
