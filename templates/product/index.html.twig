@@ -9,7 +9,10 @@
       <a id="list" class="btn btn-outline-dark btn-sm btn-blr my-1 rounded-pill" href="{{ path('app_product_index') }}">Show all</a>
       <div class="d-inline btn-group w-100" role="group" aria-label="Basic example">
           {% for category in allCategory %}
+          {% if category %}
           <a class="my-1 btn btn-outline-dark btn-sm btn-blr rounded-pill" href="{{ path('app_product_index', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
+          {% endif %}
+
           {% endfor %}
       </div>
     </div>
@@ -46,7 +49,9 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.price }}</td>
                     <td class="text-center">{{ product.quantity }}</td>
+                    {% if product.fkCategoryId %}
                     <td class="text-center">{{ product.fkCategoryId.name }}</td>
+                    {% endif %}
                     <td class="text-center">{{ product.availability ? "&#x2713;" : "&#10008;"  }}</td>
                     <td class="text-center">{{ product.shownHidden ? "&#x2713;" : "&#10008;" }}</td>
                     <td>
