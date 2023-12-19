@@ -46,7 +46,11 @@
   {% endfor %}
 
   {# Calculate #}
-  {% set rating_media = intSumRating / intReview %}
+  {% if intReview != 0 %}
+    {% set rating_media = intSumRating / intReview  %}
+  {% else %}
+    {% set rating_media = 0 %}
+  {% endif %}
 
   {# Stars avarage start#}
   {% set maximum_stars = 5 %}

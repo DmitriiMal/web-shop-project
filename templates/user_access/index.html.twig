@@ -49,7 +49,37 @@
                     <label>{{ product.name }}</label>
                     <div class="details-content">
                         <p>Price: &euro;{{ product.price }}</p>
-                        <p><i class="fa-solid fa-star fa-lg me-1 text-warning shadow"></i>4.4 <span class="fw-lighter">(100+)</span></p>
+                        <p><i class="fa-solid fa-star fa-lg me-1 text-warning shadow"></i> 
+                            
+                            {% set intReview = 0 %}
+                            {% set intSumRating = 0 %}
+                           
+                            {% for item in reviews %}
+                                {% if item.id == product.id %}
+                                    {% set intReview = intReview + 1 %}
+                                    {% set intSumRating = intSumRating + item.rating %}
+                                {% endif %}
+                            {% endfor %}
+                          
+                            {# Calculate AVERAGE #}
+                            {% if intReview != 0 %}
+                                {% set rating_media = intSumRating / intReview %}
+                            {% else %}
+                                {% set rating_media = 0 %}
+                            {% endif %}
+                            {{rating_media}}
+                
+                            <span class="fw-lighter">
+                                {% set intSumQuantity = 0 %}
+                               
+                                {% for item in carts %}
+                                    {% if item.fkProduct.id == product.id and item.orderDate != null %}
+                                        {% set intSumQuantity = intSumQuantity + item.quantity %}
+                                    {% endif %}
+                                {% endfor %}
+                              
+                                ( {{intSumQuantity}} )
+                            </span></p>
                     </div>
                     <div class="buttons-box">
 

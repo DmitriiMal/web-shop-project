@@ -24,7 +24,7 @@ class ProductController extends AbstractController
 {
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function index(Request $request, PersistenceManagerRegistry $doctrine, ProductRepository $productRepository): Response
+    public function index(Request $request, PersistenceManagerRegistry $doctrine, ProductRepository $productRepository, ReviewsRepository $reviews): Response
     {
 
         $category = $request->query->get('fk_categoryID', 'all');
@@ -48,6 +48,7 @@ class ProductController extends AbstractController
             'products' => $products,
             'allCategory' => $allCategory,
             'category' => $category,
+            'reviews' => $reviews,
         ]);
     }
 
