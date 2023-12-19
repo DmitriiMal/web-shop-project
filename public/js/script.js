@@ -60,6 +60,7 @@ function displayPlus(e, id) {
   xhttp.onload = function () {
     if (this.status == 200) {
       let respons = JSON.parse(this.responseText);
+      console.log(respons);
       let qtty = JSON.parse(this.responseText)[0];
       let price = respons[1];
       let eachTotal = qtty * price;
@@ -67,6 +68,8 @@ function displayPlus(e, id) {
 
       let totalPriceElement = e.closest('.row').querySelector('.price');
       totalPriceElement.innerHTML = `&euro; ${eachTotal.toFixed(2)}`;
+
+      updateTotalQuantity(respons[2]);
     }
   };
   xhttp.open('GET', '/cart/plus/' + id, true);
@@ -85,31 +88,17 @@ function displayMinus(e, id) {
 
       let totalPriceElement = e.closest('.row').querySelector('.price');
       totalPriceElement.innerHTML = `&euro; ${eachTotal.toFixed(2)}`;
+
+      updateTotalQuantity(respons[2]);
     }
   };
   xhttp.open('GET', '/cart/minus/' + id, true);
   xhttp.send();
 }
-
-// Get cart items
-let itemQtty = 0;
-
-function getItems(id, qtty) {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onload = function () {
-    if (this.status == 200) {
-      // document.getElementById('content').innerHTML = this.responseText;
-      // console.log(this.responseText);
-      // itemQtty = this.responseText;
-      // e.Element.value = this.responseText;
-      console.log(qtty);
-    }
-  };
-  xhttp.open('GET', '/cart/qtty/' + id, true);
-  xhttp.send();
+function updateTotalQuantity(totalQuantity) {
+  // Update the displayed total quantity
+  document.getElementById('total-quantity').innerText = `Cart - ${totalQuantity} Item(s)`;
 }
-
-// console.log(typeof itemQtty);
 
 // /////////////////////////// //
 // /////// Google Maps /////// //

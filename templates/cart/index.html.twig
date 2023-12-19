@@ -5,7 +5,7 @@
   <div class="row row-cols-1 row-cols-lg-3">
     <div class="col-lg-8">
       <div class="card mt-4">
-        <div id="cartItems" class="card-header fw-bold">Cart - {{ cartObj | length }} Item(s)</div>
+        <div id="total-quantity" class="card-header fw-bold">Cart - {{ totalQuantity }} Item(s)</div>
 
         <!-- Dynamic cart item starts -->
         {% if cartObj %} {% for cart in cartObj %}
@@ -14,10 +14,14 @@
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
             <img class="col-sm-4 col-md-2 object-fit-cover mb-3 mb-sm-0 rounded" src="{{ asset('pictures/'~ cart.fkProduct.picture) }}" alt="img" />
             <div class="col-sm-4 col-md-6">
-              <p class="fw-bold">
-                {{ cart.fkProduct.name }} <span class="fw-lighter">&euro; {{ cart.fkProduct.price }}</span>
-              </p>
-              <p class="d-none d-sm-inline">{{ cart.fkProduct.description }}</p>
+              <div class="d-flex flex-column flex-md-row">
+                <p class="fw-bold">
+                  {{ cart.fkProduct.name }}
+                </p>
+                <p class="fw-lighter text-opacity-50 ms-md-5">&euro; {{ cart.fkProduct.price }}</p>
+              </div>
+
+              <p class="d-none d-md-inline">{{ cart.fkProduct.description }}</p>
             </div>
             <div class="col-sm-4 col-md-4 d-flex flex-column">
               <p class="fw-bold price" data-unit-price>&euro; {{ cart.fkProduct.price * cart.quantity|number_format(2) }}</p>
@@ -31,6 +35,7 @@
             </div>
           </div>
         </div>
+        {# {% set totalQuantity = totalQuantity + cart.quantity %} #}
         <!-- Dynamic cart item ends -->
         {% endfor %} {% else %}
         <!-- Static defoult cart item starts -->
