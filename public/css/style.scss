@@ -19,6 +19,20 @@ body {
   background: $light-color;
 }
 
+input {
+  accent-color: $second-color;
+}
+
+// img:broken::before {
+//   content: '';
+//   background-color: aqua;
+//   aspect-ratio: 1;
+// }
+
+.hidden {
+  visibility: hidden;
+}
+
 .container-prim {
   width: $width-container;
   margin: 130px auto 30px auto;
@@ -185,4 +199,16 @@ input[class^='button-']:hover {
     width: 3.5rem;
   }
 }
+
+// /////////////////////////// //
+// /////// Google Maps /////// //
+// /////////////////////////// //
+
+#map {
+  height: 55vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 @import 'media';
