@@ -52,11 +52,14 @@ class CartController extends AbstractController
     public function deleteFromCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, int $id): Response
     {
 
-        $user = $this->getUser();
+            $user = $this->getUser();
 
-        $product = $cartRepository -> find($id);
-        $entityManager -> remove($product);
-        $entityManager -> flush();
+            $product = $cartRepository -> find($id);
+
+        if($product != null){
+            $entityManager -> remove($product);
+            $entityManager -> flush();
+        }
 
         return $this->render('cart/index.html.twig', [ 
             'cartObj' => $cartRepository -> findBy(['fk_userID' => $user])
