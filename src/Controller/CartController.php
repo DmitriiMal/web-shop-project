@@ -75,13 +75,15 @@ class CartController extends AbstractController
 
         $cart = $cartRepository->find($id);
         $qtty = $cart->getQuantity();
+        $price = $cart->getPrice();
         $cart->setQuantity($qtty + 1);
-
+        $summOfCard = $price * $qtty;
 
         $entityManager->persist($cart);
         $entityManager->flush();
 
-        return new JsonResponse([$qtty + 1, $cart->getPrice()]);
+        // return new JsonResponse([$qtty + 1, $cart->getPrice()]);
+        return new JsonResponse([$qtty + 1, $price, $summOfCard]);
     }
 
 
@@ -99,6 +101,6 @@ class CartController extends AbstractController
         $entityManager->persist($cart);
         $entityManager->flush();
 
-        return new JsonResponse($qtty - 1);
+        return new JsonResponse([$qtty - 1, $cart->getPrice()]);
     }
 }
