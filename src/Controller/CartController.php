@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\Id;
 use App\Repository\ProductRepository;
 use App\Repository\CartRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/cart')]
@@ -90,11 +91,13 @@ class CartController extends AbstractController
         $cart = $cartRepository->find($id);
         $qtty = $cart->getQuantity();
         $cart->setQuantity($qtty - 1);
+        if (($qtty - 1) <= 0) {
+            return $this->redirectToRoute('app_cart_delete', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
 
         $entityManager->persist($cart);
         $entityManager->flush();
 
         return new JsonResponse($qtty - 1);
     }
-
 }
