@@ -27,7 +27,7 @@ class AdminType extends AbstractType
                     new NotBlank([
                         'message' => 'Please enter a e-mail'
                     ]),
-                    
+
                     new Email([
                         'message' => 'The email {{ value }} is not a valid email.'
                     ])
@@ -100,7 +100,7 @@ class AdminType extends AbstractType
             ])
             ->add('picture', FileType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' => 'Please enter price', 'accept' => 'image/png , image/jpg, image/jpeg'],
-                
+
                 'label' => 'Picture',
 
                 'mapped' => false,
@@ -120,18 +120,14 @@ class AdminType extends AbstractType
                 ],
             ])
 
-            ->add('birth_date',null,[
+            ->add('birth_date', null, [
                 "widget" => "single_text",
             ])
 
-                 ->add('banned',null,[
-                    'attr' => ['class' => 'form-check-input'],
-                    'label' => 'Banned'
-            ]) 
-
-
-
-        ;
+            ->add('banned', null, [
+                'attr' => ['class' => 'form-check-input'],
+                'label' => 'Banned'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

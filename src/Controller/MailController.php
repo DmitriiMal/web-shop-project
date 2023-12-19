@@ -22,7 +22,7 @@ class MailController extends AbstractController
     {
         // createFormBuilder is a shortcut to get the "form factory"
         // and then call "createBuilder()" on it
-
+        $msg = "";
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
 
@@ -41,14 +41,18 @@ class MailController extends AbstractController
                 ->html("Message from:<br><br>" . $data['name'] . "  <code><</code>" . $data['email'] . "<code>></code><br><br> Subject: " . $data['subject'] . "<br><br> Message:<br>" .$data['message']);
             try {
                 $mailer->send($email);
-                return new Response("Your message was successfully sent!");
+                $msg =  new Response("==Your message was successfully sent!");
+
             } 
             catch (TransportExceptionInterface $error) {
-                return new Response("Error: " . $error->getMessage());
+                return  new Response("==Error: " . $error->getMessage());
             }
         }
+        
+        
         return $this->render('mail/contact.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'msg' => $msg
         ]);
 
 
