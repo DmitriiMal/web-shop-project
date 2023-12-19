@@ -69,7 +69,7 @@ class CartController extends AbstractController
 
 
     #[Route('/plus/{id}', name: 'app_cart_plus', methods: ['GET', 'POST'])]
-    public function plusCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, int $id)
+    public function plusCart(EntityManagerInterface $entityManager, CartRepository $cartRepository, int $id)
     {
 
         $cart = $cartRepository->find($id);
@@ -81,4 +81,20 @@ class CartController extends AbstractController
 
         return new JsonResponse($qtty + 1);
     }
+
+
+    #[Route('/minus/{id}', name: 'app_cart_minus', methods: ['GET', 'POST'])]
+    public function minusCart(EntityManagerInterface $entityManager, CartRepository $cartRepository, int $id)
+    {
+
+        $cart = $cartRepository->find($id);
+        $qtty = $cart->getQuantity();
+        $cart->setQuantity($qtty - 1);
+
+        $entityManager->persist($cart);
+        $entityManager->flush();
+
+        return new JsonResponse($qtty - 1);
+    }
+
 }
