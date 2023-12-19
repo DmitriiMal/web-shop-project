@@ -16,6 +16,82 @@ let okAlert = () => {
 const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
 const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => new bootstrap.Popover(popoverTriggerEl));
 
+// ////////////////////////// //
+// ////// Cart buttons ////// //
+// ////////////////////////// //
+
+let plus = document.querySelectorAll('.plus');
+let minus = document.querySelectorAll('.minus');
+let quantity = document.getElementsByClassName('quantity');
+
+// const plusQtty = (index) => {
+//   quantity[index].value++;
+// };
+
+//decreases item quantity
+minus.forEach((btn, i) => {
+  btn.addEventListener('click', () => {
+    minusQtty(i);
+  });
+});
+
+const minusQtty = (index) => {
+  quantity[index].value--;
+  if (quantity[index].value < 0) {
+    quantity[index].value = 0;
+  }
+};
+
+function displayPlus(e, id) {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    if (this.status == 200) {
+      // document.getElementById('content').innerHTML = this.responseText;
+      // console.log(this.responseText);
+      // console.log(e.nextElementSibling);
+      // e.nextElementSibling.value = this.responseText;
+      console.log(JSON.parse(this.responseText));
+      console.log(this.responseText);
+    }
+  };
+  xhttp.open('GET', '/cart/plus/' + id, true);
+  xhttp.send();
+}
+
+function displayMinus(e, id) {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    if (this.status == 200) {
+      // document.getElementById('content').innerHTML = this.responseText;
+      // console.log(this.responseText);
+      // console.log(e.nextElementSibling);
+      e.nextElementSibling.value = this.responseText;
+    }
+  };
+  xhttp.open('GET', '/cart/minus/' + id, true);
+  xhttp.send();
+}
+
+// Get cart items
+let itemQtty = 0;
+
+function getItems(id, qtty) {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    if (this.status == 200) {
+      // document.getElementById('content').innerHTML = this.responseText;
+      // console.log(this.responseText);
+      // itemQtty = this.responseText;
+      // e.Element.value = this.responseText;
+      console.log(qtty);
+    }
+  };
+  xhttp.open('GET', '/cart/qtty/' + id, true);
+  xhttp.send();
+}
+
+// console.log(typeof itemQtty);
+
 // /////////////////////////// //
 // /////// Google Maps /////// //
 // /////////////////////////// //
@@ -33,64 +109,10 @@ function initMap() {
     zoom: 17,
   });
 
-  // console.log(map);
+  console.log(map);
 
   var pinpoint = new google.maps.Marker({
     position: CodeFactory,
     map: map,
   });
-}
-
-// ////////////////////////// //
-// ////// Cart buttons ////// //
-// ////////////////////////// //
-
-// let plus = document.querySelectorAll('.plus');
-// let minus = document.querySelectorAll('.minus');
-let quantity = document.getElementsByClassName('quantity');
-
-// const plusQtty = (index) => {
-//   quantity[index].value++;
-// };
-
-//decreases item quantity
-// minus.forEach((btn, i) => {
-//   btn.addEventListener('click', () => {
-//     minusQtty(i);
-//   });
-// });
-
-const minusQtty = (index) => {
-  quantity[index].value--;
-  if (quantity[index].value < 0) {
-    quantity[index].value = 0;
-  }
-};
-
-function displayPlus(e, id) {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onload = function () {
-    if (this.status == 200) {
-      // document.getElementById('content').innerHTML = this.responseText;
-      // console.log(this.responseText);
-      // console.log(e.nextElementSibling);
-      e.nextElementSibling.value = this.responseText;
-    }
-  };
-  xhttp.open('GET', '/cart/plus/' + id, true);
-  xhttp.send();
-}
-
-function displayMinus(e, id) {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onload = function () {
-    if (this.status == 200) {
-      // document.getElementById('content').innerHTML = this.responseText;
-      console.log(this.responseText);
-      console.log(e.nextElementSibling);
-      e.nextElementSibling.value = this.responseText;
-    }
-  };
-  xhttp.open('GET', '/cart/minus/' + id, true);
-  xhttp.send();
 }
