@@ -33,7 +33,7 @@ function initMap() {
     zoom: 17,
   });
 
-  console.log(map);
+  // console.log(map);
 
   var pinpoint = new google.maps.Marker({
     position: CodeFactory,
@@ -45,20 +45,20 @@ function initMap() {
 // ////// Cart buttons ////// //
 // ////////////////////////// //
 
-let plus = document.querySelectorAll('.plus');
-let minus = document.querySelectorAll('.minus');
+// let plus = document.querySelectorAll('.plus');
+// let minus = document.querySelectorAll('.minus');
 let quantity = document.getElementsByClassName('quantity');
 
-const plusQtty = (index) => {
-  quantity[index].value++;
-};
+// const plusQtty = (index) => {
+//   quantity[index].value++;
+// };
 
 //decreases item quantity
-minus.forEach((btn, i) => {
-  btn.addEventListener('click', () => {
-    minusQtty(i);
-  });
-});
+// minus.forEach((btn, i) => {
+//   btn.addEventListener('click', () => {
+//     minusQtty(i);
+//   });
+// });
 
 const minusQtty = (index) => {
   quantity[index].value--;
@@ -72,8 +72,8 @@ function displayPlus(e, id) {
   xhttp.onload = function () {
     if (this.status == 200) {
       // document.getElementById('content').innerHTML = this.responseText;
-      console.log(this.responseText);
-      console.log(e.nextElementSibling);
+      // console.log(this.responseText);
+      // console.log(e.nextElementSibling);
       e.nextElementSibling.value = this.responseText;
     }
   };
