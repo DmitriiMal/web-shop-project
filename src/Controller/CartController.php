@@ -91,7 +91,7 @@ class CartController extends AbstractController
         $cart = $cartRepository->find($id);
         $qtty = $cart->getQuantity();
         $cart->setQuantity($qtty - 1);
-        if ($qtty == 0) {
+        if (($qtty - 1) <= 0) {
             return $this->redirectToRoute('app_cart_delete', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
 
