@@ -10,20 +10,25 @@
 					<div class="rounded border border-dark border-opacity-50 p-5 align-self-center my-5">
 						<h3 class="text-center mb-3">Contact Form</h3>
 						{{ form_start(form) }}
-						{{ form_widget(form.name) }}
-						{{ form_widget(form.email) }}
-						{{ form_widget(form.subject) }}
-						{{ form_widget(form.message) }}
+						{{ form_widget(form.name, { 'value': '' }) }}
+						{{ form_widget(form.email, { 'value': '' }) }}
+						{{ form_widget(form.subject, { 'value': '' }) }}
+						{{ form_widget(form.message, { 'value': '' }) }}
 						<div class="mt-4">
-							{{ form_widget(form.agreeTerms) }}
+							{{ form_widget(form.agreeTerms, { 'checked': false }) }}
 						</div>
 						{{ form_end(form) }}
 						<button class="btn btn-lg btn-outline-primary d-block my-5 w-100" type="submit">send</button>
 						<div class="mt-4">
+							{% if msg %}
+								{% set mymsg = msg|split('==', 2) %}
+								{{ mymsg[1] }}
+							{% endif %}
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
+	<div id="map"></div>
 {% endblock %}
