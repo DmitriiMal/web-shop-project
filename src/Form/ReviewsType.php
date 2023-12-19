@@ -2,16 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\Product;
 use App\Entity\Reviews;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -20,15 +16,25 @@ class ReviewsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('rating', RadioType::class, 
+            ->add('rating', ChoiceType::class, 
             [
                 'constraints' => [
                     new NotBlank(['message' => "You cannot leave the input empty."]),
                 ],
-                'attr' => ['placeholder' => '0', 'min' => '0', 'max' => '5'],
+             // 'choice_label' => function ($choice, string $key, mixed $value): TranslatableMessage|string {
+                //     return '&#9734;';
+                // },
+                'label_html' => true,
+                'choices' => [
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                ],
+                'expanded' => true
             ])
-
-        
+            
             ->add('review', null, 
             [
                 'constraints' => [
@@ -38,15 +44,6 @@ class ReviewsType extends AbstractType
                 'attr' => ['placeholder' => 'Please write a review.'],
             ])
 
-//             ->add('fk_user', EntityType::class, [
-//                 'class' => User::class,
-// 'choice_label' => 'id',
-//             ])
-
-//             ->add('fk_product', EntityType::class, [
-//                 'class' => Product::class,
-// 'choice_label' => 'id',
-//             ])
         ;
     }
 
