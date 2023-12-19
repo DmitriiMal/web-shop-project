@@ -199,7 +199,9 @@ input[class^='button-']:hover {
     width: 3.5rem;
   }
 }
-
+.no-spinners {
+  appearance: textfield;
+}
 // /////////////////////////// //
 // /////// Google Maps /////// //
 // /////////////////////////// //

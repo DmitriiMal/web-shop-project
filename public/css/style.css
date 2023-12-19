@@ -718,6 +718,12 @@ input[class^=button-]:hover {
   width: 3.5rem;
 }
 
+.no-spinners {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+
 #map {
   height: 55vh;
   width: 100%;
