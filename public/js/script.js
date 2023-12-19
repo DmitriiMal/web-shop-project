@@ -25,11 +25,11 @@ let minus = document.querySelectorAll('.minus');
 let quantity = document.getElementsByClassName('quantity');
 
 //increases item quantity
-plus.forEach((btn, i) => {
-  btn.addEventListener('click', () => {
-    plusQtty(i);
-  });
-});
+// plus.forEach((btn, i) => {
+//   btn.addEventListener('click', () => {
+//     plusQtty(i);
+//   });
+// });
 
 const plusQtty = (index) => {
   quantity[index].value++;
@@ -81,4 +81,18 @@ function initMap() {
     position: CodeFactory,
     map: map,
   });
+}
+
+function loadDoc(e, id) {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    if (this.status == 200) {
+      // document.getElementById('content').innerHTML = this.responseText;
+      console.log(this.responseText);
+      console.log(e.nextElementSibling);
+      e.nextElementSibling.value = this.responseText;
+    }
+  };
+  xhttp.open('GET', '/cart/plus/' + id, true);
+  xhttp.send();
 }

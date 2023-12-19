@@ -64,7 +64,7 @@ class ProductController extends AbstractController
             if ($picture) {
                 $pictureFileName = $fileUploader->upload($picture, "pictures");
             } else {
-                $pictureFileName = "default.jpg";
+                $pictureFileName = "default.png";
             }
             $product->setPicture($pictureFileName);
 
@@ -99,7 +99,7 @@ class ProductController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $form->get('picture')->getData(); // this is from the form (new picture)
             if ($picture) {
-                if ($product->getPicture() != "default.jpg") {
+                if ($product->getPicture() != "default.png") {
                     unlink($this->getParameter("picture_directory") . "/" . $product->getPicture()); // from product old picture
                 }
 
@@ -123,7 +123,7 @@ class ProductController extends AbstractController
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
-            if ($product->getPicture() != "default.jpg") {
+            if ($product->getPicture() != "default.png") {
                 unlink($this->getParameter("picture_directory") . "/" . $product->getPicture()); // from product old picture
             }
 
