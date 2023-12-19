@@ -83,7 +83,7 @@ function initMap() {
   });
 }
 
-function loadDoc(e, id) {
+function displayPlus(e, id) {
   let xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
     if (this.status == 200) {
@@ -94,5 +94,19 @@ function loadDoc(e, id) {
     }
   };
   xhttp.open('GET', '/cart/plus/' + id, true);
+  xhttp.send();
+}
+
+function displayMinus(e, id) {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    if (this.status == 200) {
+      // document.getElementById('content').innerHTML = this.responseText;
+      console.log(this.responseText);
+      console.log(e.nextElementSibling);
+      e.nextElementSibling.value = this.responseText;
+    }
+  };
+  xhttp.open('GET', '/cart/minus/' + id, true);
   xhttp.send();
 }
