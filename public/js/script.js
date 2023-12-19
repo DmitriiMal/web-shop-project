@@ -20,38 +20,53 @@ const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => new bootst
 // ////// Cart buttons ////// //
 // ////////////////////////// //
 
-let plus = document.querySelectorAll('.plus');
-let minus = document.querySelectorAll('.minus');
-let quantity = document.getElementsByClassName('quantity');
+// let plus = document.querySelectorAll('.plus');
+// let minus = document.querySelectorAll('.minus');
+// let quantity = document.getElementsByClassName('quantity');
 
 // const plusQtty = (index) => {
 //   quantity[index].value++;
 // };
 
 //decreases item quantity
-minus.forEach((btn, i) => {
-  btn.addEventListener('click', () => {
-    minusQtty(i);
-  });
-});
+// plus.forEach((btn, i) => {
+//   btn.addEventListener('click', () => {
+//     plusQtty(i);
+//   });
+// });
 
-const minusQtty = (index) => {
-  quantity[index].value--;
-  if (quantity[index].value < 0) {
-    quantity[index].value = 0;
-  }
-};
+// const plusQtty = (index) => {
+//   quantity[index].value++;
+// };
+
+//decreases item quantity
+// minus.forEach((btn, i) => {
+//   btn.addEventListener('click', () => {
+//     minusQtty(i);
+//   });
+// });
+
+// const minusQtty = (index) => {
+//   quantity[index].value--;
+//   if (quantity[index].value < 0) {
+//     quantity[index].value = 0;
+//   }
+// };
+
+let priceCard = document.querySelectorAll('.price');
 
 function displayPlus(e, id) {
   let xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
     if (this.status == 200) {
-      // document.getElementById('content').innerHTML = this.responseText;
-      // console.log(this.responseText);
-      // console.log(e.nextElementSibling);
-      // e.nextElementSibling.value = this.responseText;
-      console.log(JSON.parse(this.responseText));
-      console.log(this.responseText);
+      let respons = JSON.parse(this.responseText);
+      let qtty = JSON.parse(this.responseText)[0];
+      let price = respons[1];
+      let eachTotal = qtty * price;
+      e.nextElementSibling.value = qtty;
+
+      let totalPriceElement = e.closest('.row').querySelector('.price');
+      totalPriceElement.innerHTML = `&euro; ${eachTotal.toFixed(2)}`;
     }
   };
   xhttp.open('GET', '/cart/plus/' + id, true);
@@ -62,10 +77,14 @@ function displayMinus(e, id) {
   let xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
     if (this.status == 200) {
-      // document.getElementById('content').innerHTML = this.responseText;
-      // console.log(this.responseText);
-      // console.log(e.nextElementSibling);
-      e.nextElementSibling.value = this.responseText;
+      let respons = JSON.parse(this.responseText);
+      let qtty = JSON.parse(this.responseText)[0];
+      let price = respons[1];
+      let eachTotal = qtty * price;
+      e.previousElementSibling.value = qtty;
+
+      let totalPriceElement = e.closest('.row').querySelector('.price');
+      totalPriceElement.innerHTML = `&euro; ${eachTotal.toFixed(2)}`;
     }
   };
   xhttp.open('GET', '/cart/minus/' + id, true);
