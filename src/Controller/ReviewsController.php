@@ -54,11 +54,12 @@ class ReviewsController extends AbstractController
             $entityManager->persist($cart);
             $entityManager->flush();
 
-
             //('app_user_show', {'id': app.user.id})
             
             return $this->redirectToRoute('app_user_show', [
-                "id"=> $this->getUser()
+                // "id"=> $this->getUser()->getId()
+                "id"=> $cart->getFkUserID()->getId()
+                //the error was a string, it wanted a string and not an object this time so only id
             ]);
         }
 
@@ -81,19 +82,25 @@ class ReviewsController extends AbstractController
     public function delete(Request $request, Reviews $review, EntityManagerInterface $entityManager, CartRepository $carts): Response
     {
         if ($this->isCsrfTokenValid('delete'.$review->getId(), $request->request->get('_token'))) {
-            $Idreview = $review->getId();
+            $Idproduct = $review->getFkProduct()->getId();
+            
+            //----------------------------------------------
+            // $cart = $carts->find(["id" => $Idreview]); 
+            // $cart -> setFkReview(null);
 
-            $entityManager->remove($review);
-            $entityManager->flush();
+            // $entityManager->persist($cart);
+            // $entityManager->flush();
+            
+            // #[ORM\JoinColumn(onDelete: 'SET NULL')] in Cart.php
 
             //----------------------------------------------
-            $cart = $carts->find(["id" => $Idreview]); 
-            $cart -> setFkReview(null);
-
-            $entityManager->persist($cart);
-            $entityManager->flush();            
+            $entityManager->remove($review);
+            $entityManager->flush();
+                        
         }
 
-        return $this->redirectToRoute('app_reviews_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_product_show', [
+            "id"=> $Idproduct
+        ], Response::HTTP_SEE_OTHER);
     }
 }

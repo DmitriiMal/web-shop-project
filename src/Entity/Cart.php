@@ -39,6 +39,7 @@ class Cart
     private ?Product $fk_product = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(onDelete: 'SET NULL')]  // MANUAL !Atention//
     private ?Reviews $fk_review = null;
 
     public function getId(): ?int

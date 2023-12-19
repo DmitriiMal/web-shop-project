@@ -38,19 +38,35 @@
   {# {{ form_widget(form }}#}
 
   <h1 class="text-center">Reviews</h1>
+  {% set intReview = 0 %}
+  {% set intSumRating = 0 %}
+  {% for item in review %}
+     {% set intReview = intReview + 1 %}
+     {% set intSumRating = intSumRating + item.rating %}
+  {% endfor %}
+
+  {# Calculate #}
+  {% set rating_media = intSumRating / intReview %}
+
   {# Stars avarage start#}
-  <div class="stars ms-5">
-    <input value="5" name="random" id="star5" type="radio">
-    <label for="star5"></label>
-    <input value="4" name="random" checked id="star4" type="radio">
-    <label for="star4"></label>
-    <input value="3" name="random" id="star3" type="radio">
-    <label for="star3"></label>
-    <input value="2" name="random" id="star2" type="radio">
-    <label for="star2"></label>
-    <input value="1" name="random" id="star1" type="radio">
-    <label for="star1"></label>
-  </div>
+  {% set maximum_stars = 5 %}
+  {% if rating_media <= maximum_stars %}
+    {% for star in 0..(rating_media) %}
+      {% if star != 0 %}
+        <i class="bi bi-star-fill"></i>
+      {% endif %}
+    {% endfor %}
+    {% if (rating_media)-(rating_media|round(0, 'floor')) != 0 %}
+      <i class="bi bi-star-half"></i>
+    {% endif %}
+    {% for star in 0..(maximum_stars - rating_media|round(0, 'ceil')) %}
+      {% if star != 0 %}
+        <i class="bi bi-star"></i>
+      {% endif %}
+    {% endfor %}
+    {% else %}
+      <p>Rating exceeds limit.</p>
+  {% endif %}
   {# Stars end #}
   <section class="rounded border border-2" id="testimonials">
 
