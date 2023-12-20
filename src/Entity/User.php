@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -70,6 +71,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'fk_user', targetEntity: Reviews::class)]
     private Collection $reviews;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_expiration = null;
 
     public function __construct()
     {
@@ -317,6 +321,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $review->setFkUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateExpiration(): ?\DateTimeInterface
+    {
+        return $this->date_expiration;
+    }
+
+    public function setDateExpiration(?\DateTimeInterface $date_expiration): static
+    {
+        $this->date_expiration = $date_expiration;
 
         return $this;
     }
