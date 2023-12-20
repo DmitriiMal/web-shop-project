@@ -9,7 +9,7 @@
             <div class="d-inline btn-group w-100" role="group" aria-label="Basic example">
                 {% for category in allCategory %}
                 {% if category %}
-                <a class="my-1 btn btn-outline-primary btn-sm btn-blr rounded-pill" href="{{ path('app_user', { fk_categoryID: category.name }) }}">{{ category.name }}</a>
+                <a class="my-1 btn btn-outline-primary btn-sm btn-blr rounded-pill" href="{{ path('app_user', { fk_categoryID: category.name, txt: txt??'' }) }}">{{ category.name }}</a>
                 {% endif %}
 
                 {% endfor %}

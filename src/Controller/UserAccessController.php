@@ -20,20 +20,37 @@ class UserAccessController extends AbstractController
     #[Route('/', name: 'app_user', methods: ['GET'])]
     public function index(Request $request, PersistenceManagerRegistry $doctrine, ProductRepository $productRepository, ReviewsRepository $reviews, CartRepository $carts): Response
     {
-
+        $txt = $request->request->get('id');
         $category = $request->query->get('fk_categoryID', 'all');
         $entityManager = $doctrine->getManager();
         $allCategory = $doctrine->getRepository(FkCategory::class)->findAll();
 
+        $filter = $request->query->get('txt');
+        
+        
         if ($category !== 'all') {
-            $products = $entityManager
+            if(isset($filter) && !empty($filter)){
+                $products = $entityManager
                 ->getRepository(Product::class)
                 ->createQueryBuilder('p')
                 ->join('p.fk_categoryID', 'c')
                 ->andWhere('c.name = :category')
+                ->andWhere('p.name like :txt')
+                ->setParameter('txt', $filter."%")
                 ->setParameter('category', $category)
                 ->getQuery()
                 ->getResult();
+            }
+            else{
+                $products = $entityManager
+                    ->getRepository(Product::class)
+                    ->createQueryBuilder('p')
+                    ->join('p.fk_categoryID', 'c')
+                    ->andWhere('c.name = :category')
+                    ->setParameter('category', $category)
+                    ->getQuery()
+                    ->getResult();
+            }
         } else {
             $products = $doctrine->getRepository(Product::class)->findAll();
         }
@@ -68,20 +85,32 @@ class UserAccessController extends AbstractController
         return new JsonResponse($out);
     }
 
-    #[Route('/filter/', name: 'app_filter', methods: ['GET', 'POST'])]
+    #[Route('/filter', name: 'app_filter', methods: ['GET', 'POST'])]
     public function filter(Request $request, PersistenceManagerRegistry $doctrine, ReviewsRepository $reviews, CartRepository $carts)
     {
         $txt = $request->request->get('search');
+        $filter = $request->request->get('filter', 'all');
 
         $entityManager = $doctrine->getManager();
         $allCategory = $doctrine->getRepository(FkCategory::class)->findAll();
 
-
-        $qb = $entityManager
-            ->getRepository(Product::class)
-            ->createQueryBuilder('p')
-            ->where('p.name like :txt')
-            ->setParameter('txt', $txt."%");
+        if($filter !== "all"){
+            $qb = $entityManager
+                ->getRepository(Product::class)
+                ->createQueryBuilder('p')
+                ->join('p.fk_categoryID', 'c')
+                ->andWhere('c.name = :category')
+                ->andWhere('p.name like :txt')
+                ->setParameter('txt', $txt."%")
+                ->setParameter('category', $filter);
+        }
+        else{
+            $qb = $entityManager
+                ->getRepository(Product::class)
+                ->createQueryBuilder('p')
+                ->andWhere('p.name like :txt')
+                ->setParameter('txt', $txt."%");
+        }
 
         $query = $qb->getQuery();
         $products = $query->execute();
@@ -91,6 +120,7 @@ class UserAccessController extends AbstractController
             'allCategory' => $allCategory,
             'reviews' => $reviews->findAll(),
             'carts' => $carts->findAll(),
+            'txt' => $txt
         ]);
     }
 
