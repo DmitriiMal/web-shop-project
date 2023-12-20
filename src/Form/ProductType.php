@@ -96,8 +96,6 @@ class ProductType extends AbstractType
                 },
             ])
 
-            // yesterday I need a thing, I search order_by in websote, I not found it.... you show me that it is easy
-
             ->add('availability',null,[
                 'attr' => ['class' => 'form-check-input'],
                 'label' => 'Available'
