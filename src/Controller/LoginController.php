@@ -17,6 +17,8 @@ class LoginController extends AbstractController
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }
+        $session = $this->get('session');
+        $session->set('nav_total', gettotal());
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
