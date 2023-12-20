@@ -52,7 +52,7 @@
 {% if is_granted('ROLE_ADMIN') %}
 <div class="w-25 form-check form-switch ps-3">
   {{ form_row(form.banned) }}
-  {{ form_row(form.date_expiration) }}
+  {# {{ form_row(form.date_expiration) }} #}
 </div>
 {% endif %}
 <hr class="my-3" />

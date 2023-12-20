@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Form;
+use PHPUnit\Runner\BeforeTestHook;
 
 use App\Entity\User;
+use Doctrine\DBAL\Types\DateType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -139,12 +142,18 @@ class UserType extends AbstractType
                 ],
             ])
             
-            ->add('date_expiration',null,[
-                "widget" => "single_text",
-            ]);
+            // ->add('date_expiration',DateTimeType::class,[
+            //     "required" => false,
+            //     "widget" => "single_text",
+            // ])
+            ;
         ;
     }
-
+// have you created the column new? or you had it before?
+// hae you forced the entity to update the db
+// tbh, i am not sure what is the issue, but normally i would not add anything new in the last second, tomorrow is the deadline
+// other groups have nothing to show 
+// what i can do is you can send me the project on slakc, and at 7 pm today i can check it
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
