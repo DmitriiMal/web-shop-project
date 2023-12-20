@@ -47,7 +47,7 @@ class CartController extends AbstractController
         $entityManager->persist($cartObj);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/delete/{id}', name: 'app_cart_delete', methods: ['GET', 'POST'])]
