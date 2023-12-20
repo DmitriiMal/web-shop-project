@@ -137,6 +137,10 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+            ])
+            
+            ->add('date_expiration',null,[
+                "widget" => "single_text",
             ]);
         ;
     }
