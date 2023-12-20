@@ -56,13 +56,14 @@
 
   {% endif %} 
   <div id="cart" class="{{ is_granted('IS_AUTHENTICATED_FULLY') ? "" : "hidden"}}">
-    <a href="{{ path('app_cart_show') }}" class=""
-      ><i class="fa-solid fa-cart-shopping fe-lg"></i>
+    <a id="total-quantity-navbar" href="{{ path('app_cart_show') }}" class=""
+      >
+      {# <i class="fa-solid fa-cart-shopping fe-lg"></i> #}
       {# {% set nav_total = app.session.get('nav_total') %}
       {% if not nav_total == 0  %}
       <span id="total-quantity-navbar" class="cart-item rounded-pill">{{ nav_total }}</span>
       {% endif %} #}
-      <span id="total-quantity-navbar" class="cart-item rounded-pill"></span>
+      {# <span id="total-quantity-navbar" class="cart-item rounded-pill"></span> #}
       
     </a>
   </div>

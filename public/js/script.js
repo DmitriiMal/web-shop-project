@@ -27,11 +27,19 @@ function updateNavQtty() {
   xhttp.onload = function () {
     if (this.status === 200) {
       let response = JSON.parse(this.responseText);
-      // console.log(response);
       let totalQtty = response[1];
-
-      navbarCart.innerHTML = totalQtty;
-      console.log('yes');
+      if (totalQtty == 0) {
+        navbarCart.innerHTML = `<i class="fa-solid fa-cart-shopping fe-lg"></i>`;
+      } else if (totalQtty > 99) {
+        navbarCart.innerHTML = `<i class="fa-solid fa-cart-shopping fe-lg"></i><span id="total-quantity-navbar" class="cart-item rounded-pill">99+</span>`;
+      } else {
+        navbarCart.innerHTML = `<i class="fa-solid fa-cart-shopping fe-lg"></i><span id="total-quantity-navbar" class="cart-item rounded-pill">${totalQtty}</span>`;
+      }
+      // if (totalQtty !== 0) {
+      //   navbarCart.innerHTML = `<i class="fa-solid fa-cart-shopping fe-lg"></i><span id="total-quantity-navbar" class="cart-item rounded-pill">${totalQtty}</span>`;
+      // } else {
+      //   navbarCart.innerHTML = `<i class="fa-solid fa-cart-shopping fe-lg"></i>`;
+      // }
     }
   };
   xhttp.open('GET', '/cart/get-total-sum', true);
