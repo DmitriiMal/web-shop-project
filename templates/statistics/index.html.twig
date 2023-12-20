@@ -10,20 +10,120 @@
 <div class="container-prim pt-5">
     <h1>View statistics:</h1>
 
-    <h3>Products</h3>
+
+    <h3>Order date (SALES):</h3>
     <table>
         <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>    
+            <th class="text-center">&nbsp;</th>
+            <th class="text-center">Order Date</th>
+            <th class="text-center">Total</th>
+        </tr>
+        {% set total = 0 %}
+        {% set top = 0 %}
+
+        {% for item in byorderdate %}
+        {% set total = total + item.total %}
+        {% set top = top + 1 %}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class="text-center">{{top}}</td>
+            <td class="text-center">{{ item.order_date|date('d.m.Y') }}</td>
+            <td class="text-center">&euro;{{item.total}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="2" class="text-end">Total:</th>
+            <th class="text-center">&euro;{{total}}</th>
         </tr>
     </table>
+
+    <hr>
+
+    <h3>Categories (SALES):</h3>
+    <table>
+        <tr>
+            <th class="text-center">Top</th>
+            <th>Categories</th>
+            <th>Quantity</th>
+            <th class="text-center">Total</th>
+        </tr>
+        {% set total = 0 %}
+        {% set top = 0 %}
+
+        {% for item in bycategory %}
+        {% set total = total + item.total %}
+        {% set top = top + 1 %}
+        <tr>
+            <td class="text-center">{{top}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.quantity}}</td>
+            <td class="text-center">&euro;{{item.total}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="3" class="text-end">Total:</th>
+            <th class="text-center">&euro;{{total}}</th>
+        </tr>
+    </table>
+
+
+    <hr>
+
+
+    <h3>Top products (SALES):</h3>
+    <table>
+        <tr>
+            <th class="text-center">Top</th>
+            <th>&nbsp;</th>
+            <th>Product</th>
+            <th class="text-center">Quantity</th>
+        </tr>
+        {% set total = 0 %}
+        {% set top = 0 %}
+
+        {% for item in byproduct %}
+        {% set total = total + item.quantity %}
+        {% set top = top + 1 %}
+        <tr>
+            <td class="text-center">{{top}}</td>
+            <td><img class='rounded img-thumbnail asp-1 object-fit-cover shadow-sm' src='{{ asset('pictures/'~ item.picture) }}' alt='{{ item.name }}' width='60px'></td></td>
+            <td>{{item.name}}</td>
+            <td class="text-center">{{item.quantity}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="3" class="text-end">Total:</th>
+            <th class="text-center">{{total}}</th>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h3>Top Users (SALES):</h3>
+    <table>
+        <tr>
+            <th class="text-center">Top</th>
+            <th>&nbsp;</th>
+            <th>Name</th>
+            <th class="text-center">Euros</th>
+        </tr>
+        {% set total = 0 %}
+        {% set top = 0 %}
+
+        {% for item in byuser %}
+        {% set total = total + item.total %}
+        {% set top = top + 1 %}
+        <tr>
+            <td class="text-center">{{top}}</td>
+            <td><img class='rounded img-thumbnail asp-1 object-fit-cover shadow-sm' src='{{ asset('pictures/users/'~ item.picture) }}' alt='{{ item.fname }}' width='60px'></td></td>
+            <td>{{item.fname}} {{item.lname}}</td>
+            <td class="text-center">&euro;{{item.total}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th colspan="3" class="text-end">Total:</th>
+            <th class="text-center">&euro;{{total}}</th>
+        </tr>
+    </table>
+    
 </div>
 {% endblock %}

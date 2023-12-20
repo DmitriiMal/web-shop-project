@@ -54,6 +54,27 @@ const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => new bootst
 // };
 
 let priceCard = document.querySelectorAll('.price');
+let navbarCart = document.querySelector('#total-quantity-navbar');
+
+function updateTotalSum() {
+  let xhttp = new XMLHttpRequest();
+  xhttp.onload = function () {
+    if (this.status === 200) {
+      let response = JSON.parse(this.responseText);
+
+      console.log(response);
+
+      let totalSumElement = document.getElementById('sum');
+      totalSumElement.innerHTML = `&euro; ${response[0].toFixed(2)}`;
+
+      navbarCart.innerHTML = response[1];
+    }
+  };
+  xhttp.open('GET', '/cart/get-total-sum', true);
+  console.log('AJAX');
+  xhttp.send();
+}
+updateTotalSum();
 
 function displayPlus(e, id) {
   let xhttp = new XMLHttpRequest();
@@ -70,6 +91,7 @@ function displayPlus(e, id) {
       totalPriceElement.innerHTML = `&euro; ${eachTotal.toFixed(2)}`;
 
       updateTotalQuantity(respons[2]);
+      updateTotalSum(); // Call the function to update the total sum
     }
   };
   xhttp.open('GET', '/cart/plus/' + id, true);
@@ -90,38 +112,17 @@ function displayMinus(e, id) {
       totalPriceElement.innerHTML = `&euro; ${eachTotal.toFixed(2)}`;
 
       updateTotalQuantity(respons[2]);
+      updateTotalSum(); // Call the function to update the total sum
     }
   };
   xhttp.open('GET', '/cart/minus/' + id, true);
   xhttp.send();
 }
 
-// function getData() {
-//   let xhttp = new XMLHttpRequest();
-//   xhttp.onload = function () {
-//     if (this.status == 200) {
-//       console.log(this.responseText);
-// let respons = JSON.parse(this.responseText);
-// let qtty = JSON.parse(this.responseText)[0];
-// let price = respons[1];
-// let eachTotal = qtty * price;
-// e.previousElementSibling.value = qtty;
-
-// let totalPriceElement = e.closest('.row').querySelector('.price');
-// totalPriceElement.innerHTML = `&euro; ${eachTotal.toFixed(2)}`;
-
-// updateTotalQuantity(respons[2]);
-//     }
-//   };
-//   xhttp.open('GET', '/navbar', true);
-//   xhttp.send();
-// }
-// getData();
-
 function updateTotalQuantity(totalQuantity) {
   // Update the displayed total quantity
   document.getElementById('total-quantity').innerText = `Cart - ${totalQuantity} Item(s)`;
-  document.getElementById('total-quantity-navbar').innerText = totalQuantity;
+  // navbarCart.innerText = totalQuantity;
 }
 
 // /////////////////////////// //
