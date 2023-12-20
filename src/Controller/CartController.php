@@ -120,6 +120,15 @@ class CartController extends AbstractController
     }
 
 
+    #[Route('/get-total-sum', name: 'app_get_total_sum', methods: ['GET'])]
+    public function getTotalSum(CartRepository $cartRepository): JsonResponse
+    {
+        $user = $this->getUser();
+        $totalSum = $cartRepository->getTotalSumForUser($user);
+
+        return new JsonResponse(['totalSum' => $totalSum]);
+    }
+
     // #[Route('/navbar', name: 'app_cart_navbar', methods: ['GET'])]
     // public function Navbar(ProductRepository $productRepository, CartRepository $cartRepository): Response
     // {
