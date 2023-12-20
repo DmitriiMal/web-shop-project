@@ -24,6 +24,10 @@ class UserAccessController extends AbstractController
         $category = $request->query->get('fk_categoryID', 'all');
         $entityManager = $doctrine->getManager();
         $allCategory = $doctrine->getRepository(FkCategory::class)->findAll();
+        $session = $request->getSession();
+        $id = $this->getUser()->getId();
+        $nav_total = $carts->getQtty($id);
+        $session->set('nav_total', $nav_total);
 
         if ($category !== 'all') {
             $products = $entityManager
