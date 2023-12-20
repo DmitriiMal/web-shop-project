@@ -72,13 +72,14 @@ nav .links {
 
   .cart-item {
     position: absolute;
-    left: 12px;
+    left: 30%;
     top: 5px;
     background-color: $third-color;
     border: 1px $second-color solid;
     text-align: center;
     font-size: 12px;
     padding: 2px 4px;
+    min-width: 20px;
   }
 }
 

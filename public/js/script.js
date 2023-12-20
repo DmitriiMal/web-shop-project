@@ -98,6 +98,7 @@ function displayMinus(e, id) {
 function updateTotalQuantity(totalQuantity) {
   // Update the displayed total quantity
   document.getElementById('total-quantity').innerText = `Cart - ${totalQuantity} Item(s)`;
+  document.getElementById('total-quantity-navbar').innerText = totalQuantity;
 }
 
 // /////////////////////////// //

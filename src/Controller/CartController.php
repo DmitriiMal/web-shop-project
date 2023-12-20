@@ -57,6 +57,7 @@ class CartController extends AbstractController
     {
 
         $user = $this->getUser();
+        $totalQuantity = $cartRepository->getTotalQuantity();
 
         $product = $cartRepository->find($id);
         if ($product != null) {
@@ -66,7 +67,8 @@ class CartController extends AbstractController
         }
 
         return $this->render('cart/index.html.twig', [
-            'cartObj' => $cartRepository->findBy(['fk_userID' => $user])
+            'cartObj' => $cartRepository->findBy(['fk_userID' => $user]),
+            'totalQuantity' => $totalQuantity,
         ]);
     }
 
@@ -113,7 +115,18 @@ class CartController extends AbstractController
     {
 
         $totalQuantity = $cartRepository->getTotalQuantity();
-
         return $totalQuantity;
+    }
+
+
+    #[Route('/navbar', name: 'app_cart_navbar', methods: ['GET'])]
+    public function Navbar(ProductRepository $productRepository, CartRepository $cartRepository): Response
+    {
+
+        $totalQuantity = $cartRepository->getTotalQuantity();
+
+        return $this->render('components/navbar.html.twig', [
+            'totalQuantity' => $totalQuantity,
+        ]);
     }
 }

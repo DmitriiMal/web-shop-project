@@ -155,13 +155,14 @@ nav .links {
 }
 #cart .cart-item {
   position: absolute;
-  left: 12px;
+  left: 30%;
   top: 5px;
   background-color: #6e0f10;
   border: 1px #a88362 solid;
   text-align: center;
   font-size: 12px;
   padding: 2px 4px;
+  min-width: 20px;
 }
 
 nav .links li {
