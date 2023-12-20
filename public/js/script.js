@@ -55,6 +55,10 @@ const popoverList = [...popoverTriggerList].map((popoverTriggerEl) => new bootst
 
 let priceCard = document.querySelectorAll('.price');
 let navbarCart = document.querySelector('#total-quantity-navbar');
+let totalSumElement = document.getElementById('sum');
+let serviceElement = document.getElementById('service');
+let discountElement = document.getElementById('discount');
+let totalElement = document.getElementById('total');
 
 function updateTotalSum() {
   let xhttp = new XMLHttpRequest();
@@ -62,16 +66,23 @@ function updateTotalSum() {
     if (this.status === 200) {
       let response = JSON.parse(this.responseText);
 
-      console.log(response);
-
-      let totalSumElement = document.getElementById('sum');
-      totalSumElement.innerHTML = `&euro; ${response[0].toFixed(2)}`;
-
-      navbarCart.innerHTML = response[1];
+      let totalQtty = response[1];
+      let sum = response[0];
+      let service = 4;
+      let totalSum = sum + service;
+      let discount = 10;
+      if (sum >= 100) {
+        totalSum = sum - (sum * discount) / 100 + service;
+      }
+      console.log(totalSum.toFixed(2));
+      totalSumElement.innerHTML = `&euro; ${sum.toFixed(2)}`;
+      serviceElement.innerHTML = service;
+      discountElement.innerHTML = `${discount} %`;
+      totalElement.innerHTML = `&euro; ${totalSum.toFixed(2)}`;
+      navbarCart.innerHTML = totalQtty;
     }
   };
   xhttp.open('GET', '/cart/get-total-sum', true);
-  console.log('AJAX');
   xhttp.send();
 }
 updateTotalSum();
@@ -81,7 +92,6 @@ function displayPlus(e, id) {
   xhttp.onload = function () {
     if (this.status == 200) {
       let respons = JSON.parse(this.responseText);
-      console.log(respons);
       let qtty = JSON.parse(this.responseText)[0];
       let price = respons[1];
       let eachTotal = qtty * price;
@@ -141,8 +151,6 @@ function initMap() {
     center: CodeFactory,
     zoom: 17,
   });
-
-  console.log(map);
 
   var pinpoint = new google.maps.Marker({
     position: CodeFactory,
