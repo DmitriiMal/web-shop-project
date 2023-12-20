@@ -155,13 +155,14 @@ nav .links {
 }
 #cart .cart-item {
   position: absolute;
-  left: 12px;
+  left: 30%;
   top: 5px;
   background-color: #6e0f10;
   border: 1px #a88362 solid;
   text-align: center;
   font-size: 12px;
   padding: 2px 4px;
+  min-width: 20px;
 }
 
 nav .links li {
@@ -181,18 +182,18 @@ nav .links li a:hover {
 
 .paste-button {
   position: relative;
-  display: block;
-  margin-right: 3rem;
+  display: flex;
 }
 .paste-button #avatar {
   aspect-ratio: 1;
   border-radius: 50%;
   width: 50px;
+  height: 80%;
+  margin-top: auto;
+  margin-bottom: auto;
   border: 1px #a88362 solid;
   padding: 1px;
   background-color: #eaece8;
-  position: absolute;
-  top: 15px;
 }
 
 .drop-button {
@@ -209,6 +210,7 @@ nav .links li a:hover {
   display: none;
   font-size: 14px;
   position: absolute;
+  margin-top: 80px;
   z-index: 11;
   min-width: 200px;
   background-color: #212941;
@@ -718,11 +720,18 @@ input[class^=button-]:hover {
   width: 3.5rem;
 }
 
+.no-spinners {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+
 #map {
   height: 55vh;
   width: 100%;
   margin: 0;
   padding: 0;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 500px) {

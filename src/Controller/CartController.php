@@ -20,11 +20,13 @@ class CartController extends AbstractController
     #[Route('/', name: 'app_cart_show', methods: ['GET'])]
     public function Cart(ProductRepository $productRepository, CartRepository $cartRepository): Response
     {
-
+        $id = $this->getUser()->getId();
+        $totalQuantity = $cartRepository->getQtty($id);
         $user = $this->getUser();
 
         return $this->render('cart/index.html.twig', [
-            'cartObj' => $cartRepository->findBy(['fk_userID' => $user])
+            'cartObj' => $cartRepository->findBy(['fk_userID' => $user]),
+            'totalQuantity' => $totalQuantity,
         ]);
     }
 
@@ -54,7 +56,8 @@ class CartController extends AbstractController
     public function deleteFromCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, int $id): Response
     {
 
-        $user = $this->getUser();
+        $user = $this->getUser()->getId();
+        $totalQuantity = $cartRepository->getQtty($user);
 
         $product = $cartRepository->find($id);
         if ($product != null) {
@@ -64,7 +67,8 @@ class CartController extends AbstractController
         }
 
         return $this->render('cart/index.html.twig', [
-            'cartObj' => $cartRepository->findBy(['fk_userID' => $user])
+            'cartObj' => $cartRepository->findBy(['fk_userID' => $user]),
+            'totalQuantity' => $totalQuantity,
         ]);
     }
 
@@ -75,12 +79,16 @@ class CartController extends AbstractController
 
         $cart = $cartRepository->find($id);
         $qtty = $cart->getQuantity();
+        $price = $cart->getPrice();
         $cart->setQuantity($qtty + 1);
+        $summOfCard = $price * $qtty;
 
         $entityManager->persist($cart);
         $entityManager->flush();
 
-        return new JsonResponse($qtty + 1);
+        // return new JsonResponse([$qtty + 1, $cart->getPrice()]);
+
+        return new JsonResponse([$qtty + 1, $price, $this->getTotalQuantity($cartRepository)]);
     }
 
 
@@ -98,6 +106,37 @@ class CartController extends AbstractController
         $entityManager->persist($cart);
         $entityManager->flush();
 
-        return new JsonResponse($qtty - 1);
+        return new JsonResponse([
+            $qtty - 1, $cart->getPrice(), $this->getTotalQuantity($cartRepository)
+        ]);
     }
+
+    private function getTotalQuantity(CartRepository $cartRepository): int
+    {
+
+        $id = $this->getUser()->getId();
+        $totalQuantity = $cartRepository->getQtty($id);
+        return $totalQuantity;
+    }
+
+
+    #[Route('/get-total-sum', name: 'app_get_total_sum', methods: ['GET'])]
+    public function getTotalSum(CartRepository $cartRepository): JsonResponse
+    {
+        $user = $this->getUser();
+        $totalSum = $cartRepository->getTotalSumForUser($user);
+
+        return new JsonResponse(['totalSum' => $totalSum]);
+    }
+
+    // #[Route('/navbar', name: 'app_cart_navbar', methods: ['GET'])]
+    // public function Navbar(ProductRepository $productRepository, CartRepository $cartRepository): Response
+    // {
+
+    //     $totalQuantity = $cartRepository->getTotalQuantity();
+
+    //     return new JsonResponse(
+    //         $this->getTotalQuantity($cartRepository)
+    //     );
+    // }
 }

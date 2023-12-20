@@ -44,6 +44,7 @@
       {# {{ asset('pictures/users/'~ user.picture) }} #}
       <img id="avatar" src="{{ asset('pictures/users/'~ app.user.picture) }}" alt="" />
     </div>
+      {# <img id="avatar" src="{{ asset('pictures/users/'~ app.user.picture) }}" alt="" /> #}
   </ul>
   {% endif %} {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
 
@@ -57,7 +58,7 @@
   <div id="cart" class="{{ is_granted('IS_AUTHENTICATED_FULLY') ? "" : "hidden"}}">
     <a href="{{ path('app_cart_show') }}" class=""
       ><i class="fa-solid fa-cart-shopping fe-lg"></i>
-      <span class="cart-item rounded-pill">99+</span>
+      <span id="total-quantity-navbar" class="cart-item rounded-pill">0</span>
     </a>
   </div>
 

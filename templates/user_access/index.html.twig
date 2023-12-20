@@ -19,15 +19,15 @@
     
     {# ### Swiper starts ########################### #}
     <swiper-container 
-    class="mySwiper"
-    {# breakpoints='{"768": {"slidesPerView": 3}}' #}
-    navigation="true"
-    space-between="5"
-    loop="true"
-    autoplay-delay="5000"
-    autoplay-pause-on-mouse-enter="true"
-    grab-cursor="true"
-    >
+        class="mySwiper"
+        {# breakpoints='{"768": {"slidesPerView": 3}}' #}
+        navigation="true"
+        space-between="5"
+        loop="true"
+        autoplay-delay="5000"
+        autoplay-pause-on-mouse-enter="true"
+        grab-cursor="true"
+        >
         
         <swiper-slide class="mySlide"><img src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="..." /></swiper-slide>
         <swiper-slide class="mySlide"><img src="https://images.unsplash.com/photo-1477064996809-dae46985eee7?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="..." /></swiper-slide>
@@ -44,18 +44,46 @@
                 {% if product.fkCategoryId %}
                 <span class="category btn-blr rounded-pill">{{ product.fkCategoryId.name }}</span>
                 {% endif %}
-                <img src="{{ asset("pictures/"~ product.picture) }}" alt="{{ product.name }}">
+                <img src="{{ asset('pictures/'~ product.picture) }}" alt="{{ product.name }}">
                 <div class="details">
                     <label>{{ product.name }}</label>
                     <div class="details-content">
                         <p>Price: &euro;{{ product.price }}</p>
-                        <p><i class="fa-solid fa-star fa-lg me-1 text-warning shadow"></i>4.4 <span class="fw-lighter">(100+)</span></p>
+                        <p><i class="fa-solid fa-star fa-lg me-1 text-warning shadow"></i> 
+                            
+                            {% set intReview = 0 %}
+                            {% set intSumRating = 0 %}
+                           
+                            {% for item in reviews %}
+                                {% if item.id == product.id %}
+                                    {% set intReview = intReview + 1 %}
+                                    {% set intSumRating = intSumRating + item.rating %}
+                                {% endif %}
+                            {% endfor %}
+                          
+                            {# Calculate AVERAGE #}
+                            {% if intReview != 0 %}
+                                {% set rating_media = intSumRating / intReview %}
+                            {% else %}
+                                {% set rating_media = 0 %}
+                            {% endif %}
+                            {{rating_media}}
+                
+                            <span class="fw-lighter">
+                                {% set intSumQuantity = 0 %}
+                               
+                                {% for item in carts %}
+                                    {% if item.fkProduct.id == product.id and item.orderDate != null %}
+                                        {% set intSumQuantity = intSumQuantity + item.quantity %}
+                                    {% endif %}
+                                {% endfor %}
+                              
+                                ( {{intSumQuantity}} )
+                            </span></p>
                     </div>
                     <div class="buttons-box">
-
-                        <a href="{{ path("app_cart", {"id": product.id}) }}" class="btn btn-primary btn-sm rounded-start-pill shadow {{ is_granted("IS_AUTHENTICATED_FULLY") ? "" : "disabled" }}">Add to cart</a>
-
-                        <a href="{{ path("app_product_show", {"id": product.id}) }}" class="btn btn-outline-primary btn-sm rounded-end-pill shadow">Details</a>
+                        <a href="{{ path('app_cart', {'id': product.id}) }}" class="btn btn-primary btn-sm rounded-start-pill shadow {{ is_granted("IS_AUTHENTICATED_FULLY") ? "" : "disabled" }}">Add to cart</a>
+                        <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn btn-outline-primary btn-sm rounded-end-pill shadow">Details</a>
                     </div>
                 </div>
             </div>
@@ -64,7 +92,7 @@
             <span class="z-3 btn-blr p-3 my-3 mb-3 w-25 text-center rounded-pill">¯\_(ツ)_/¯ <br>No products found </span>
             {% endfor %}
         {# ### Cards end ############################## #}
-    </div><div id="map"></div>
+    </div>
 
-    <div id="map"></div>
+    {# <div id="map"></div> #}
 {% endblock %}

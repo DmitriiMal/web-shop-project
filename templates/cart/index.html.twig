@@ -5,7 +5,9 @@
   <div class="row row-cols-1 row-cols-lg-3">
     <div class="col-lg-8">
       <div class="card mt-4">
-        <div class="card-header fw-bold">Cart - {{ cartObj | length }} Item(s)</div>
+        <div id="total-quantity" class="card-header fw-bold">Cart - {{ totalQuantity ? totalQuantity : '0' }} Item(s)</div>
+
+        {% set totalSum = 0 %}
 
         <!-- Dynamic cart item starts -->
         {% if cartObj %} {% for cart in cartObj %}
@@ -14,22 +16,28 @@
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
             <img class="col-sm-4 col-md-2 object-fit-cover mb-3 mb-sm-0 rounded" src="{{ asset('pictures/'~ cart.fkProduct.picture) }}" alt="img" />
             <div class="col-sm-4 col-md-6">
-              <p class="fw-bold">{{ cart.fkProduct.name }}</p>
-              <p class="d-none d-sm-inline">{{ cart.fkProduct.description }}</p>
-              <p class="d-none d-sm-inline">{{ loop.index }}</p>
+              <div class="d-flex flex-column flex-md-row">
+                <p class="fw-bold">
+                  {{ cart.fkProduct.name }}
+                </p>
+                <p class="fw-lighter text-opacity-50 ms-md-5">&euro; {{ cart.fkProduct.price }}</p>
+              </div>
+
+              <p class="d-none d-md-inline">{{ cart.fkProduct.description }}</p>
             </div>
             <div class="col-sm-4 col-md-4 d-flex flex-column">
-              <p class="fw-bold">Price: &euro; {{ cart.fkProduct.price }}</p>
+              <p class="fw-bold price" data-unit-price>&euro; {{ cart.fkProduct.price * cart.quantity|number_format(2) }}</p>
 
               <div class="cart-btns">
                 <button class="plus btn btn-outline-secondary btn-sm rounded-start-circle" onclick="displayPlus(this, {{ cart.id }})"><i class="fa-solid fa-plus"></i></button>
-                <input class="quantity rounded border border-secondary d-inline px-1 text-center" type="number" value="{{ cart.quantity }}" readonly min="0" name="" id="" />
+                <input class="quantity rounded border border-secondary d-inline px-1 text-center no-spinners" type="number" value="{{ cart.quantity }}" readonly min="0" />
                 <button class="minus btn btn-outline-secondary btn-sm rounded-end-circle" onclick="displayMinus(this, {{ cart.id }})"><i class="fa-solid fa-minus"></i></button>
                 <a href="{{ path('app_cart_delete', { id: cart.id }) }}" class="btn btn-outline-danger btn-sm rounded-circle ms-1"><i class="bi bi-trash3"></i></a>
               </div>
             </div>
           </div>
         </div>
+        {% set totalSum = totalSum + cart.fkProduct.price * cart.quantity %}
         <!-- Dynamic cart item ends -->
         {% endfor %} {% else %}
         <!-- Static defoult cart item starts -->
@@ -38,7 +46,7 @@
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
             <div class="col-sm-4 col-md-3"></div>
             <div class="col-sm-8 col-md-9">
-              <p class="fw-bold mt-3">Your cart is empty <i class="fa-solid fa-cart-shopping fa-2xl"></i></p>
+              <span class="fw-bold mt-3"><i class="fa-solid fa-cart-shopping fa-2xl me-2"> </i> Your cart is empty <a href="{{ path('app_user') }}" class="m-2 btn btn-outline-secondary btn-sm rounded-pill">Go to the shop</a></span>
             </div>
           </div>
         </div>
@@ -60,13 +68,11 @@
               <p>Discount</p>
             </div>
             <div class="text-end">
-              {#
-              <p>&euro; {{ sum }}</p>
-              #} {#
-              <p>&euro; {{ service }}</p>
-              #} {#
-              <p>{{ discount }} %</p>
-              #}
+              <p id="sum">&euro; {{ totalSum|number_format(2) }}</p>
+
+              <p>4</p>
+
+              <p>discount %</p>
             </div>
           </div>
           <p class="text-danger m-0 fw-lighter">Order over &euro;40 and get your discount</p>
@@ -75,9 +81,7 @@
           <div class="d-flex justify-content-between align-items-center pt-3 border-top fw-bold">
             <p>Total amount <br />(including VAT)</p>
             <div class="text-end">
-              {#
-              <p>&euro; {{ total }}</p>
-              #}
+              <p>&euro; total</p>
             </div>
           </div>
           <button type="submit" class="order btn btn-primary px-5 py-2 mt-2">Order</button>
