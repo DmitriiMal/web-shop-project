@@ -81,7 +81,6 @@ function updateTotalSum() {
         discountElement.innerHTML = '';
         document.getElementById('discount-tytle').innerHTML = '';
       }
-      console.log(totalSum.toFixed(2));
       totalSumElement.innerHTML = `&euro; ${sum.toFixed(2)}`;
       serviceElement.innerHTML = `&euro; ${service}`;
       totalElement.innerHTML = `&euro; ${totalSum.toFixed(2)}`;
@@ -99,7 +98,6 @@ function displayPlus(e, id) {
   xhttp.onload = function () {
     if (this.status == 200) {
       let respons = JSON.parse(this.responseText);
-      console.log(respons);
       let qtty = JSON.parse(this.responseText)[0];
       let price = respons[1];
       let eachTotal = qtty * price;

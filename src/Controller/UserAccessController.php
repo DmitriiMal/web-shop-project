@@ -24,28 +24,27 @@ class UserAccessController extends AbstractController
         $category = $request->query->get('fk_categoryID', 'all');
         $entityManager = $doctrine->getManager();
         $allCategory = $doctrine->getRepository(FkCategory::class)->findAll();
-        $session = $request->getSession();
-        $id = $this->getUser()->getId();
-        $nav_total = $carts->getQtty($id);
-        $session->set('nav_total', $nav_total);
+        // $session = $request->getSession();
+        // $id = $this->getUser()->getId();
+        // $nav_total = $carts->getQtty($id);
+        // $session->set('nav_total', $nav_total);
 
         $filter = $request->query->get('txt');
-        
-        
+
+
         if ($category !== 'all') {
-            if(isset($filter) && !empty($filter)){
+            if (isset($filter) && !empty($filter)) {
                 $products = $entityManager
-                ->getRepository(Product::class)
-                ->createQueryBuilder('p')
-                ->join('p.fk_categoryID', 'c')
-                ->andWhere('c.name = :category')
-                ->andWhere('p.name like :txt')
-                ->setParameter('txt', $filter."%")
-                ->setParameter('category', $category)
-                ->getQuery()
-                ->getResult();
-            }
-            else{
+                    ->getRepository(Product::class)
+                    ->createQueryBuilder('p')
+                    ->join('p.fk_categoryID', 'c')
+                    ->andWhere('c.name = :category')
+                    ->andWhere('p.name like :txt')
+                    ->setParameter('txt', $filter . "%")
+                    ->setParameter('category', $category)
+                    ->getQuery()
+                    ->getResult();
+            } else {
                 $products = $entityManager
                     ->getRepository(Product::class)
                     ->createQueryBuilder('p')
@@ -77,12 +76,12 @@ class UserAccessController extends AbstractController
             ->getRepository(Product::class)
             ->createQueryBuilder('p')
             ->where('p.name like :txt')
-            ->setParameter('txt', $txt."%");
+            ->setParameter('txt', $txt . "%");
 
         $query = $qb->getQuery();
         $product = $query->execute();
         $out = [];
-        foreach($product as $prod){
+        foreach ($product as $prod) {
             $out[] = $prod->getName();
         }
 
@@ -98,27 +97,26 @@ class UserAccessController extends AbstractController
         $entityManager = $doctrine->getManager();
         $allCategory = $doctrine->getRepository(FkCategory::class)->findAll();
 
-        if($filter !== "all"){
+        if ($filter !== "all") {
             $qb = $entityManager
                 ->getRepository(Product::class)
                 ->createQueryBuilder('p')
                 ->join('p.fk_categoryID', 'c')
                 ->andWhere('c.name = :category')
                 ->andWhere('p.name like :txt')
-                ->setParameter('txt', $txt."%")
+                ->setParameter('txt', $txt . "%")
                 ->setParameter('category', $filter);
-        }
-        else{
+        } else {
             $qb = $entityManager
                 ->getRepository(Product::class)
                 ->createQueryBuilder('p')
                 ->andWhere('p.name like :txt')
-                ->setParameter('txt', $txt."%");
+                ->setParameter('txt', $txt . "%");
         }
 
         $query = $qb->getQuery();
         $products = $query->execute();
-        
+
         return $this->render('user_access/index.html.twig', [
             'products' => $products,
             'allCategory' => $allCategory,
