@@ -20,8 +20,8 @@ class CartController extends AbstractController
     #[Route('/', name: 'app_cart_show', methods: ['GET'])]
     public function Cart(ProductRepository $productRepository, CartRepository $cartRepository): Response
     {
-
-        $totalQuantity = $cartRepository->getTotalQuantity();
+        $id = $this->getUser()->getId();
+        $totalQuantity = $cartRepository->getQtty($id);
         $user = $this->getUser();
 
         return $this->render('cart/index.html.twig', [
@@ -56,8 +56,8 @@ class CartController extends AbstractController
     public function deleteFromCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, int $id): Response
     {
 
-        $user = $this->getUser();
-        $totalQuantity = $cartRepository->getTotalQuantity();
+        $user = $this->getUser()->getId();
+        $totalQuantity = $cartRepository->getQtty($user);
 
         $product = $cartRepository->find($id);
         if ($product != null) {
@@ -114,7 +114,8 @@ class CartController extends AbstractController
     private function getTotalQuantity(CartRepository $cartRepository): int
     {
 
-        $totalQuantity = $cartRepository->getTotalQuantity();
+        $id = $this->getUser()->getId();
+        $totalQuantity = $cartRepository->getQtty($id);
         return $totalQuantity;
     }
 

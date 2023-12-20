@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Cart;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Cart>
@@ -37,10 +38,22 @@ class CartRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getTotalQuantity(): int
+    // public function getTotalQuantity($value): int
+    // {
+    //     return $this->createQueryBuilder('c')
+    //         ->select('SUM(c.quantity) as totalQuantity')
+
+    //         ->getQuery()
+    //         ->getSingleScalarResult() ?? 0;
+    // }
+
+
+    public function getQtty($value): int
     {
         return $this->createQueryBuilder('c')
             ->select('SUM(c.quantity) as totalQuantity')
+            ->andWhere('c.fk_userID = :val')
+            ->setParameter('val', $value)
             ->getQuery()
             ->getSingleScalarResult() ?? 0;
     }
