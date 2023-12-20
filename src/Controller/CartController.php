@@ -119,14 +119,14 @@ class CartController extends AbstractController
     }
 
 
-    #[Route('/navbar', name: 'app_cart_navbar', methods: ['GET'])]
-    public function Navbar(ProductRepository $productRepository, CartRepository $cartRepository): Response
-    {
+    // #[Route('/navbar', name: 'app_cart_navbar', methods: ['GET'])]
+    // public function Navbar(ProductRepository $productRepository, CartRepository $cartRepository): Response
+    // {
 
-        $totalQuantity = $cartRepository->getTotalQuantity();
+    //     $totalQuantity = $cartRepository->getTotalQuantity();
 
-        return $this->render('components/navbar.html.twig', [
-            'totalQuantity' => $totalQuantity,
-        ]);
-    }
+    //     return new JsonResponse(
+    //         $this->getTotalQuantity($cartRepository)
+    //     );
+    // }
 }
