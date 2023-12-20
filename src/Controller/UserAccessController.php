@@ -69,7 +69,7 @@ class UserAccessController extends AbstractController
     }
 
     #[Route('/filter/', name: 'app_filter', methods: ['GET', 'POST'])]
-    public function filter(Request $request, PersistenceManagerRegistry $doctrine, ProductRepository $productRepository)
+    public function filter(Request $request, PersistenceManagerRegistry $doctrine, ReviewsRepository $reviews, CartRepository $carts)
     {
         $txt = $request->request->get('search');
 
@@ -88,7 +88,9 @@ class UserAccessController extends AbstractController
         
         return $this->render('user_access/index.html.twig', [
             'products' => $products,
-            'allCategory' => $allCategory
+            'allCategory' => $allCategory,
+            'reviews' => $reviews->findAll(),
+            'carts' => $carts->findAll(),
         ]);
     }
 
