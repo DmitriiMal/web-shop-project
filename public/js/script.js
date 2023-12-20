@@ -73,13 +73,20 @@ function updateTotalSum() {
       let discount = 10;
       if (sum >= 100) {
         totalSum = sum - (sum * discount) / 100 + service;
+        discountElement.innerHTML = `${discount} %`;
+        document.getElementById('discount-tytle').innerHTML = 'Discount';
+        document.getElementById('order-over').innerHTML = '';
+      } else {
+        document.getElementById('order-over').innerHTML = `Order over &euro;100 and get your discount`;
+        discountElement.innerHTML = '';
+        document.getElementById('discount-tytle').innerHTML = '';
       }
       console.log(totalSum.toFixed(2));
       totalSumElement.innerHTML = `&euro; ${sum.toFixed(2)}`;
-      serviceElement.innerHTML = service;
-      discountElement.innerHTML = `${discount} %`;
+      serviceElement.innerHTML = `&euro; ${service}`;
       totalElement.innerHTML = `&euro; ${totalSum.toFixed(2)}`;
       navbarCart.innerHTML = totalQtty;
+      console.log(totalQtty);
     }
   };
   xhttp.open('GET', '/cart/get-total-sum', true);
