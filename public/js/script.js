@@ -31,7 +31,7 @@ function updateNavQtty() {
       let totalQtty = response[1];
 
       navbarCart.innerHTML = totalQtty;
-      console.log(totalQtty);
+      console.log('yes');
     }
   };
   xhttp.open('GET', '/cart/get-total-sum', true);

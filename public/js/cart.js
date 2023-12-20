@@ -31,8 +31,6 @@ function updateTotalSum() {
       totalSumElement.innerHTML = `&euro; ${sum.toFixed(2)}`;
       serviceElement.innerHTML = `&euro; ${service}`;
       totalElement.innerHTML = `&euro; ${totalSum.toFixed(2)}`;
-      // navbarCart.innerHTML = totalQtty;
-      console.log(totalQtty);
     }
   };
   xhttp.open('GET', '/cart/get-total-sum', true);
@@ -55,6 +53,7 @@ function displayPlus(e, id) {
 
       updateTotalQuantity(respons[2]);
       updateTotalSum(); // Call the function to update the total sum
+      updateNavQtty();
     }
   };
   xhttp.open('GET', '/cart/plus/' + id, true);
@@ -76,6 +75,7 @@ function displayMinus(e, id) {
 
       updateTotalQuantity(respons[2]);
       updateTotalSum(); // Call the function to update the total sum
+      updateNavQtty();
     }
   };
   xhttp.open('GET', '/cart/minus/' + id, true);
