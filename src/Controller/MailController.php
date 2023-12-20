@@ -65,7 +65,6 @@ class MailController extends AbstractController
         $to = $this->container->getParameter('to');
         $subject = $this->container->getParameter('subject');
         $text = $this->container->getParameter('text');
-        $msg = "";
             $email = (new Email())
                 ->from("$from")
                 ->to("$to")
