@@ -42,6 +42,7 @@
       {# {{ asset('pictures/users/'~ user.picture) }} #}
       <img id="avatar" src="{{ asset('pictures/users/'~ app.user.picture) }}" alt="" />
     </div>
+      {# <img id="avatar" src="{{ asset('pictures/users/'~ app.user.picture) }}" alt="" /> #}
   </ul>
   {% endif %} {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
 
