@@ -26,7 +26,7 @@ class CartController extends AbstractController
         $user = $this->getUser();
 
         return $this->render('cart/index.html.twig', [
-            'cartObj' => $cartRepository->findBy(['fk_userID' => $user]),
+            'cartObj' => $cartRepository->findBy(['fk_userID' => $user, 'bought' => false]),
             'totalQuantity' => $totalQuantity,
         ]);
     }
@@ -65,7 +65,7 @@ class CartController extends AbstractController
         }
 
         return $this->render('cart/index.html.twig', [
-            'cartObj' => $cartRepository->findBy(['fk_userID' => $user]),
+            'cartObj' => $cartRepository->findBy(['fk_userID' => $user, 'bought' => false]),
             'totalQuantity' => $totalQuantity,
         ]);
     }
@@ -135,6 +135,23 @@ class CartController extends AbstractController
     }
 
 
+    #[Route('/order', name: 'app_order', methods: ['GET', 'POST'])]
+    public function order(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, UserInterface $user): Response
+    {
+
+        $user = $this->getUser()->getId();
+        $cartObj = $cartRepository->findBy(['fk_userID' => $user]);
+        
+        foreach ($cartObj as $cart) {
+            $cart->setBought(true);
+            $entityManager->persist($cart);
+            $entityManager->flush($cart);
+        }
+
+        return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
+
+    }
+
     #[Route('/{id}', name: 'app_cart', methods: ['GET', 'POST'])]
     public function addToCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, UserInterface $user, $id): Response
     {
@@ -169,4 +186,5 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
     }
+
 }

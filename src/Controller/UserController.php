@@ -74,7 +74,7 @@ class UserController extends AbstractController
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
-            'cart' => $cart->findByOrders($id)
+            'cart' => $cart->findBy(['fk_userID' => $user, 'bought' => true])
             // 'reviews' => $review->findBy(["fk_user" => $id])
             // 'cart' => $cart->findBy(["fk_userID" => $id, "order_date" => "notnull"],["order_date" => "ASC"])
         ]);
