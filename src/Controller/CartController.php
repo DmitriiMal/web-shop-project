@@ -150,20 +150,57 @@ class CartController extends AbstractController
 
         $product = $productRepository->find($id);
         $price = $product->getPrice();
-
         $user = $this->getUser();
 
-        $cartObj = new Cart();
-        $cartObj->setQuantity(1);
-        $cartObj->setBought(false);
-        $cartObj->setPrice($price);
-        $cartObj->setFkProduct($product);
-        $cartObj->setFkUserID($user);
+        // Check if the product is already in the cart for the current user
+        $existingCartItem = $cartRepository->findOneBy([
+            'fk_product' => $product,
+            'fk_userID' => $user,
+        ]);
 
-        $entityManager->persist($cartObj);
+
+        if ($existingCartItem) {
+            // If the product is already in the cart, increase the quantity
+            $existingCartItem->setQuantity($existingCartItem->getQuantity() + 1);
+        } else {
+
+            $cartObj = new Cart();
+            $cartObj->setQuantity(1);
+            $cartObj->setBought(false);
+            $cartObj->setPrice($price);
+            $cartObj->setFkProduct($product);
+            $cartObj->setFkUserID($user);
+
+            $entityManager->persist($cartObj);
+        }
+
         $entityManager->flush();
 
         return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
     }
 
 }
+
+
+
+// #[Route('/{id}', name: 'app_cart', methods: ['GET', 'POST'])]
+// public function addToCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, UserInterface $user, $id): Response
+// {
+
+//     $product = $productRepository->find($id);
+//     $price = $product->getPrice();
+
+//     $user = $this->getUser();
+
+//     $cartObj = new Cart();
+//     $cartObj->setQuantity(1);
+//     $cartObj->setBought(false);
+//     $cartObj->setPrice($price);
+//     $cartObj->setFkProduct($product);
+//     $cartObj->setFkUserID($user);
+
+//     $entityManager->persist($cartObj);
+//     $entityManager->flush();
+
+//     return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
+// }

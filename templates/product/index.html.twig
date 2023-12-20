@@ -61,8 +61,8 @@
 						{% else %}
 							<td class="text-center"></td>
 						{% endif %}
-						<td class="text-center">{{ product.availability ? "&#x2713;" : "&#10008;"  }}</td>
-						<td class="text-center">{{ product.shownHidden ? "&#x2713;" : "&#10008;" }}</td>
+						<td class="text-center {{ product.availability ? "text-success" : "text-danger"  }}">{{ product.availability ? "&#x2713;" : "&#10008;"  }}</td>
+						<td class="text-center {{ product.shownHidden ? "text-danger" : "text-success" }}">{{ product.shownHidden ? "&#10008;" : "&#x2713;" }}</td>
 						<td>
 							<div class='d-flex flex-nowrap' style="width: 205px;">
 								<div class='btn-group btn-group-sm me-2 my-1' role='group' aria-label='Basic mixed styles example'>

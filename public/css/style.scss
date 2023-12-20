@@ -195,8 +195,11 @@ input[class^='button-']:hover {
 .cart-btns {
   display: flex;
   gap: 2px;
+
   .quantity {
-    width: 3.5rem;
+    min-width: 1rem;
+    max-width: 3.5rem;
+    text-align: center;
   }
 }
 .no-spinners {

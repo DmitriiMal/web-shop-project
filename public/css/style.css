@@ -717,7 +717,9 @@ input[class^=button-]:hover {
   gap: 2px;
 }
 .cart-btns .quantity {
-  width: 3.5rem;
+  min-width: 1rem;
+  max-width: 3.5rem;
+  text-align: center;
 }
 
 .no-spinners {
