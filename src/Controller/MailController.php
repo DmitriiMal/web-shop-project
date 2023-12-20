@@ -57,4 +57,28 @@ class MailController extends AbstractController
 
 
     }
+    #[Route('/sendmail', name: 'app_sendmail', methods: ['GET', 'POST'])]
+
+    public function sendmail(MailerInterface $mailer, Request $request): Response
+    {
+        $from = $this->container->getParameter('from');
+        $to = $this->container->getParameter('to');
+        $subject = $this->container->getParameter('subject');
+        $text = $this->container->getParameter('text');
+        $msg = "";
+            $email = (new Email())
+                ->from("$from")
+                ->to("$to")
+                ->subject("$subject")
+                ->html("$text");
+            try {
+                $mailer->send($email);
+                return new Response("==Your message was successfully sent!");
+
+            } 
+            catch (TransportExceptionInterface $error) {
+                return  new Response("==Error: " . $error->getMessage());
+            }
+        }
+               
 }
