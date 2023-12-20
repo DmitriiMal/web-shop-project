@@ -91,13 +91,13 @@ class CartController extends AbstractController
         ]);
     }
 
-    private function getTotalQuantity(CartRepository $cartRepository, Request $request): int
+    private function getTotalQuantity(CartRepository $cartRepository): int
     {
 
         $id = $this->getUser()->getId();
         $totalQuantity = $cartRepository->getQtty($id);
-        $session = $request->getSession();
-        $session->set('nav_total',$totalQuantity);
+        // $session = $request->getSession();
+        // $session->set('nav_total',$totalQuantity);
         return $totalQuantity;
     }
 

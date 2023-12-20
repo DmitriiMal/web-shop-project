@@ -11,8 +11,7 @@
   {# Search #}
   <div class="search">
     <form action="{{ path('app_filter') }}" method="POST">
-      <input type="text" class="search__input" name="search" id="searchTxt" oninput="search()" value="{{ txt??"" }}" placeholder="Type your text" />
-      <input type="hidden" name="filter" value="{{ category??"" }}">
+      <input type="text" class="search__input" name="search" id="searchTxt" oninput="search()" placeholder="Type your text" />
       <button type="submit" id="submit" class="search__button">
         <svg class="search__icon" aria-hidden="true" viewBox="0 0 24 24">
           <g>
@@ -35,7 +34,7 @@
         <a id="top" href="{{ path('app_user_show', { id: app.user.id }) }}">My account</a>
         <a id="middle" href="{{ path('app_product_index') }}">Dashboard Products</a>
         <a id="middle" href="{{ path('app_user_index') }}">Dashboard Users</a>
-        <a id="middle" href="{{ path('app_static') }}">Statistic</a>
+        <a id="middle" href="#">Statistic</a>
         {% else %}
         <a id="top" href="{{ path('app_user_show', { id: app.user.id }) }}">My account</a>
         <a id="middle" href="{{ path('app_contact') }}">Contact</a>
@@ -59,10 +58,11 @@
   <div id="cart" class="{{ is_granted('IS_AUTHENTICATED_FULLY') ? "" : "hidden"}}">
     <a href="{{ path('app_cart_show') }}" class=""
       ><i class="fa-solid fa-cart-shopping fe-lg"></i>
-      {% set nav_total = app.session.get('nav_total') %}
+      {# {% set nav_total = app.session.get('nav_total') %}
       {% if not nav_total == 0  %}
       <span id="total-quantity-navbar" class="cart-item rounded-pill">{{ nav_total }}</span>
-      {% endif %}
+      {% endif %} #}
+      <span id="total-quantity-navbar" class="cart-item rounded-pill"></span>
       
     </a>
   </div>

@@ -65,7 +65,7 @@ function updateTotalSum() {
   xhttp.onload = function () {
     if (this.status === 200) {
       let response = JSON.parse(this.responseText);
-
+      // console.log(response);
       let totalQtty = response[1];
       let sum = response[0];
       let service = 4;
@@ -92,6 +92,7 @@ function displayPlus(e, id) {
   xhttp.onload = function () {
     if (this.status == 200) {
       let respons = JSON.parse(this.responseText);
+      console.log(respons);
       let qtty = JSON.parse(this.responseText)[0];
       let price = respons[1];
       let eachTotal = qtty * price;
