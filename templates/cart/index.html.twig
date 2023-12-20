@@ -7,6 +7,8 @@
       <div class="card mt-4">
         <div id="total-quantity" class="card-header fw-bold">Cart - {{ totalQuantity ? totalQuantity : '0' }} Item(s)</div>
 
+        {% set totalSum = 0 %}
+
         <!-- Dynamic cart item starts -->
         {% if cartObj %} {% for cart in cartObj %}
 
@@ -35,7 +37,7 @@
             </div>
           </div>
         </div>
-        {# {% set totalQuantity = totalQuantity + cart.quantity %} #}
+        {% set totalSum = totalSum + cart.fkProduct.price * cart.quantity %}
         <!-- Dynamic cart item ends -->
         {% endfor %} {% else %}
         <!-- Static defoult cart item starts -->
@@ -66,7 +68,7 @@
               <p>Discount</p>
             </div>
             <div class="text-end">
-              <p id="sum">&euro; 0</p>
+              <p id="sum">&euro; {{ totalSum|number_format(2) }}</p>
 
               <p>4</p>
 

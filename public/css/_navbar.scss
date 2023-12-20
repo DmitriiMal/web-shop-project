@@ -124,18 +124,21 @@ nav .links li {
 
 .paste-button {
   position: relative;
-  display: block;
-  margin-right: 3rem;
+  display: flex;
+  // margin-right: 3rem;
 
   #avatar {
     aspect-ratio: 1;
     border-radius: 50%;
     width: 50px;
+    height: 80%;
+    margin-top: auto;
+    margin-bottom: auto;
     border: 1px $second-color solid;
     padding: 1px;
     background-color: $light-color;
-    position: absolute;
-    top: 15px;
+    // position: absolute;
+    // top: 15px;
   }
 }
 
@@ -154,6 +157,7 @@ nav .links li {
   display: none;
   font-size: 14px;
   position: absolute;
+  margin-top: $navbar-heigth;
   z-index: 11;
   min-width: 200px;
   background-color: $main-color;

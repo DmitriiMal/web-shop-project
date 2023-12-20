@@ -20,8 +20,8 @@ class CartController extends AbstractController
     #[Route('/', name: 'app_cart_show', methods: ['GET'])]
     public function Cart(ProductRepository $productRepository, CartRepository $cartRepository): Response
     {
-
-        $totalQuantity = $cartRepository->getTotalQuantity();
+        $id = $this->getUser()->getId();
+        $totalQuantity = $cartRepository->getQtty($id);
         $user = $this->getUser();
 
         return $this->render('cart/index.html.twig', [
@@ -49,15 +49,15 @@ class CartController extends AbstractController
         $entityManager->persist($cartObj);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/delete/{id}', name: 'app_cart_delete', methods: ['GET', 'POST'])]
     public function deleteFromCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, int $id): Response
     {
 
-        $user = $this->getUser();
-        $totalQuantity = $cartRepository->getTotalQuantity();
+        $user = $this->getUser()->getId();
+        $totalQuantity = $cartRepository->getQtty($user);
 
         $product = $cartRepository->find($id);
         if ($product != null) {
@@ -114,19 +114,29 @@ class CartController extends AbstractController
     private function getTotalQuantity(CartRepository $cartRepository): int
     {
 
-        $totalQuantity = $cartRepository->getTotalQuantity();
+        $id = $this->getUser()->getId();
+        $totalQuantity = $cartRepository->getQtty($id);
         return $totalQuantity;
     }
 
 
-    #[Route('/navbar', name: 'app_cart_navbar', methods: ['GET'])]
-    public function Navbar(ProductRepository $productRepository, CartRepository $cartRepository): Response
+    #[Route('/get-total-sum', name: 'app_get_total_sum', methods: ['GET'])]
+    public function getTotalSum(CartRepository $cartRepository): JsonResponse
     {
+        $user = $this->getUser();
+        $totalSum = $cartRepository->getTotalSumForUser($user);
 
-        $totalQuantity = $cartRepository->getTotalQuantity();
-
-        return $this->render('components/navbar.html.twig', [
-            'totalQuantity' => $totalQuantity,
-        ]);
+        return new JsonResponse(['totalSum' => $totalSum]);
     }
+
+    // #[Route('/navbar', name: 'app_cart_navbar', methods: ['GET'])]
+    // public function Navbar(ProductRepository $productRepository, CartRepository $cartRepository): Response
+    // {
+
+    //     $totalQuantity = $cartRepository->getTotalQuantity();
+
+    //     return new JsonResponse(
+    //         $this->getTotalQuantity($cartRepository)
+    //     );
+    // }
 }

@@ -182,18 +182,18 @@ nav .links li a:hover {
 
 .paste-button {
   position: relative;
-  display: block;
-  margin-right: 3rem;
+  display: flex;
 }
 .paste-button #avatar {
   aspect-ratio: 1;
   border-radius: 50%;
   width: 50px;
+  height: 80%;
+  margin-top: auto;
+  margin-bottom: auto;
   border: 1px #a88362 solid;
   padding: 1px;
   background-color: #eaece8;
-  position: absolute;
-  top: 15px;
 }
 
 .drop-button {
@@ -210,6 +210,7 @@ nav .links li a:hover {
   display: none;
   font-size: 14px;
   position: absolute;
+  margin-top: 80px;
   z-index: 11;
   min-width: 200px;
   background-color: #212941;

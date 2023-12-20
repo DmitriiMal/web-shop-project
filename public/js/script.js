@@ -95,6 +95,29 @@ function displayMinus(e, id) {
   xhttp.open('GET', '/cart/minus/' + id, true);
   xhttp.send();
 }
+
+// function getData() {
+//   let xhttp = new XMLHttpRequest();
+//   xhttp.onload = function () {
+//     if (this.status == 200) {
+//       console.log(this.responseText);
+// let respons = JSON.parse(this.responseText);
+// let qtty = JSON.parse(this.responseText)[0];
+// let price = respons[1];
+// let eachTotal = qtty * price;
+// e.previousElementSibling.value = qtty;
+
+// let totalPriceElement = e.closest('.row').querySelector('.price');
+// totalPriceElement.innerHTML = `&euro; ${eachTotal.toFixed(2)}`;
+
+// updateTotalQuantity(respons[2]);
+//     }
+//   };
+//   xhttp.open('GET', '/navbar', true);
+//   xhttp.send();
+// }
+// getData();
+
 function updateTotalQuantity(totalQuantity) {
   // Update the displayed total quantity
   document.getElementById('total-quantity').innerText = `Cart - ${totalQuantity} Item(s)`;
