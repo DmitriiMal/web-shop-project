@@ -32,6 +32,24 @@ class CartController extends AbstractController
     }
 
 
+    // #[Route('/delete/{id}', name: 'app_cart_delete', methods: ['GET', 'POST'])]
+    // public function deleteFromCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, int $id): JsonResponse
+    // {
+
+    //     $user = $this->getUser();
+    //     $cart = $cartRepository->findOneBy(['id' => $id, 'fk_userID' => $user]);
+
+
+    //     if ($cart) {
+    //         $entityManager->remove($cart);
+    //         $entityManager->flush();
+    //     }
+
+    //     $totalQuantity = $this->getTotalQuantity($cartRepository);
+
+    //     return new JsonResponse($this->getTotalQuantity($cartRepository));
+    // }
+
     #[Route('/delete/{id}', name: 'app_cart_delete', methods: ['GET', 'POST'])]
     public function deleteFromCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, int $id): Response
     {
@@ -116,16 +134,6 @@ class CartController extends AbstractController
         return new JsonResponse([$total, $qtty]);
     }
 
-    // #[Route('/navbar', name: 'app_cart_navbar', methods: ['GET'])]
-    // public function Navbar(ProductRepository $productRepository, CartRepository $cartRepository): Response
-    // {
-
-    //     $totalQuantity = $cartRepository->getTotalQuantity();
-
-    //     return new JsonResponse(
-    //         $this->getTotalQuantity($cartRepository)
-    //     );
-    // }
 
     #[Route('/{id}', name: 'app_cart', methods: ['GET', 'POST'])]
     public function addToCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, UserInterface $user, $id): Response
@@ -162,27 +170,3 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
     }
 }
-
-
-
-// #[Route('/{id}', name: 'app_cart', methods: ['GET', 'POST'])]
-// public function addToCart(EntityManagerInterface $entityManager, ProductRepository $productRepository, CartRepository $cartRepository, UserInterface $user, $id): Response
-// {
-
-//     $product = $productRepository->find($id);
-//     $price = $product->getPrice();
-
-//     $user = $this->getUser();
-
-//     $cartObj = new Cart();
-//     $cartObj->setQuantity(1);
-//     $cartObj->setBought(false);
-//     $cartObj->setPrice($price);
-//     $cartObj->setFkProduct($product);
-//     $cartObj->setFkUserID($user);
-
-//     $entityManager->persist($cartObj);
-//     $entityManager->flush();
-
-//     return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
-// }
