@@ -34,7 +34,7 @@
         <a id="top" href="{{ path('app_user_show', { id: app.user.id }) }}">My account</a>
         <a id="middle" href="{{ path('app_product_index') }}">Dashboard Products</a>
         <a id="middle" href="{{ path('app_user_index') }}">Dashboard Users</a>
-        <a id="middle" href="#">Statistic</a>
+        <a id="middle" href="{{ path('app_statistics') }}">Statistic</a>
         {% else %}
         <a id="top" href="{{ path('app_user_show', { id: app.user.id }) }}">My account</a>
         <a id="middle" href="{{ path('app_contact') }}">Contact</a>

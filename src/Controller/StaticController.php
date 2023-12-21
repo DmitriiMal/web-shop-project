@@ -13,9 +13,9 @@ class StaticController extends AbstractController
     #[Route('/', name: 'app_static')]
     public function index(ProductRepository $productRepository): Response
     {
-        $session = $this->get('session');
-        $nav_total = $session->get('nav_total');
-        
+        // $session = $this->get('session');
+        // $nav_total = $session->get('nav_total');
+
         return $this->render('static/index.html.twig', [
             'products' => $productRepository->findAll(),
         ]);
