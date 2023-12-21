@@ -142,6 +142,7 @@ class CartController extends AbstractController
 
         $user = $this->getUser()->getId();
         $cartObj = $cartRepository->findBy(['fk_userID' => $user]);
+        $date = new DateTimeImmutable();
         
         foreach ($cartObj as $cart) {
             $cart->setBought(true);
