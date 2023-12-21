@@ -106,16 +106,18 @@ class UserController extends AbstractController
         }
 
             $picture = $form->get('picture')->getData();
-            if ($picture) {
+            if ($picture and $user->getPicture() <> "") {
                 if ($user->getPicture() != "avatar.png") {
                     unlink($this->getParameter("picture_user_directory") . "/" . $user->getPicture()); // from product old picture
                 }
 
                 $pictureFileName = $fileUploader->upload($picture , "users");
-                $user->setPicture($pictureFileName);
-            }
+                if ($pictureFileName <> ""){
+                    $user->setPicture($pictureFileName);    
+                }
 
-
+            } 
+                
             $entityManager->flush();
 
             if(!$this->isGranted('ROLE_ADMIN')){

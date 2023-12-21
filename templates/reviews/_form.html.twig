@@ -1,48 +1,43 @@
-{{ form_start(form, {'attr':{'novalidate':'novalidate'} }) }}
-    
-        {# {{ dump(cart) }}
-        {{ dump(nameProduct) }} #}
-        
+{{ form_start(form, { attr: { novalidate: 'novalidate' } }) }}
 
-    <div class="row row-cols-xs-1 row-cols-md-2">
-        <div>
-            <img src="{{ asset('pictures/'~ picture) }}" alt="{{ nameProduct }}" class="shadow" style="width:256px;height:256px;"> 
-        </div>
-        <div>
-            <h1>{{ nameProduct }}</h1>
-            <small>The day purchased was {{ cart[0].orderDate ? cart[0].orderDate|date('d.m.Y') : '' }}.</small>
-            <p>{{ descriptionProduct }}</p>
-        </div>
-        
-    </div> 
-    <div class="row">
-        <div class="stars">
-        {{ form_row(form.rating, { attr: { class: 'd-flex' } } ) }}
-        </div>
-        
-        {# Stars avarage start#}
-        <div class="stars ms-5">
+{# {{ dump(cart) }} {{ dump(nameProduct) }} #}
 
-             {# <input value="5" name="rating" id="star5" type="radio">
-            <label for="star5"></label>
-            <input value="4" name="rating" id="star4" type="radio">
-            <label for="star4"></label>
-            <input value="3" name="rating" id="star3" type="radio">
-            <label for="star3"></label>
-            <input value="2" name="rating" id="star2" type="radio">
-            <label for="star2"></label>
-            <input value="1" name="rating" id="star1" type="radio">
-            <label for="star1"></label> #}
-        </div>
-        {# Stars end #}
-        <div>
-            {{ form_row(form.review) }}
-        </div>
-    </div>
-    <hr>
-    <div class="d-flex gap-3 justify-content-center">
-        <button class="btn btn-success">{{ button_label|default('Save') }}</button> 
+<div class="row row-cols-xs-1 row-cols-md-2">
+  <div>
+    <img src="{{ asset('pictures/'~ picture) }}" alt="{{ nameProduct }}" class="shadow" style="width: 256px; height: 256px" />
+  </div>
+  <div>
+    <h1>{{ nameProduct }}</h1>
+    <small>The day purchased was {{ cart[0].orderDate ? cart[0].orderDate|date('d.m.Y') : '' }}.</small>
+    <p>{{ descriptionProduct }}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="stars">
+    {{ form_row(form.rating, { attr: { class: 'd-flex' } }) }}
+  </div>
 
-        <a href="{{ path('app_user_show', {'id': app.user.id}) }}" class="btn btn-secondary btn1">Back to list</a>
-    </div>
+  {# Stars avarage start#}
+  <div class="stars ms-5">
+    {# <input value="5" name="rating" id="star5" type="radio" />
+    <label for="star5"></label>
+    <input value="4" name="rating" id="star4" type="radio" />
+    <label for="star4"></label>
+    <input value="3" name="rating" id="star3" type="radio" />
+    <label for="star3"></label>
+    <input value="2" name="rating" id="star2" type="radio" />
+    <label for="star2"></label>
+    <input value="1" name="rating" id="star1" type="radio" />
+    <label for="star1"></label> #}
+  </div>
+  {# Stars end #}
+  <div>
+    {{ form_row(form.review) }}
+  </div>
+</div>
+<hr class="my-3" />
+<div class="my-5">
+  <a href="{{ path('app_user_show', { id: app.user.id }) }}" class="btn btn-outline-secondary rounded-start-pill">Back to list</a>
+  <button class="btn btn-primary px-4 rounded-end-pill">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}
