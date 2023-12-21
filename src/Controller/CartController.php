@@ -123,7 +123,7 @@ class CartController extends AbstractController
     public function getTotalSum(CartRepository $cartRepository): JsonResponse
     {
         $user = $this->getUser();
-        $items = $cartRepository->findBy(['fk_userID' => $user]);
+        $items = $cartRepository->findBy(['fk_userID' => $user],);
         $total = 0;
         $qtty = 0;
         foreach ($items as $item) {
@@ -141,7 +141,7 @@ class CartController extends AbstractController
 
         $user = $this->getUser()->getId();
         $cartObj = $cartRepository->findBy(['fk_userID' => $user]);
-        
+
         foreach ($cartObj as $cart) {
             $cart->setBought(true);
             $entityManager->persist($cart);
@@ -149,7 +149,6 @@ class CartController extends AbstractController
         }
 
         return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
-
     }
 
     #[Route('/{id}', name: 'app_cart', methods: ['GET', 'POST'])]
@@ -186,5 +185,4 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);
     }
-
 }
