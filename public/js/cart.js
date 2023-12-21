@@ -64,6 +64,11 @@ function displayMinus(e, id) {
   let xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
     if (this.status == 200) {
+      // Reload the page when qtty = 0
+      // console.log(this.responseText[0].charAt(0) == '[');
+      if (this.responseText[0].charAt(0) !== '[') {
+        window.location.reload();
+      }
       let respons = JSON.parse(this.responseText);
       let qtty = JSON.parse(this.responseText)[0];
       let price = respons[1];
@@ -76,6 +81,12 @@ function displayMinus(e, id) {
       updateTotalQuantity(respons[2]);
       updateTotalSum(); // Call the function to update the total sum
       updateNavQtty();
+      if (qtty === 0) {
+        // location.reload();
+        window.location.reload();
+      }
+    } else {
+      window.location.reload();
     }
   };
   xhttp.open('GET', '/cart/minus/' + id, true);
