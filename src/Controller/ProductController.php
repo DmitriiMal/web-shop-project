@@ -81,7 +81,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_product_show', methods: ['GET'])]
     public function show(Product $product, ReviewsRepository $review, $id): Response
     {
         return $this->render('product/show.html.twig', [
@@ -119,7 +119,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_product_delete', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
