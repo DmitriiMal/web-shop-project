@@ -5,9 +5,10 @@
   <div class="row row-cols-1 row-cols-lg-3">
     <div class="col-lg-8">
       <div class="card mt-4">
+        <div id="total-quantity" class="card-header fw-bold">Cart - 0 Item(s)</div>
+        {#
         <div id="total-quantity" class="card-header fw-bold">Cart - {{ totalQuantity ? totalQuantity : '0' }} Item(s)</div>
-
-        {% set totalSum = 0 %}
+        #} {% set totalSum = 0 %}
 
         <!-- Dynamic cart item starts -->
         {% if cartObj %} {% for cart in cartObj %}

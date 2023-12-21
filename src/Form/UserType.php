@@ -139,6 +139,11 @@ class UserType extends AbstractType
                 ]
             ])
 
+            ->add('banned', null, [
+                'attr' => ['class' => 'form-check-input'],
+                'label' => 'Banned'
+            ])
+
             // ->add('expiry_date',null,[
             //     "required" => false,
             //     "widget" => "single_text"
