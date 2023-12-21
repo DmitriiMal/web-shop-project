@@ -104,8 +104,8 @@ class UserController extends AbstractController
         }
 
             $picture = $form->get('picture')->getData();
-            if ($picture and $user->getPicture() <> "") {
-                if ($user->getPicture() != "avatar.png") {
+            if ($picture) {
+                if ($user->getPicture() != "avatar.png" && $user->getPicture() != "") {
                     unlink($this->getParameter("picture_user_directory") . "/" . $user->getPicture()); // from product old picture
                 }
 
