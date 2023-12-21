@@ -119,10 +119,12 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_product_delete', methods: ['GET', 'POST'])]
+    #[Route('/{id}', name: 'app_product_delete', methods: ['POST', 'GET'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, ProductRepository $productRepository, EntityManagerInterface $entityManager, int $id): Response
     {
+        $product = $productRepository->find($id);
+
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             if ($product->getPicture() != "default.png") {
                 unlink($this->getParameter("picture_directory") . "/" . $product->getPicture()); // from product old picture
