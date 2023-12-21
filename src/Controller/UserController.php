@@ -8,6 +8,7 @@ use App\Form\UserType;
 use App\Repository\CartRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityNotFoundException; 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -133,12 +134,17 @@ class UserController extends AbstractController
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            if ($user->getPicture() != "avatar.png") {
-                unlink($this->getParameter("picture_user_directory") . "/" . $user->getPicture()); // from product old picture
-            }
+            try {
+                if ($user->getPicture() != "avatar.png") {
+                    unlink($this->getParameter("picture_user_directory") . "/" . $user->getPicture()); // from product old picture
+                }
 
-            $entityManager->remove($user);
-            $entityManager->flush();
+                $entityManager->remove($user);
+                $entityManager->flush();
+            
+            }catch(\Exception $e){
+                echo "<div>". $e->getMessage() ."</div>";
+            }
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
