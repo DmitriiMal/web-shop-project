@@ -7,6 +7,7 @@ let totalSumElement = document.getElementById('sum');
 let serviceElement = document.getElementById('service');
 let discountElement = document.getElementById('discount');
 let totalElement = document.getElementById('total');
+let totalQuantity = document.getElementById('total-quantity');
 
 function updateTotalSum() {
   let xhttp = new XMLHttpRequest();
@@ -23,14 +24,17 @@ function updateTotalSum() {
         discountElement.innerHTML = `${discount} %`;
         document.getElementById('discount-tytle').innerHTML = 'Discount';
         document.getElementById('order-over').innerHTML = '';
+        totalQuantity.innerHTML = `Cart - ${totalQtty} Item(s)`;
       } else {
         document.getElementById('order-over').innerHTML = `Order over &euro;100 and get your discount`;
         discountElement.innerHTML = '';
         document.getElementById('discount-tytle').innerHTML = '';
+        totalQuantity.innerHTML = `Cart - ${totalQtty} Item(s)`;
       }
       totalSumElement.innerHTML = `&euro; ${sum.toFixed(2)}`;
       serviceElement.innerHTML = `&euro; ${service}`;
       totalElement.innerHTML = `&euro; ${totalSum.toFixed(2)}`;
+      totalQuantity.innerHTML = `Cart - ${totalQtty} Item(s)`;
     }
   };
   xhttp.open('GET', '/cart/get-total-sum', true);
@@ -51,7 +55,7 @@ function displayPlus(e, id) {
       let totalPriceElement = e.closest('.row').querySelector('.price');
       totalPriceElement.innerHTML = `&euro; ${eachTotal.toFixed(2)}`;
 
-      updateTotalQuantity(respons[2]);
+      // updateTotalQuantity(respons[2]);
       updateTotalSum(); // Call the function to update the total sum
       updateNavQtty();
     }
@@ -78,7 +82,7 @@ function displayMinus(e, id) {
       let totalPriceElement = e.closest('.row').querySelector('.price');
       totalPriceElement.innerHTML = `&euro; ${eachTotal.toFixed(2)}`;
 
-      updateTotalQuantity(respons[2]);
+      // updateTotalQuantity(respons[2]);
       updateTotalSum(); // Call the function to update the total sum
       updateNavQtty();
       if (qtty === 0) {
@@ -93,7 +97,7 @@ function displayMinus(e, id) {
   xhttp.send();
 }
 
-function updateTotalQuantity(totalQuantity) {
-  // Update the displayed total quantity
-  document.getElementById('total-quantity').innerText = `Cart - ${totalQuantity} Item(s)`;
-}
+// function updateTotalQuantity(totalQuantity) {
+//   // Update the displayed total quantity
+//   document.getElementById('total-quantity').innerText = `Cart - ${totalQuantity} Item(s)`;
+// }
