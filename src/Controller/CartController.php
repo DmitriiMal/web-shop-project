@@ -124,7 +124,7 @@ class CartController extends AbstractController
     public function getTotalSum(CartRepository $cartRepository): JsonResponse
     {
         $user = $this->getUser();
-        $items = $cartRepository->findBy(['fk_userID' => $user],);
+        $items = $cartRepository->findBy(['fk_userID' => $user, 'bought' => false]);
         $total = 0;
         $qtty = 0;
         foreach ($items as $item) {
