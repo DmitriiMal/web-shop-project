@@ -58,15 +58,15 @@
               {% if item.fkReview.rating <= maximum_stars %}
                 {% for star in 0..(item.fkReview.rating) %}
                   {% if star != 0 %}
-                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
                   {% endif %}
                 {% endfor %}
                 {% if (item.fkReview.rating)-(item.fkReview.rating|round(0, 'floor')) != 0 %}
-                  <i class="bi bi-star-half"></i>
+                  <i class="bi bi-star-half text-warning"></i>
                 {% endif %}
                 {% for star in 0..(maximum_stars - item.fkReview.rating|round(0, 'ceil')) %}
                   {% if star != 0 %}
-                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star text-warning"></i>
                   {% endif %}
                 {% endfor %}
                 {% else %}
