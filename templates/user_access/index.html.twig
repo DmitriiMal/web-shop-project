@@ -55,7 +55,7 @@
                             {% set intSumRating = 0 %}
                            
                             {% for item in reviews %}
-                                {% if item.id == product.id %}
+                                {% if item.fkProduct.id == product.id %}
                                     {% set intReview = intReview + 1 %}
                                     {% set intSumRating = intSumRating + item.rating %}
                                 {% endif %}
