@@ -11,6 +11,7 @@ use App\Entity\Cart;
 use Doctrine\ORM\Mapping\Id;
 use App\Repository\ProductRepository;
 use App\Repository\CartRepository;
+use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -123,7 +124,7 @@ class CartController extends AbstractController
     public function getTotalSum(CartRepository $cartRepository): JsonResponse
     {
         $user = $this->getUser();
-        $items = $cartRepository->findBy(['fk_userID' => $user],);
+        $items = $cartRepository->findBy(['fk_userID' => $user, 'bought' => false]);
         $total = 0;
         $qtty = 0;
         foreach ($items as $item) {
@@ -141,9 +142,11 @@ class CartController extends AbstractController
 
         $user = $this->getUser()->getId();
         $cartObj = $cartRepository->findBy(['fk_userID' => $user]);
-
+        $date = new DateTimeImmutable();
+        
         foreach ($cartObj as $cart) {
             $cart->setBought(true);
+            $cart->setOrderDate($date);
             $entityManager->persist($cart);
             $entityManager->flush($cart);
         }
@@ -163,6 +166,7 @@ class CartController extends AbstractController
         $existingCartItem = $cartRepository->findOneBy([
             'fk_product' => $product,
             'fk_userID' => $user,
+            'bought' => false,
         ]);
 
 

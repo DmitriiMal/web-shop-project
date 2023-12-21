@@ -3,16 +3,15 @@
 {% block title %}View statistics | {{ parent() }}{% endblock %}
 
 {% block body %}
-<style>
-    
-</style>
-
-<div class="container-prim pt-5">
-    <h1>View statistics:</h1>
 
 
-    <h3>Order date (SALES):</h3>
-    <table>
+<div class="container-prim pt-3">
+    <h1 class="text-center mb-5">View statistics:</h1>
+
+
+    <h3 class="my-2">Order date (SALES):</h3>
+<div class="table-responsive rounded">
+    <table class="table table-light table-striped table-hover">
         <tr>
             <th class="text-center">&nbsp;</th>
             <th class="text-center">Order Date</th>
@@ -35,11 +34,13 @@
             <th class="text-center">&euro;{{total}}</th>
         </tr>
     </table>
+</div>
 
-    <hr>
+    <hr class="my-5">
 
-    <h3>Categories (SALES):</h3>
-    <table>
+    <h3 class="my-2">Categories (SALES):</h3>
+    <div class="table-responsive rounded">
+    <table class="table table-light table-striped table-hover">
         <tr>
             <th class="text-center">Top</th>
             <th>Categories</th>
@@ -64,13 +65,15 @@
             <th class="text-center">&euro;{{total}}</th>
         </tr>
     </table>
+    </div>
 
 
-    <hr>
+    <hr class="my-5">
 
 
-    <h3>Top products (SALES):</h3>
-    <table>
+    <h3 class="my-2">Top products (SALES):</h3>
+    <div class="table-responsive rounded">
+    <table class="table table-light table-striped table-hover">
         <tr>
             <th class="text-center">Top</th>
             <th>&nbsp;</th>
@@ -95,11 +98,12 @@
             <th class="text-center">{{total}}</th>
         </tr>
     </table>
-
-    <hr>
+    </div>
+    <hr class="my-5">
 
     <h3>Top Users (SALES):</h3>
-    <table>
+    <div class="table-responsive rounded">
+    <table class="table table-light table-striped table-hover">
         <tr>
             <th class="text-center">Top</th>
             <th>&nbsp;</th>
@@ -124,6 +128,8 @@
             <th class="text-center">&euro;{{total}}</th>
         </tr>
     </table>
+</div>
     
+
 </div>
 {% endblock %}

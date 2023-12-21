@@ -8,7 +8,7 @@
   <div class="row justify-content-center">
     <div class="col-md-4 col-lg-3 d-flex flex-column align-items-center">
       <img src="{{ asset('pictures/users/'~ user.picture) }}" class="user-image d-block rounded-circle img-thumbnail asp-1 object-fit-cover shadow" alt="{{ user.firstName }}{{ user.lastName }}" />
-      <a href="{{ path('app_user_edit', { id: user.id }) }}" class="btn btn-outline-primary rounded-pill d-block my-5 mt-md-auto">Edit my account</a>
+      <a href="{{ path('app_user_edit', { id: user.id }) }}" class="btn btn-outline-primary rounded-pill d-block my-5 mt-md-auto">Edit account</a>
     </div>
     <div class="col-md-7 col-lg-8 border-start border-2 ps-4 ms-3 mb-5">
       {{ "ROLE_ADMIN" in user.roles ? "
@@ -58,15 +58,15 @@
               {% if item.fkReview.rating <= maximum_stars %}
                 {% for star in 0..(item.fkReview.rating) %}
                   {% if star != 0 %}
-                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
                   {% endif %}
                 {% endfor %}
                 {% if (item.fkReview.rating)-(item.fkReview.rating|round(0, 'floor')) != 0 %}
-                  <i class="bi bi-star-half"></i>
+                  <i class="bi bi-star-half text-warning"></i>
                 {% endif %}
                 {% for star in 0..(maximum_stars - item.fkReview.rating|round(0, 'ceil')) %}
                   {% if star != 0 %}
-                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star text-warning"></i>
                   {% endif %}
                 {% endfor %}
                 {% else %}

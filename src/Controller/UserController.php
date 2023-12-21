@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\AdminType;
 use App\Form\UserType;
+use App\Form\NewType;
 use App\Repository\CartRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,14 +37,16 @@ class UserController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $user = new User();
-        $form = $this->createForm(AdminType::class, $user);
+        $form = $this->createForm(NewType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('Password')->getData()
                 )
             );
 
@@ -105,15 +108,17 @@ class UserController extends AbstractController
 
             $picture = $form->get('picture')->getData();
             if ($picture) {
-                if ($user->getPicture() != "avatar.png") {
+                if ($user->getPicture() != "avatar.png" && $user->getPicture() != "") {
                     unlink($this->getParameter("picture_user_directory") . "/" . $user->getPicture()); // from product old picture
                 }
 
                 $pictureFileName = $fileUploader->upload($picture , "users");
-                $user->setPicture($pictureFileName);
-            }
+                if ($pictureFileName <> ""){
+                    $user->setPicture($pictureFileName);    
+                }
 
-
+            } 
+                
             $entityManager->flush();
 
             if(!$this->isGranted('ROLE_ADMIN')){
@@ -135,12 +140,14 @@ class UserController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             try {
-                if ($user->getPicture() != "avatar.png") {
-                    unlink($this->getParameter("picture_user_directory") . "/" . $user->getPicture()); // from product old picture
-                }
+                $file = $user->getPicture(); 
 
                 $entityManager->remove($user);
                 $entityManager->flush();
+
+                if ($file != "avatar.png") {
+                    unlink($this->getParameter("picture_user_directory") . "/" . $file); // from product old picture
+                }
             
             }catch(\Exception $e){
                 echo "<div>". $e->getMessage() ."</div>";

@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 
-class UserType extends AbstractType
+class NewType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,10 +27,25 @@ class UserType extends AbstractType
                     new NotBlank([
                         'message' => 'Please enter a e-mail'
                     ]),
-                    
+
                     new Email([
                         'message' => 'The email {{ value }} is not a valid email.'
                     ])
+                ]
+            ])
+
+            ->add('Password', PasswordType::class, [
+                'mapped' => false,
+                'attr' => ['autocomplete' => 'new-password', 'placeholder' => 'Please enter a password'],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'max' => 4096,
+                    ]),
                 ]
             ])
 
@@ -100,7 +115,7 @@ class UserType extends AbstractType
             ])
             ->add('picture', FileType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' => 'Please enter price', 'accept' => 'image/png , image/jpg, image/jpeg'],
-                
+
                 'label' => 'Picture',
 
                 'mapped' => false,
@@ -117,34 +132,17 @@ class UserType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Please upload a valid image document',
                     ])
-                ]
+                ],
             ])
 
-            ->add('birth_date',null,[
+            ->add('birth_date', null, [
                 "widget" => "single_text",
             ])
 
-            ->add('plainPassword', PasswordType::class, [
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password', 'placeholder' => 'Please enter a password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        'max' => 4096,
-                    ]),
-                ]
-            ])
-
-
-            // ->add('expiry_date',null,[
-            //     "required" => false,
-            //     "widget" => "single_text"
-            // ])
-        ;
+            ->add('banned', null, [
+                'attr' => ['class' => 'form-check-input'],
+                'label' => 'Banned'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
