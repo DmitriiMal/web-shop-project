@@ -15,7 +15,7 @@
     {{ form_row(form.birth_date) }}
     {{ form_row(form.email) }}
     {% if not is_granted('ROLE_ADMIN') %}
-    {{ form_row(form.plainPassword, { label: 'Password' }) }}
+    {{ form_row(form.plainPassword, { 'label': 'Password', 'attr': {'id': 's_password'} }) }}
     {% endif %}
   </div>
 

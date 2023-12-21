@@ -14,9 +14,7 @@
     {{ form_row(form.picture) }}
     {{ form_row(form.birth_date) }}
     {{ form_row(form.email) }}
-    {% if not is_granted('ROLE_ADMIN') %}
     {{ form_row(form.Password, { label: 'Password' }) }}
-    {% endif %}
   </div>
 
   <div class="d-flex justify-content-center align-items-center">
