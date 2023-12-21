@@ -123,6 +123,22 @@ class AdminType extends AbstractType
             ->add('birth_date', null, [
                 "widget" => "single_text",
             ])
+ 
+            // ->add('plainPassword', PasswordType::class, [
+            //     'mapped' => false,
+            //     'attr' => ['autocomplete' => 'new-password', 'placeholder' => 'Please enter a password'],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Please enter a password',
+            //         ]),
+            //         new Length([
+            //             'min' => 6,
+            //             'minMessage' => 'Your password should be at least {{ limit }} characters',
+            //             'max' => 4096,
+            //         ]),
+            //     ]
+            // ])
+
 
             ->add('banned', null, [
                 'attr' => ['class' => 'form-check-input'],
