@@ -139,12 +139,14 @@ class UserController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             try {
-                if ($user->getPicture() != "avatar.png") {
-                    unlink($this->getParameter("picture_user_directory") . "/" . $user->getPicture()); // from product old picture
-                }
+                $file = $user->getPicture(); 
 
                 $entityManager->remove($user);
                 $entityManager->flush();
+
+                if ($file != "avatar.png") {
+                    unlink($this->getParameter("picture_user_directory") . "/" . $file); // from product old picture
+                }
             
             }catch(\Exception $e){
                 echo "<div>". $e->getMessage() ."</div>";
