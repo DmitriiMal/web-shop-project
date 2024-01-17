@@ -20,7 +20,7 @@
         <tr class="align-middle">
           <td>{{ fk_category.id }}</td>
           <td>{{ fk_category.name }}</td>
-          <td><img src="{{ asset('pictures/categories/'~ fk_category.picture) }}" class="card-img-top" alt="{{ fk_category.name }}" style="width: 100px; height: 40px" /> {{ fk_category.picture }}</td>
+          <td><img src="{{ asset('pictures/categories/'~ fk_category.picture) }}" class="rounded asp-1 object-fit-cover shadow-sm" alt="{{ fk_category.name }}" style="width: 100px; height: 40px" /> {{ fk_category.picture }}</td>
           <td>
             <div class="d-flex gap-2">
               <a href="{{ path('app_fk_category_edit', { id: fk_category.id }) }}" class="btn btn-sm btn-outline-primary rounded-pill my-1"><i class="bi bi-pencil-square"></i> Edit</a>
