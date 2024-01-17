@@ -39,3 +39,5 @@ login/registration, mailer, Google maps Api, search, reviews.
  <img  src="https://github.com/DmitriiMal/web-shop-project/blob/master/public/pictures/screenshots/screenshot_5.png"  />
  <img  src="https://github.com/DmitriiMal/web-shop-project/blob/master/public/pictures/screenshots/screenshot_6.png"  />
  <img  src="https://github.com/DmitriiMal/web-shop-project/blob/master/public/pictures/screenshots/screenshot_7.png"  />
+ <img  src="https://github.com/DmitriiMal/web-shop-project/blob/master/public/pictures/screenshots/screenshot_8.png"  />
+ <img  src="https://github.com/DmitriiMal/web-shop-project/blob/master/public/pictures/screenshots/screenshot_9.png"  />
