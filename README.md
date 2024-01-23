@@ -1,6 +1,8 @@
 # Online shop
-E-commerce for a web shop with CRUD for products, categories,
-login/registration, mailer, Google maps Api, search, reviews.
+
+Welcome to our E-Commerce Web Shop project! This web application is designed to provide a solution for managing an online store, featuring CRUD operations for products, categories and users, mailer functionality, integration with Google Maps API, search functionality, and a review system. This project is a collaborative effort by a team of four individuals.
+
+
 
 <!-- ... It's also responsive. -->
 
