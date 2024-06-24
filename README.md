@@ -28,7 +28,7 @@ Welcome to our E-Commerce Web Shop project! This web application is designed to 
 </div>
 
   ## You may test it here
-[![Portfolio Website](https://img.icons8.com/color/48/000000/web.png)](https://malyshkin.net/webshop/)
+[![Portfolio Website](https://img.icons8.com/color/48/000000/web.png)](https://malyshkin.net/webshop/public/)
 
 
 ## Screenshots
